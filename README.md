@@ -12,3 +12,4 @@ To run tests execute: mvn clean install
     82053     | Bruno Santos	  | bruno_scp5@hotmail.com           	|    @brunoaosantos
     82553     | Mariana Cruz    | mariana.cruz@tecnico.ulisboa.pt	  |    @MarianaCruz
     82064     | Daniel Reigada  | daniel.reigada@gmail.com          |    @DReigada
+    51355	  | João Silva		| joaoplancha@gmail.com 			|	@joaoplancha
