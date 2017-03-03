@@ -14,4 +14,5 @@ To run tests execute: mvn clean install
     82064     | Daniel Reigada  | daniel.reigada@gmail.com          |    @DReigada
     51355	  | João Silva		| joaoplancha@gmail.com 			|	@joaoplancha
     81981     | Daniel Reis     | ddreis88@gmail.com                |    @danielreis1
+    81968     | Diogo Mesquita  | d.mesquita285@gmail.com           |    @DiMesq
     
