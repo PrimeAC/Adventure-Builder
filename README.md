@@ -13,5 +13,5 @@ To run tests execute: mvn clean install
     82053     | Bruno Santos	| bruno_scp5@hotmail.com            |   @brunoaosantos  |   Broker/Bank
     81981     | Daniel Reis     | ddreis88@gmail.com                |   @danielreis1 | Broker/Bank
     82064     | Daniel Reigada  | daniel.reigada@gmail.com          |   @DReigada       |   Hotel
-    51355	  | João Silva		| joaoplancha@gmail.com 			|	@joaoplancha
+    51355	  | João Silva		| joaoplancha@gmail.com 			|	@joaoplancha    |   Hotel
     81968     | Diogo Mesquita  | d.mesquita285@gmail.com           |   @DiMesq         |   Hotel
