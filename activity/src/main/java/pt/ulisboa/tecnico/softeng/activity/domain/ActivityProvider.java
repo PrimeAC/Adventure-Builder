@@ -6,6 +6,7 @@ import java.util.Set;
 import org.joda.time.LocalDate;
 
 import pt.ulisboa.tecnico.softeng.activity.domain.exception.ActivityException;
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 public class ActivityProvider {
 	public static Set<ActivityProvider> providers = new HashSet<>();
@@ -17,8 +18,14 @@ public class ActivityProvider {
 	private final Set<Activity> activities = new HashSet<>();
 
 	public ActivityProvider(String code, String name) {
+		
+		if(isBlank(code) || isBlank(name)){
+			throw new ActivityException();
+		}
+		
 		checkCode(code);
-
+		checkUnique(code,name);
+		
 		this.code = code;
 		this.name = name;
 
@@ -28,6 +35,14 @@ public class ActivityProvider {
 	private void checkCode(String code) {
 		if (code.length() != ActivityProvider.CODE_SIZE) {
 			throw new ActivityException();
+		}
+	}
+	
+	private void checkUnique(String code, String name) {
+		for(ActivityProvider ap : providers){
+			if(ap.getCode().equals(code) || ap.getName().equals(name)){
+				throw new ActivityException();
+			}
 		}
 	}
 
