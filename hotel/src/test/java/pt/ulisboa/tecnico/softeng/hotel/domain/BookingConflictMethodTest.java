@@ -5,6 +5,7 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
 public class BookingConflictMethodTest {
 	Booking booking;
@@ -81,6 +82,22 @@ public class BookingConflictMethodTest {
 		LocalDate departure = bookingDeparture.minusDays(1);
 
 		Assert.assertTrue(this.booking.conflict(arrival, departure));
+	}
+
+	@Test
+	public void conflictSameDates() {
+		LocalDate arrival = bookingArrival;
+		LocalDate departure = bookingDeparture;
+
+		Assert.assertTrue(this.booking.conflict(arrival, departure));
+	}
+
+	@Test(expected = HotelException.class)
+	public void exceptionReversedDates() {
+		LocalDate arrival = bookingDeparture;
+		LocalDate departure = bookingArrival;
+
+		this.booking.conflict(arrival, departure);
 	}
 
 	@After
