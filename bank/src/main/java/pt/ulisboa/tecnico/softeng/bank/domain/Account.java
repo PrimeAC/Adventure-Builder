@@ -11,12 +11,17 @@ public class Account {
 	private int balance;
 
 	public Account(Bank bank, Client client) {
-		this.bank = bank;
-		this.IBAN = bank.getCode() + Integer.toString(++Account.counter);
-		this.client = client;
-		this.balance = 0;
+		if(bank != null && client != null) {
+			this.bank = bank;
+			this.IBAN = bank.getCode() + Integer.toString(++Account.counter);
+			this.client = client;
+			this.balance = 0;
 
-		bank.addAccount(this);
+			bank.addAccount(this);
+		}
+		else{
+			throw new BankException();
+		}
 	}
 
 	Bank getBank() {
