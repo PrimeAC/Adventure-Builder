@@ -4,6 +4,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.joda.time.LocalDate;
+import pt.ulisboa.tecnico.softeng.activity.domain.exception.ActivityException;
+
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 public class Activity {
 	private static int counter = 0;
@@ -16,6 +19,12 @@ public class Activity {
 	private final Set<ActivityOffer> offers = new HashSet<>();
 
 	public Activity(ActivityProvider provider, String name, int minAge, int maxAge, int capacity) {
+		if (provider == null || isBlank(name))
+			throw new ActivityException("Inconsistent arguments");
+
+		checkAge(minAge, maxAge);
+		checkCapacity(capacity);
+
 		this.code = provider.getCode() + Integer.toString(++Activity.counter);
 		this.name = name;
 		this.minAge = minAge;
@@ -23,6 +32,16 @@ public class Activity {
 		this.capacity = capacity;
 
 		provider.addActivity(this);
+	}
+
+	private void checkAge(int minAge, int maxAge) {
+		if (minAge < 18 || maxAge >= 100 || minAge > maxAge)
+			throw new ActivityException("Age doesn't match to the requirements");
+	}
+
+	private void checkCapacity(int capacity) {
+		if (capacity <= 0)
+			throw new ActivityException("Invalid capacity");
 	}
 
 	String getName() {
