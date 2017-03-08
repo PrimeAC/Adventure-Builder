@@ -7,6 +7,8 @@ import java.util.Set;
 
 import pt.ulisboa.tecnico.softeng.bank.exception.BankException;
 
+import static org.apache.commons.lang3.StringUtils.isBlank;
+
 public class Bank {
 	public static Set<Bank> banks = new HashSet<>();
 
@@ -33,12 +35,19 @@ public class Bank {
 		if (code.length() != Bank.CODE_SIZE) {
 			throw new BankException();
 		}
+
 	}
 
 	private void checkInvalidArguments(String name, String code) {
-		if(name ==  null || code == null) {
+
+		if(isBlank(code) || isBlank(name)) {
 			throw new BankException();
 		}
+
+		if(name.contains(" ") || code.contains(" ")) {
+			throw new BankException();
+		}
+
 	}
 
 	String getName() {
