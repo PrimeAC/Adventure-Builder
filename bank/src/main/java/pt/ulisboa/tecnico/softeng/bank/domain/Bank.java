@@ -19,6 +19,8 @@ public class Bank {
 	private final List<Operation> log = new ArrayList<>();
 
 	public Bank(String name, String code) {
+
+		checkInvalidArguments(name, code);
 		checkCode(code);
 
 		this.name = name;
@@ -29,6 +31,12 @@ public class Bank {
 
 	private void checkCode(String code) {
 		if (code.length() != Bank.CODE_SIZE) {
+			throw new BankException();
+		}
+	}
+
+	private void checkInvalidArguments(String name, String code) {
+		if(name ==  null || code == null) {
 			throw new BankException();
 		}
 	}
