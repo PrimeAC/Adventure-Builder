@@ -18,12 +18,12 @@ public class Booking {
 
 	private void checkAvailability(ActivityOffer offer) {
 		if (!offer.hasVacancy())
-			throw new ActivityException();
+			throw new ActivityException("ActivityOffer's capability reached the limit");
 	}
 
 	private void checkArguments(ActivityProvider provider, ActivityOffer offer) {
 		if (provider == null || offer == null)
-			throw new ActivityException();
+			throw new ActivityException("Argument was null");
 	}
 
 	public String getReference() {
