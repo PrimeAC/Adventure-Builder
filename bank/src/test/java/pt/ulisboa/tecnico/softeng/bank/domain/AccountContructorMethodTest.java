@@ -7,13 +7,15 @@ import org.junit.Test;
 import pt.ulisboa.tecnico.softeng.bank.exception.BankException;
 
 public class AccountContructorMethodTest {
-	Bank bank;
-	Client client;
+	Bank bank, bank1;
+	Client client, client1;
 
 	@Before
 	public void setUp() {
 		this.bank = new Bank("Money", "BK01");
 		this.client = new Client(this.bank, "António");
+		this.bank1 = new Bank("Moneyz", "BK21");
+		this.client1 = new Client(this.bank1, "Anibal");
 	}
 
 	@Test
@@ -38,6 +40,15 @@ public class AccountContructorMethodTest {
 		Account account = new Account(null, this.client);
 	}
 
+	@Test(expected=BankException.class)
+	public void notClient() {
+		Account account = new Account(this.bank1, this.client);
+	}
+
+	@Test(expected=BankException.class)
+	public void notClient1() {
+		Account account = new Account(this.bank, this.client1);
+	}
 
 	@After
 	public void tearDown() {

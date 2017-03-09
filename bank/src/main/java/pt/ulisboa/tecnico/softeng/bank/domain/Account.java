@@ -11,7 +11,7 @@ public class Account {
 	private int balance;
 
 	public Account(Bank bank, Client client) {
-		if(bank != null && client != null) {
+		if(bank != null && client != null && bank.hasClient(client)) {
 			this.bank = bank;
 			this.IBAN = bank.getCode() + Integer.toString(++Account.counter);
 			this.client = client;
@@ -20,7 +20,7 @@ public class Account {
 			bank.addAccount(this);
 		}
 		else{
-			throw new BankException();
+			throw new BankException("Unvalid argument");
 		}
 	}
 
