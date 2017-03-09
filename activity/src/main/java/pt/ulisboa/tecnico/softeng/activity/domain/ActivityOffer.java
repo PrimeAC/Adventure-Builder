@@ -15,7 +15,9 @@ public class ActivityOffer {
 
 	public ActivityOffer(Activity activity, LocalDate begin, LocalDate end) {
 		checkArguments(activity, begin, end);
-		if(end.isBefore(begin) || activity.hasOffers(begin, end)) {
+		if(begin.isBefore(LocalDate.now()) ||
+				end.isBefore(begin) ||
+				activity.hasOffers(begin, end)) {
 			throw new ActivityException("Can't create ActivityOffer with those dates as values");
 		}
 
