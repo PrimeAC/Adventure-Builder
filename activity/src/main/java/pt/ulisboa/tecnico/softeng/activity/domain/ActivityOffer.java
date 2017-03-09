@@ -58,6 +58,10 @@ public class ActivityOffer {
 		return !begin.isAfter(this.end) && !end.isBefore(this.begin);
 	}
 
+	boolean matchDateConflict(LocalDate begin, LocalDate end) {
+		return !begin.isAfter(this.end) && !end.isBefore(this.begin);
+	}
+
 	boolean hasVacancy() {
 		return this.capacity > getNumberOfBookings();
 	}
