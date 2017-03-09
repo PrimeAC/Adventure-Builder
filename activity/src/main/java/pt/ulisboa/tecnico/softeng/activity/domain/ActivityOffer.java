@@ -14,12 +14,21 @@ public class ActivityOffer {
 	private final Set<Booking> bookings = new HashSet<>();
 
 	public ActivityOffer(Activity activity, LocalDate begin, LocalDate end) {
-		
+		checkArguments(activity, begin, end);
+		if(end.isBefore(begin) || activity.hasOffers(begin, end)) {
+			throw new ActivityException("Can't create ActivityOffer with those dates as values");
+		}
+
 		this.begin = begin;
 		this.end = end;
 		this.capacity = activity.getCapacity();
 
 		activity.addOffer(this);
+	}
+
+	void checkArguments(Activity activity, LocalDate begin, LocalDate end){
+		if(activity == null || begin == null || end == null)
+			throw new ActivityException("Invalid ActivityOffer arguments");
 	}
 
 	LocalDate getBegin() {

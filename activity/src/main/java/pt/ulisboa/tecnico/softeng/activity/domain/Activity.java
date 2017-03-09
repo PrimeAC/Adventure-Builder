@@ -72,6 +72,19 @@ public class Activity {
 		this.offers.add(offer);
 	}
 
+	/**
+	 * Checks if the {@link Activity} has some {@link ActivityOffer} that is overlapped
+	 * by the the period between begin and end values.
+	 */
+	boolean hasOffers(LocalDate begin, LocalDate end) {
+		for (ActivityOffer offer : this.offers) {
+			if (offer.matchDate(begin, end)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	Set<ActivityOffer> getOffers(LocalDate begin, LocalDate end, int age) {
 		Set<ActivityOffer> result = new HashSet<>();
 		for (ActivityOffer offer : this.offers) {
