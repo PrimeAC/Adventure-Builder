@@ -14,10 +14,10 @@ public class BookingContructorMethodTest {
 	@Before
 	public void setUp() {
 		this.provider = new ActivityProvider("XtremX", "ExtremeAdventure");
-		Activity activity = new Activity(this.provider, "Bush Walking", 18, 80, 25);
+		Activity activity = new Activity(this.provider, "Bush Walking", 18, 40, 3);
 
-		LocalDate begin = new LocalDate(2016, 12, 19);
-		LocalDate end = new LocalDate(2016, 12, 21);
+		LocalDate begin = LocalDate.now();
+		LocalDate end = begin.plusDays(3);
 		this.offer = new ActivityOffer(activity, begin, end);
 	}
 
@@ -33,82 +33,41 @@ public class BookingContructorMethodTest {
 	// Test to verify if Activity's capacity wasn't exceeded
 	@Test
 	public void testCapacity01() {
-		ActivityProvider activityProvider = new ActivityProvider("XtremY", "Motorcycling");
-		Activity activity = new Activity(activityProvider, "Trail", 18, 40, 3);
-
-		LocalDate begin = new LocalDate(2017, 03, 1);
-		LocalDate end = new LocalDate(2017, 03, 4);
-
-		ActivityOffer activityOffer = new ActivityOffer(activity, begin, end);
-
-		new Booking(activityProvider, activityOffer);
-		new Booking(activityProvider, activityOffer);
+		new Booking(this.provider, this.offer);
+		new Booking(this.provider, this.offer);
 	}
 
 	// Test to verify if Activity's capacity wasn't exceeded
 	@Test
 	public void testCapacity02() {
-		ActivityProvider activityProvider = new ActivityProvider("XtremY", "Motorcycling");
-		Activity activity = new Activity(activityProvider, "Trail", 18, 40, 3);
-
-		LocalDate begin = new LocalDate(2017, 03, 1);
-		LocalDate end = new LocalDate(2017, 03, 4);
-
-		ActivityOffer activityOffer = new ActivityOffer(activity, begin, end);
-
-		new Booking(activityProvider, activityOffer);
-		new Booking(activityProvider, activityOffer);
-		new Booking(activityProvider, activityOffer);
+		new Booking(this.provider, this.offer);
+		new Booking(this.provider, this.offer);
+		new Booking(this.provider, this.offer);
 	}
 
 	// Test to verify if Activity's capacity was exceeded
 	@Test (expected = ActivityException.class)
 	public void testCapacity03() {
-		ActivityProvider activityProvider = new ActivityProvider("XtremY", "Motorcycling");
-		Activity activity = new Activity(activityProvider, "Trail", 18, 40, 3);
-
-		LocalDate begin = new LocalDate(2017, 03, 1);
-		LocalDate end = new LocalDate(2017, 03, 4);
-
-		ActivityOffer activityOffer = new ActivityOffer(activity, begin, end);
-
-		new Booking(activityProvider, activityOffer);
-		new Booking(activityProvider, activityOffer);
-		new Booking(activityProvider, activityOffer);
-		new Booking(activityProvider, activityOffer);
+		new Booking(this.provider, this.offer);
+		new Booking(this.provider, this.offer);
+		new Booking(this.provider, this.offer);
+		new Booking(this.provider, this.offer);
 	}
 
 	// Test to verify if Arguments of Booking's Constructor are valid
 	@Test (expected = ActivityException.class)
 	public void testArguments01() {
-		ActivityProvider activityProvider = new ActivityProvider("XtremY", "Motorcycling");
-		Activity activity = new Activity(activityProvider, "Trail", 18, 40, 1);
-
-		LocalDate begin1 = new LocalDate(2017, 03, 02);
-		LocalDate end1 = new LocalDate(2017, 03, 03);
-
-		ActivityOffer activityOffer = new ActivityOffer(activity, begin1, end1);
-
-		new Booking(null, activityOffer);
+		new Booking(null, this.offer);
 	}
 
 	// Test to verify if Arguments of Booking's Constructor are valid
 	@Test (expected = ActivityException.class)
 	public void testArguments02() {
-		ActivityProvider activityProvider = new ActivityProvider("XtremY", "Motorcycling");
-
-		new Booking(activityProvider, null);
-	}
-
-	// Test to verify if Arguments of Booking's Constructor are valid
-	@Test (expected = ActivityException.class)
-	public void testArguments03() {
-		new Booking(null, null);
+		new Booking(this.provider, null);
 	}
 
 	@After
 	public void tearDown() {
 		ActivityProvider.providers.clear();
 	}
-
 }
