@@ -14,8 +14,8 @@ public class ActivityOfferHasVacancyMethodTest {
 		ActivityProvider provider = new ActivityProvider("XtremX", "ExtremeAdventure");
 		Activity activity = new Activity(provider, "Bush Walking", 18, 80, 3);
 
-		LocalDate begin = new LocalDate(2016, 12, 19);
-		LocalDate end = new LocalDate(2016, 12, 21);
+		LocalDate begin = LocalDate.now();
+		LocalDate end = begin.plusDays(2);
 
 		this.offer = new ActivityOffer(activity, begin, end);
 	}
