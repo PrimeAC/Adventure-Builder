@@ -27,31 +27,28 @@ public class Hotel {
 	}
 
 	private void checkCode(String code) {
-		if (StringUtils.isBlank(code) || code.contains("\n") || code.contains("\t") || code.contains("\r"))
-			throw new HotelException("invalid code format (null, empty or blank characters)");
-
-		if (code.length() != Hotel.CODE_SIZE) {
-			throw new HotelException("code: incorrect dimension");
-		}
-
-		isUnique(code);
-
-	}
-
-	private void isUnique(String code) {
-		for (Hotel h : hotels) {
-			if (h.getCode().equals(code))
-				throw new HotelException("code already in use");
-		}
+		if (!isFormatOk(code) || !isLengthOk(code) || !isUnique(code)) throw new HotelException("invalid code format");
 	}
 
 	private void checkName(String name) {
-		if (StringUtils.isBlank(name) || name.contains("\n") || name.contains("\t") || name.contains("\r"))
-			throw new HotelException("invalid name format (null, empty or blank characters)");
-
+		if (!isFormatOk(name)) throw new HotelException("invalid name format (null, empty or blank characters)");
 	}
 
+	private boolean isFormatOk(String cn) {
+		return !(StringUtils.isBlank(cn) || cn.contains("\n") || cn.contains("\t") || cn.contains("\r"));
+	}
 
+	private boolean isLengthOk(String code) {
+		return (code.length() == Hotel.CODE_SIZE);
+	}
+
+	private boolean isUnique(String code) {
+		for (Hotel h : hotels) {
+			if (h.getCode().equals(code))
+				return false;
+		}
+		return true;
+	}
 
 	public Room hasVacancy(Room.Type type, LocalDate arrival, LocalDate departure) {
 		for (Room room : this.rooms) {
