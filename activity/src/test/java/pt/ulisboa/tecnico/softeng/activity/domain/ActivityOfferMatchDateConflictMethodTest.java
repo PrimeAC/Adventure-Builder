@@ -9,7 +9,7 @@ import org.junit.Test;
 /**
  * Created by joaocarlos95 on 09/03/17.
  */
-public class ActivityMatchDateConflictMethodTest {
+public class ActivityOfferMatchDateConflictMethodTest {
     private ActivityOffer offer;
     private LocalDate begin;
     private LocalDate end;
