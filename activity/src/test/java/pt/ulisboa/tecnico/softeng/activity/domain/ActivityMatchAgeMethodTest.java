@@ -23,6 +23,27 @@ public class ActivityMatchAgeMethodTest {
 		Assert.assertTrue(this.activity.matchAge(50));
 	}
 
+    // Test to verify if given ages are equal to minimum and maximum age respectively
+	@Test
+    public void testAgeLimits() {
+	    Assert.assertTrue(this.activity.matchAge(18));
+        Assert.assertTrue(this.activity.matchAge(80));
+	}
+
+    // Test to verify if given ages are between minimum and maximum ages
+    @Test
+    public void testInsideLimits() {
+        Assert.assertTrue(this.activity.matchAge(19));
+        Assert.assertTrue(this.activity.matchAge(79));
+    }
+
+    // Test to verify if given ages aren't between minimum and maximum ages
+	@Test
+    public void testOutsideLimits() {
+        Assert.assertFalse(this.activity.matchAge(17));
+        Assert.assertFalse(this.activity.matchAge(81));
+    }
+
 	@After
 	public void tearDown() {
 		ActivityProvider.providers.clear();
