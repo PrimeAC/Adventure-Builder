@@ -33,12 +33,12 @@ public class Bank {
 
 	private void checkCode(String code) {
 		if (code.length() != Bank.CODE_SIZE) {
-			throw new BankException();
+			throw new BankException("Code must have 4 digits!");
 		}
 
 		for(Bank i : banks){
 			if(i.code == code) {
-				throw new BankException();
+				throw new BankException("Code already exists!");
 			}
 		}
 
@@ -47,7 +47,7 @@ public class Bank {
 	private void checkInvalidArguments(String name, String code) {
 
 		if(isBlank(code) || isBlank(name)) {
-			throw new BankException();
+			throw new BankException("Bank name and/or code invalid");
 		}
 
 	}
