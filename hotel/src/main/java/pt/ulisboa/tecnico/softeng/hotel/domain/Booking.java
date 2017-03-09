@@ -1,5 +1,6 @@
 package pt.ulisboa.tecnico.softeng.hotel.domain;
 
+import org.joda.time.Interval;
 import org.joda.time.LocalDate;
 
 public class Booking {
@@ -28,19 +29,10 @@ public class Booking {
 	}
 
 	boolean conflict(LocalDate arrival, LocalDate departure) {
-		if (arrival.isAfter(this.arrival) && arrival.isBefore(this.departure)) {
-			return true;
-		}
+		Interval thisInterval = new Interval(this.arrival.toDate().getTime(), this.departure.toDate().getTime());
+		Interval interval = new Interval(arrival.toDate().getTime(), departure.toDate().getTime());
 
-		if (departure.isAfter(this.arrival) && departure.isBefore(this.departure)) {
-			return true;
-		}
-
-		if (arrival.isBefore(this.arrival) && departure.isAfter(this.departure)) {
-			return true;
-		}
-
-		return false;
+		return interval.overlaps(thisInterval);
 	}
 
 }
