@@ -3,6 +3,7 @@ package pt.ulisboa.tecnico.softeng.hotel.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.LocalDate;
 
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
@@ -18,6 +19,7 @@ public class Hotel {
 
 	public Hotel(String code, String name) {
 		checkCode(code);
+		checkName(name);
 
 		this.code = code;
 		this.name = name;
@@ -25,9 +27,27 @@ public class Hotel {
 	}
 
 	private void checkCode(String code) {
-		if (code.length() != Hotel.CODE_SIZE) {
-			throw new HotelException();
+		if (!isFormatOk(code) || !isLengthOk(code) || !isUnique(code)) throw new HotelException("invalid code format");
+	}
+
+	private void checkName(String name) {
+		if (!isFormatOk(name)) throw new HotelException("invalid name format (null, empty or blank characters)");
+	}
+
+	private boolean isFormatOk(String cn) {
+		return !(StringUtils.isBlank(cn) || cn.contains("\n") || cn.contains("\t") || cn.contains("\r"));
+	}
+
+	private boolean isLengthOk(String code) {
+		return (code.length() == Hotel.CODE_SIZE);
+	}
+
+	private boolean isUnique(String code) {
+		for (Hotel h : hotels) {
+			if (h.getCode().equals(code))
+				return false;
 		}
+		return true;
 	}
 
 	public Room hasVacancy(Room.Type type, LocalDate arrival, LocalDate departure) {
