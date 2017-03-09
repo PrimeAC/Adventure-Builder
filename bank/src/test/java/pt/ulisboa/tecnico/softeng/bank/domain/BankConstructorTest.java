@@ -61,8 +61,13 @@ public class BankConstructorTest {
 	}
 
 	@Test(expected = BankException.class)
-	public void testNotFourDigitCode() {
+	public void testLessFourDigitCode() {
 		Bank bank = new Bank("BES", "BK2");
+	}
+
+	@Test(expected = BankException.class)
+	public void testMoreFourDigitCode() {
+		Bank bank = new Bank("BES", "BK123");
 	}
 
 	@Test(expected = BankException.class)
