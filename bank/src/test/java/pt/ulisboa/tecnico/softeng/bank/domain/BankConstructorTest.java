@@ -49,42 +49,6 @@ public class BankConstructorTest {
 	}
 
 	@Test(expected = BankException.class)
-	public void testCheckOneWhitespacesName() {
-		Bank bank = new Bank("ABC ", "BK01");
-
-	}
-
-	@Test(expected = BankException.class)
-	public void testCheckOneWhitespacesCode() {
-		Bank bank = new Bank("CGD", "BK1 ");
-
-	}
-
-	@Test(expected = BankException.class)
-	public void testCheckTwoWhitespacesName() {
-		Bank bank = new Bank("AB  ", "BK01");
-
-	}
-
-	@Test(expected = BankException.class)
-	public void testCheckTwoWhitespacesCode() {
-		Bank bank = new Bank("CGD", "BK  ");
-
-	}
-
-	@Test(expected = BankException.class)
-	public void testCheckThreeWhitespacesName() {
-		Bank bank = new Bank("A   ", "BK01");
-
-	}
-
-	@Test(expected = BankException.class)
-	public void testCheckThreeWhitespacesCode() {
-		Bank bank = new Bank("CGD", "B   ");
-
-	}
-
-	@Test(expected = BankException.class)
 	public void testCheckAllWhitespacesName() {
 		Bank bank = new Bank("    ", "BK01");
 
@@ -94,6 +58,17 @@ public class BankConstructorTest {
 	public void testCheckAllWhitespacesCode() {
 		Bank bank = new Bank("CGD", "    ");
 
+	}
+
+	@Test(expected = BankException.class)
+	public void testNotFourDigitCode() {
+		Bank bank = new Bank("BES", "BK2");
+	}
+
+	@Test(expected = BankException.class)
+	public void testRepeatedCode() {
+		Bank bank1 = new Bank("CGD", "BK01");
+		Bank bank2 = new Bank("BPI", "BK01");
 	}
 
 	@After

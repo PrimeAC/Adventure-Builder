@@ -36,15 +36,17 @@ public class Bank {
 			throw new BankException();
 		}
 
+		for(Bank i : banks){
+			if(i.code == code) {
+				throw new BankException();
+			}
+		}
+
 	}
 
 	private void checkInvalidArguments(String name, String code) {
 
 		if(isBlank(code) || isBlank(name)) {
-			throw new BankException();
-		}
-
-		if(name.contains(" ") || code.contains(" ")) {
 			throw new BankException();
 		}
 
