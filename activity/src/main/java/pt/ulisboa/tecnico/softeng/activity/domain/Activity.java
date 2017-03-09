@@ -78,7 +78,7 @@ public class Activity {
 	 */
 	boolean hasOffers(LocalDate begin, LocalDate end) {
 		for (ActivityOffer offer : this.offers) {
-			if (offer.matchDate(begin, end)) {
+			if (offer.matchDateConflict(begin, end)) {
 				return true;
 			}
 		}
