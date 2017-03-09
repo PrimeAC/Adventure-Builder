@@ -20,7 +20,7 @@ public class Account {
 			bank.addAccount(this);
 		}
 		else{
-			throw new BankException("Unvalid argument");
+			throw new BankException("invalid argument");
 		}
 	}
 
