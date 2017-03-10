@@ -15,11 +15,7 @@ public class ActivityOffer {
 
 	public ActivityOffer(Activity activity, LocalDate begin, LocalDate end) {
 		checkArguments(activity, begin, end);
-		if(begin.isBefore(LocalDate.now()) ||
-				end.isBefore(begin) ||
-				activity.hasOffers(begin, end)) {
-			throw new ActivityException("Can't create ActivityOffer with those dates as values");
-		}
+		checkDates(activity, begin, end);
 
 		this.begin = begin;
 		this.end = end;
@@ -29,8 +25,22 @@ public class ActivityOffer {
 	}
 
 	void checkArguments(Activity activity, LocalDate begin, LocalDate end){
-		if(activity == null || begin == null || end == null)
-			throw new ActivityException("Invalid ActivityOffer arguments");
+		if (activity == null)
+			throw new ActivityException("Activity argument is null");
+		else if (begin == null)
+			throw new ActivityException("Begin argument is null");
+		else if (end == null)
+			throw new ActivityException("End argument is null");
+	}
+
+	void checkDates(Activity activity, LocalDate begin, LocalDate end) {
+		if(begin.isBefore(LocalDate.now()))
+			throw new ActivityException("Begin date has to be equal or after today");
+		else if(end.isBefore(begin))
+			throw new ActivityException("End date can't be before begin date");
+		else if(activity.hasOffers(begin, end)) {
+			throw new ActivityException("Activity has offers that conflict with begin and end dates");
+		}
 	}
 
 	LocalDate getBegin() {
