@@ -19,8 +19,8 @@ public class Activity {
 	private final Set<ActivityOffer> offers = new HashSet<>();
 
 	public Activity(ActivityProvider provider, String name, int minAge, int maxAge, int capacity) {
-		if (provider == null || isBlank(name))
-			throw new ActivityException("Inconsistent arguments");
+		if (provider == null) { throw new ActivityException("ActivityProvider argument is null"); }
+		else if (isBlank(name)) { throw  new ActivityException("Name argument is inconsistent"); }
 
 		checkAge(minAge, maxAge);
 		checkCapacity(capacity);
@@ -35,13 +35,14 @@ public class Activity {
 	}
 
 	private void checkAge(int minAge, int maxAge) {
-		if (minAge < 18 || maxAge >= 100 || minAge > maxAge)
-			throw new ActivityException("Age doesn't match to the requirements");
+		if (minAge <= 17) { throw new ActivityException("Minimum age is under 18"); }
+		else if (maxAge >= 100) { throw new ActivityException("Maximum age is above 99"); }
+		else if	(minAge > maxAge) { throw new ActivityException("Minimum and Maximum age are switched"); }
 	}
 
 	private void checkCapacity(int capacity) {
 		if (capacity <= 0)
-			throw new ActivityException("Invalid capacity");
+			throw new ActivityException("Capacity must be at least 1");
 	}
 
 	String getName() {
