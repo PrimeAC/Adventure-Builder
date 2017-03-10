@@ -22,8 +22,8 @@ public class Booking {
 	}
 
 	private void checkArguments(ActivityProvider provider, ActivityOffer offer) {
-		if (provider == null || offer == null)
-			throw new ActivityException("Argument was null");
+		if (provider == null ) { throw new ActivityException("ActivityProvider's argument is null"); }
+		else if (offer == null) { throw new ActivityException("ArgumentOffers's argument is null"); }
 	}
 
 	public String getReference() {
