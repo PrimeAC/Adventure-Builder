@@ -14,8 +14,6 @@ public class AccountContructorMethodTest {
 	public void setUp() {
 		this.bank = new Bank("Money", "BK01");
 		this.client = new Client(this.bank, "António");
-		this.bank1 = new Bank("Moneyz", "BK21");
-		this.client1 = new Client(this.bank1, "Anibal");
 	}
 
 	@Test
@@ -42,13 +40,10 @@ public class AccountContructorMethodTest {
 
 	@Test(expected=BankException.class)
 	public void notClient() {
+		this.bank1 = new Bank("Moneyz", "BK21");
 		Account account = new Account(this.bank1, this.client);
 	}
 
-	@Test(expected=BankException.class)
-	public void notClient1() {
-		Account account = new Account(this.bank, this.client1);
-	}
 
 	@After
 	public void tearDown() {
