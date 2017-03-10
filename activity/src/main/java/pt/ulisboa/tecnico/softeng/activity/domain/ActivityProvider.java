@@ -19,8 +19,12 @@ public class ActivityProvider {
 
 	public ActivityProvider(String code, String name) {
 		
-		if(isBlank(code) || isBlank(name)){
-			throw new ActivityException();
+		if(isBlank(code)){
+			throw new ActivityException("Argument code is inconsistent");
+		}
+		
+		if(isBlank(name)){
+			throw new ActivityException("Argument name is inconsistent");
 		}
 		
 		checkCode(code);
@@ -34,14 +38,17 @@ public class ActivityProvider {
 
 	private void checkCode(String code) {
 		if (code.length() != ActivityProvider.CODE_SIZE) {
-			throw new ActivityException();
+			throw new ActivityException("Size of the code inconsistent");
 		}
 	}
 	
 	private void checkUnique(String code, String name) {
 		for(ActivityProvider ap : providers){
-			if(ap.getCode().equals(code) || ap.getName().equals(name)){
-				throw new ActivityException();
+			if(ap.getCode().equals(code)){
+				throw new ActivityException("Argument code is not unique");
+			}
+			if(ap.getName().equals(name)){
+				throw new ActivityException("Argument name is not unique");
 			}
 		}
 	}
