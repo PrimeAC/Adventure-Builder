@@ -8,7 +8,7 @@ import pt.ulisboa.tecnico.softeng.bank.exception.BankException;
 
 public class AccountContructorMethodTest {
 	Bank bank, bank1;
-	Client client, client1;
+	Client client;
 
 	@Before
 	public void setUp() {
