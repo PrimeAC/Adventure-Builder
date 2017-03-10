@@ -7,6 +7,8 @@ import java.util.Set;
 
 import pt.ulisboa.tecnico.softeng.bank.exception.BankException;
 
+import static org.apache.commons.lang3.StringUtils.isBlank;
+
 public class Bank {
 	public static Set<Bank> banks = new HashSet<>();
 
@@ -19,6 +21,8 @@ public class Bank {
 	private final List<Operation> log = new ArrayList<>();
 
 	public Bank(String name, String code) {
+
+		checkInvalidArguments(name, code);
 		checkCode(code);
 
 		this.name = name;
@@ -29,8 +33,23 @@ public class Bank {
 
 	private void checkCode(String code) {
 		if (code.length() != Bank.CODE_SIZE) {
-			throw new BankException();
+			throw new BankException("Code must have 4 digits!");
 		}
+
+		for(Bank i : banks){
+			if(i.code == code) {
+				throw new BankException("Code already exists!");
+			}
+		}
+
+	}
+
+	private void checkInvalidArguments(String name, String code) {
+
+		if(isBlank(code) || isBlank(name)) {
+			throw new BankException("Bank name and/or code invalid");
+		}
+
 	}
 
 	String getName() {
