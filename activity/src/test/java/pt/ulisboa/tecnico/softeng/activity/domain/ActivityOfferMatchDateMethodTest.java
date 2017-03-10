@@ -30,13 +30,13 @@ public class ActivityOfferMatchDateMethodTest {
 	//Test to verify if the dates given overlaps the dates of the initial offer
 	@Test
 	public void testDateOverlap01(){
-		Assert.assertTrue(this.offer.matchDate(this.begin.minusDays(1), this.begin));
+		Assert.assertFalse(this.offer.matchDate(this.begin.minusDays(1), this.begin));
 	}
 	
 	//Test to verify if the dates given overlaps the dates of the initial offer
 	@Test
 	public void testDateOverlap02(){
-		Assert.assertTrue(this.offer.matchDate(this.begin.minusDays(1), this.end.minusDays(1)));
+		Assert.assertFalse(this.offer.matchDate(this.begin.minusDays(1), this.end.minusDays(1)));
 	}
 	
 	//Test to verify if the dates given overlaps the dates of the initial offer
@@ -54,7 +54,7 @@ public class ActivityOfferMatchDateMethodTest {
 	//Test to verify if the dates given overlaps the dates of the initial offer
 	@Test
 	public void testDateOverlap05(){
-		Assert.assertTrue(this.offer.matchDate(this.begin, this.end.minusDays(1)));
+		Assert.assertFalse(this.offer.matchDate(this.begin, this.end.minusDays(1)));
 	}
 	
 	//Test to verify if the dates given overlaps the dates of the initial offer
@@ -66,37 +66,37 @@ public class ActivityOfferMatchDateMethodTest {
 	//Test to verify if the dates given overlaps the dates of the initial offer
 	@Test
 	public void testDateOverlap07(){
-		Assert.assertTrue(this.offer.matchDate(this.begin.plusDays(1), this.end.minusDays(1)));
+		Assert.assertFalse(this.offer.matchDate(this.begin.plusDays(1), this.end.minusDays(1)));
 	}
 	
 	//Test to verify if the dates given overlaps the dates of the initial offer
 	@Test
 	public void testDateOverlap08(){
-		Assert.assertTrue(this.offer.matchDate(this.begin.plusDays(1), this.end));
+		Assert.assertFalse(this.offer.matchDate(this.begin.plusDays(1), this.end));
 	}
 	
 	//Test to verify if the dates given overlaps the dates of the initial offer
 	@Test
 	public void testDateOverlap09(){
-		Assert.assertTrue(this.offer.matchDate(this.begin.plusDays(1), this.end.plusDays(1)));
+		Assert.assertFalse(this.offer.matchDate(this.begin.plusDays(1), this.end.plusDays(1)));
 	}
 	
 	//Test to verify if the dates given overlaps the dates of the initial offer
 	@Test
 	public void testDateOverlap10(){
-		Assert.assertTrue(this.offer.matchDate(this.begin.plusDays(2), this.end.plusDays(1)));
+		Assert.assertFalse(this.offer.matchDate(this.begin.plusDays(2), this.end.plusDays(1)));
 	}
 	
 	//Test to verify if the dates given overlaps the dates of the initial offer
 	@Test
 	public void testDateOverlap11(){
-		Assert.assertTrue(this.offer.matchDate(this.begin, this.begin));
+		Assert.assertFalse(this.offer.matchDate(this.begin, this.begin));
 	}
 	
 	//Test to verify if the dates given overlaps the dates of the initial offer
 	@Test
 	public void testDateOverlap12(){
-		Assert.assertTrue(this.offer.matchDate(this.begin.plusDays(2), this.end));
+		Assert.assertFalse(this.offer.matchDate(this.begin.plusDays(2), this.end));
 	}
 	
 	

@@ -55,7 +55,7 @@ public class ActivityOffer {
 	}
 
 	boolean matchDate(LocalDate begin, LocalDate end) {
-		return !begin.isAfter(this.end) && !end.isBefore(this.begin);
+		return !this.begin.isBefore(begin) && !this.end.isAfter(end);
 	}
 
 	boolean matchDateConflict(LocalDate begin, LocalDate end) {
