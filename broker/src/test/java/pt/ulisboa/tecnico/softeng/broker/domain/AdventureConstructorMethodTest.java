@@ -134,6 +134,20 @@ public class AdventureConstructorMethodTest {
 	}
 	
 	@Test(expected=BrokerException.class)
+	public void nonAsciiIBAN() { 
+		LocalDate begin = new LocalDate(2016, 12, 19);
+		LocalDate end = new LocalDate(2016, 12, 21);
+		new Adventure(this.broker, begin, end, 20, "á", 300);
+	}
+	
+	@Test(expected=BrokerException.class)
+	public void IBANspecialCharacter() { 
+		LocalDate begin = new LocalDate(2016, 12, 19);
+		LocalDate end = new LocalDate(2016, 12, 21);
+		new Adventure(this.broker, begin, end, 20, "\n", 300);
+	}
+	
+	@Test(expected=BrokerException.class)
 	public void duplicateAdventure() {
 		// check if the IBAN code (1st 4 characters) is the same as the bank code
 		LocalDate begin = new LocalDate(2016, 12, 19);
@@ -141,6 +155,7 @@ public class AdventureConstructorMethodTest {
 		new Adventure(this.broker, begin, end, 20, "BK011234567", 300);
 		new Adventure(this.broker, begin, end, 20, "BK011234567", 300);
 	}
+	
 	
 	@After
 	public void tearDown() {
