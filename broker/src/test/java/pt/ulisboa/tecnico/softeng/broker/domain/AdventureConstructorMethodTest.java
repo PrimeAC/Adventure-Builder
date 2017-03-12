@@ -13,6 +13,7 @@ import pt.ulisboa.tecnico.softeng.broker.exception.BrokerException;
 
 public class AdventureConstructorMethodTest {
 	private Broker broker;
+	private Broker broker2;
 	public static final int CODE_SIZE = 4;
 
 	@Before
@@ -25,7 +26,7 @@ public class AdventureConstructorMethodTest {
 		LocalDate begin = new LocalDate(2016, 12, 19);
 		LocalDate end = new LocalDate(2016, 12, 21);
 
-		Adventure adventure = new Adventure(this.broker, begin, end, 20, "BK011234567", 300);
+		 Adventure adventure = new Adventure(this.broker, begin, end, 20, "BK011234567", 300);
 
 		Assert.assertEquals(this.broker, adventure.getBroker());
 		Assert.assertEquals(begin, adventure.getBegin());
@@ -45,26 +46,26 @@ public class AdventureConstructorMethodTest {
 	public void nullBrokerTest() {
 		LocalDate begin = new LocalDate(2016, 12, 19);
 		LocalDate end = new LocalDate(2016, 12, 21);
-		Adventure adventure = new Adventure(null, begin, end, 20, "BK011234567", 300);	
+		 new Adventure(null, begin, end, 20, "BK011234567", 300);	
 	}
 	
 	@Test(expected=BrokerException.class)
 	public void nullBeginTest() {
 		LocalDate end = new LocalDate(2016, 12, 21);
-		Adventure adventure = new Adventure(this.broker, null, end, 20, "BK011234567", 300);	
+		 new Adventure(this.broker, null, end, 20, "BK011234567", 300);	
 	}
 	
 	@Test(expected=BrokerException.class)
 	public void nullEndTest() {
 		LocalDate begin = new LocalDate(2016, 12, 21);
-		Adventure adventure = new Adventure(this.broker, begin, null, 20, "BK011234567", 300);	
+		 new Adventure(this.broker, begin, null, 20, "BK011234567", 300);	
 	}
 	
 	@Test(expected=BrokerException.class)
 	public void nullIBANTest() {
 		LocalDate begin = new LocalDate(2016, 12, 19);
 		LocalDate end = new LocalDate(2016, 12, 21);
-		Adventure adventure = new Adventure(this.broker, begin, end, 20, null, 300);	
+		 new Adventure(this.broker, begin, end, 20, null, 300);	
 	}
 	
 	@Test(expected=BrokerException.class)
@@ -72,7 +73,7 @@ public class AdventureConstructorMethodTest {
 		// begin > end error
 		LocalDate begin = new LocalDate(2016, 12, 20);
 		LocalDate end = new LocalDate(2016, 12, 21);
-		Adventure adventure = new Adventure(this.broker, end, begin, 20, "BK011234567", 300);	
+		 new Adventure(this.broker, end, begin, 20, "BK011234567", 300);	
 	}
 	
 	@Test(expected=BrokerException.class)
@@ -82,7 +83,7 @@ public class AdventureConstructorMethodTest {
 		LocalDate begin = LocalDate.now();
 		LocalDate end = new LocalDate(2016, 12, 21);
 		begin.minusDays(1);
-		Adventure adventure = new Adventure(this.broker, end, begin, 20, "BK011234567", 300);	
+		 new Adventure(this.broker, end, begin, 20, "BK011234567", 300);	
 	}
 	
 	@Test(expected=BrokerException.class)
@@ -90,7 +91,7 @@ public class AdventureConstructorMethodTest {
 		// age >0
 		LocalDate begin = new LocalDate(2016, 12, 20);
 		LocalDate end = new LocalDate(2016, 12, 21);
-		Adventure adventure = new Adventure(this.broker, end, begin, -1, "BK011234567", 300);
+		 new Adventure(this.broker, end, begin, -1, "BK011234567", 300);
 	}
 	
 	@Test(expected=BrokerException.class)
@@ -98,7 +99,7 @@ public class AdventureConstructorMethodTest {
 		// age <150
 		LocalDate begin = new LocalDate(2016, 12, 20);
 		LocalDate end = new LocalDate(2016, 12, 21);
-		Adventure adventure = new Adventure(this.broker, end, begin, 150, "BK011234567", 300);
+		 new Adventure(this.broker, end, begin, 150, "BK011234567", 300);
 	}
 
 	@Test(expected=BrokerException.class)
@@ -106,7 +107,7 @@ public class AdventureConstructorMethodTest {
 		// amount >0
 		LocalDate begin = new LocalDate(2016, 12, 19);
 		LocalDate end = new LocalDate(2016, 12, 21);
-		Adventure adventure = new Adventure(this.broker, end, begin, 20, "BK011234567", -1);
+		 new Adventure(this.broker, end, begin, 20, "BK011234567", -1);
 	}
 	
 	@Test(expected=BrokerException.class)
@@ -115,21 +116,22 @@ public class AdventureConstructorMethodTest {
 		// In account - bank code(4digits) + int(1 digit -> min)
 		LocalDate begin = new LocalDate(2016, 12, 19);
 		LocalDate end = new LocalDate(2016, 12, 21);
-		Adventure adventure = new Adventure(this.broker, begin, end, 20, "BK01", 300);
+		 new Adventure(this.broker, begin, end, 20, "BK01", 300);
 	}
 	
 	@Test(expected=BrokerException.class)
 	public void IBANWhitespaceStringTest() {
 		LocalDate begin = new LocalDate(2016, 12, 19);
 		LocalDate end = new LocalDate(2016, 12, 21);
-		Adventure adventure = new Adventure(this.broker, begin, end, 20, "BK0112 34567", 300);
+		 new Adventure(this.broker, begin, end, 20, "BK0112 34567", 300);
 	}
 	
 	@Test(expected=BrokerException.class)
-	public void IBANNonAlfanumericCharsTest() {
+	public void IBANCheckCode() {
+		// check if the IBAN code (1st 4 characters) is the same as the bank code
 		LocalDate begin = new LocalDate(2016, 12, 19);
 		LocalDate end = new LocalDate(2016, 12, 21);
-		Adventure adventure = new Adventure(this.broker, begin, end, 20, "BK011234567", 300);
+		new Adventure(this.broker, begin, end, 20, "BK001234567", 300);
 	}
 	
 	@After
