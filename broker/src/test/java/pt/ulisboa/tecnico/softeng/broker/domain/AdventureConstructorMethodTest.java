@@ -112,20 +112,24 @@ public class AdventureConstructorMethodTest {
 	@Test(expected=BrokerException.class)
 	public void IBANSizeTest() {
 		// code size < 5 fails
-		// In account - bank code(4digits) + int(1 digit)
+		// In account - bank code(4digits) + int(1 digit -> min)
 		LocalDate begin = new LocalDate(2016, 12, 19);
 		LocalDate end = new LocalDate(2016, 12, 21);
 		Adventure adventure = new Adventure(this.broker, begin, end, 20, "BK01", 300);
 	}
 	
-	//finish
 	@Test(expected=BrokerException.class)
 	public void IBANWhitespaceStringTest() {
-		// alterar para testar escape characters e special characters
-		// apagar isto primeiro
 		LocalDate begin = new LocalDate(2016, 12, 19);
 		LocalDate end = new LocalDate(2016, 12, 21);
 		Adventure adventure = new Adventure(this.broker, begin, end, 20, "BK0112 34567", 300);
+	}
+	
+	@Test(expected=BrokerException.class)
+	public void IBANNonAlfanumericCharsTest() {
+		LocalDate begin = new LocalDate(2016, 12, 19);
+		LocalDate end = new LocalDate(2016, 12, 21);
+		Adventure adventure = new Adventure(this.broker, begin, end, 20, "BK011234567", 300);
 	}
 	
 	@After
