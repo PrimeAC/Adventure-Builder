@@ -1,5 +1,6 @@
 package pt.ulisboa.tecnico.softeng.broker.domain;
 
+
 import org.joda.time.LocalDate;
 import org.junit.After;
 import org.junit.Assert;
@@ -39,133 +40,94 @@ public class AdventureConstructorMethodTest {
 		Assert.assertNull(adventure.getRoomBooking());
 	}
 	
-	public void mainTest(Broker broker,LocalDate begin,LocalDate end, int age, String IBAN, int amount,String error){
-		Adventure adventure;
-		try {
-			adventure = new Adventure(broker, begin, end, age, IBAN, amount);	
-		} catch (BrokerException e) {
-			System.out.print("broker exception caught in: "+error);
-			//System.out.print(e.getStackTrace());
-			return;
-		}
-		Assert.fail("no exception in: "+error);
-	}
 	
-	@Test
+	@Test(expected=BrokerException.class)
 	public void nullBrokerTest() {
 		LocalDate begin = new LocalDate(2016, 12, 19);
 		LocalDate end = new LocalDate(2016, 12, 21);
-		mainTest(null, begin, end, 20, "BK011234567", 300,"nullBrokerTest");
+		Adventure adventure = new Adventure(null, begin, end, 20, "BK011234567", 300);	
 	}
 	
-	@Test
+	@Test(expected=BrokerException.class)
 	public void nullBeginTest() {
 		LocalDate end = new LocalDate(2016, 12, 21);
-		mainTest(this.broker, null, end, 20, "BK011234567", 300, "nullBeginTest");
+		Adventure adventure = new Adventure(this.broker, null, end, 20, "BK011234567", 300);	
 	}
 	
-	@Test
+	@Test(expected=BrokerException.class)
 	public void nullEndTest() {
-		LocalDate begin = new LocalDate(2016, 12, 19);
-		mainTest(this.broker, begin, null, 20, "BK011234567", 300, "nullEndTest");
+		LocalDate begin = new LocalDate(2016, 12, 21);
+		Adventure adventure = new Adventure(this.broker, begin, null, 20, "BK011234567", 300);	
 	}
 	
-	@Test
-	public void nullAgeTest() {
-		LocalDate begin = new LocalDate(2016, 12, 19);
-		LocalDate end = new LocalDate(2016, 12, 21);
-		mainTest(this.broker, begin, end, (Integer) null, "BK011234567", 300, "nullAgeTest");
-	}
-	
-	@Test
+	@Test(expected=BrokerException.class)
 	public void nullIBANTest() {
 		LocalDate begin = new LocalDate(2016, 12, 19);
 		LocalDate end = new LocalDate(2016, 12, 21);
-		mainTest(this.broker, begin, end, 20, null, 300, "nullIBANTest");
+		Adventure adventure = new Adventure(this.broker, begin, end, 20, null, 300);	
 	}
 	
-	@Test
-	public void nullAmountTest() {
-		LocalDate begin = new LocalDate(2016, 12, 19);
-		LocalDate end = new LocalDate(2016, 12, 21);
-		mainTest(this.broker, begin, end, 20, "BK011234567", (Integer) null, "nullAmountTest");
-	}
-	
-	@Test
+	@Test(expected=BrokerException.class)
 	public void endDateBeforeInitialDateTest() {
-		// begin > end
-		LocalDate begin = new LocalDate(2016, 12, 19);
+		// begin > end error
+		LocalDate begin = new LocalDate(2016, 12, 20);
 		LocalDate end = new LocalDate(2016, 12, 21);
-		mainTest(this.broker, begin, end, 20, "BK011234567", 300, "endDateBeforeInitialDateTest");
+		Adventure adventure = new Adventure(this.broker, end, begin, 20, "BK011234567", 300);	
 	}
 	
-	@Test
-	public void ageTest() {
-		// age <0
-		LocalDate begin = new LocalDate(2016, 12, 19);
+	@Test(expected=BrokerException.class)
+	public void initialDateBeforeCurrentDateTest() {
+		// initial date (begin) must be >= current date
+		// begin -> current date -1 min
+		LocalDate begin = LocalDate.now();
 		LocalDate end = new LocalDate(2016, 12, 21);
-		mainTest(this.broker, begin, end, -1, "BK011234567", 300, "ageTest");
+		begin.minusDays(1);
+		Adventure adventure = new Adventure(this.broker, end, begin, 20, "BK011234567", 300);	
+	}
+	
+	@Test(expected=BrokerException.class)
+	public void minAgeTest() {
+		// age >0
+		LocalDate begin = new LocalDate(2016, 12, 20);
+		LocalDate end = new LocalDate(2016, 12, 21);
+		Adventure adventure = new Adventure(this.broker, end, begin, -1, "BK011234567", 300);
+	}
+	
+	@Test(expected=BrokerException.class)
+	public void maxAgeTest() {
+		// age <150
+		LocalDate begin = new LocalDate(2016, 12, 20);
+		LocalDate end = new LocalDate(2016, 12, 21);
+		Adventure adventure = new Adventure(this.broker, end, begin, 150, "BK011234567", 300);
 	}
 
-	@Test
+	@Test(expected=BrokerException.class)
 	public void valueTest() {
-		// amount <0
+		// amount >0
 		LocalDate begin = new LocalDate(2016, 12, 19);
 		LocalDate end = new LocalDate(2016, 12, 21);
-		mainTest(this.broker, begin, end, 20, "BK011234567", -1, "valueTest");
+		Adventure adventure = new Adventure(this.broker, end, begin, 20, "BK011234567", -1);
 	}
 	
-	@Test
+	@Test(expected=BrokerException.class)
 	public void IBANSizeTest() {
-		// code size <= 4 fails
+		// code size < 5 fails
+		// In account - bank code(4digits) + int(1 digit)
 		LocalDate begin = new LocalDate(2016, 12, 19);
 		LocalDate end = new LocalDate(2016, 12, 21);
-		Adventure adventure;
-		try {
-			adventure = new Adventure(this.broker, begin, end, 20, "BK", 300);
-		} catch (BrokerException e) {
-			System.out.print("broker exception caught in: IBANSizeTest");
-			//System.out.print(e.getStackTrace());
-			return;
-		}
-		Assert.fail("no exception in: IBANSizeTest");
+		Adventure adventure = new Adventure(this.broker, begin, end, 20, "BK01", 300);
 	}
 	
-	@Test
-	public void IBANSizeTest2() {
-		// code size > 4 pass
-		LocalDate begin = new LocalDate(2016, 12, 19);
-		LocalDate end = new LocalDate(2016, 12, 21);
-		Adventure adventure;
-		try {
-			adventure = new Adventure(this.broker, begin, end, 20, "BK011", 300);
-		} catch (BrokerException e) {
-			Assert.fail("exception in: IBANSizeTest2");
-			//System.out.print(e.getStackTrace());
-			return;
-		}
-		//System.out.print("no exception in: IBANSizeTest2");
-		return;
-	}
-	
-	@Test
+	//finish
+	@Test(expected=BrokerException.class)
 	public void IBANWhitespaceStringTest() {
-		// code not whitespaces
+		// alterar para testar escape characters e special characters
+		// apagar isto primeiro
 		LocalDate begin = new LocalDate(2016, 12, 19);
 		LocalDate end = new LocalDate(2016, 12, 21);
-		Adventure adventure;
-		try {
-			adventure = new Adventure(this.broker, begin, end, 20, "     ", 300);
-		} catch (BrokerException e) {
-			System.out.print("no exception in: IBANWhitespaceStringTest");
-			//System.out.print(e.getStackTrace());
-			return;
-		}
-		Assert.fail("exception in: IBANWhitespaceStringTest");
+		Adventure adventure = new Adventure(this.broker, begin, end, 20, "BK0112 34567", 300);
 	}
 	
-
-
 	@After
 	public void tearDown() {
 		Broker.brokers.clear();
