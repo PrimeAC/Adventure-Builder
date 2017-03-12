@@ -13,7 +13,6 @@ import pt.ulisboa.tecnico.softeng.broker.exception.BrokerException;
 
 public class AdventureConstructorMethodTest {
 	private Broker broker;
-	private Broker broker2;
 	public static final int CODE_SIZE = 4;
 
 	@Before
@@ -132,6 +131,15 @@ public class AdventureConstructorMethodTest {
 		LocalDate begin = new LocalDate(2016, 12, 19);
 		LocalDate end = new LocalDate(2016, 12, 21);
 		new Adventure(this.broker, begin, end, 20, "BK001234567", 300);
+	}
+	
+	@Test(expected=BrokerException.class)
+	public void duplicateAdventure() {
+		// check if the IBAN code (1st 4 characters) is the same as the bank code
+		LocalDate begin = new LocalDate(2016, 12, 19);
+		LocalDate end = new LocalDate(2016, 12, 21);
+		new Adventure(this.broker, begin, end, 20, "BK011234567", 300);
+		new Adventure(this.broker, begin, end, 20, "BK011234567", 300);
 	}
 	
 	@After
