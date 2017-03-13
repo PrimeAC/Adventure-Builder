@@ -44,13 +44,17 @@ public class Adventure {
 		if(begin==null) throw new BrokerException("null begin date");
 		if(end==null) throw new BrokerException("null end date");
 		if(IBAN==null) throw new BrokerException("null IBAN");
+		
 		if(end.isBefore(begin)) throw new BrokerException("begin date after end date");
 		if(begin.isBefore(LocalDate.now())) throw new BrokerException("begin date before actual date(today)");
-		if(age<0) throw new BrokerException("min age 0");
-		if(age>150) throw new BrokerException("max age 150");
+		
+		if(age<18) throw new BrokerException("min age >17");
+		if(age>100) throw new BrokerException("max age <100");
 		if(amount<0) throw new BrokerException("amount <0 should not exist");
+		
 		if(IBAN.length()<5) throw new BrokerException("IBAN can't be shorter than 5 digits");
 		if(IBAN.trim().length()==0) throw new BrokerException("blank IBAN");
+		
 		if(broker.hasAdventure(this)) throw new BrokerException("duplicate Adventure");
 	}
 

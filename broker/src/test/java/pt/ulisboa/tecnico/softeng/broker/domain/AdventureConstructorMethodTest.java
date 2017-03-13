@@ -88,18 +88,18 @@ public class AdventureConstructorMethodTest {
 	
 	@Test(expected=BrokerException.class)
 	public void minAgeTest() {
-		// age>-1
+		// age>17
 		LocalDate begin = new LocalDate(2016, 12, 20);
 		LocalDate end = new LocalDate(2016, 12, 21);
-		 new Adventure(this.broker, end, begin, -1, "BK011234567", 300);
+		 new Adventure(this.broker, end, begin, 17, "BK011234567", 300);
 	}
 	
 	@Test(expected=BrokerException.class)
 	public void maxAgeTest() {
-		// age<151
+		// age<100
 		LocalDate begin = new LocalDate(2016, 12, 20);
 		LocalDate end = new LocalDate(2016, 12, 21);
-		 new Adventure(this.broker, end, begin, 151, "BK011234567", 300);
+		 new Adventure(this.broker, end, begin, 100, "BK011234567", 300);
 	}
 
 	@Test(expected=BrokerException.class)
