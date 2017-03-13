@@ -18,7 +18,7 @@ public class Booking {
 
 	private void checkAvailability(ActivityOffer offer) {
 		if (!offer.hasVacancy())
-			throw new ActivityException("ActivityOffer's capability reached the limit");
+			throw new ActivityException("ActivityOffer's capacity reached the limit");
 	}
 
 	private void checkArguments(ActivityProvider provider, ActivityOffer offer) {
