@@ -1,9 +1,11 @@
 package pt.ulisboa.tecnico.softeng.broker.domain;
 
+
 import org.joda.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import pt.ulisboa.tecnico.softeng.broker.exception.BrokerException;
 import pt.ulisboa.tecnico.softeng.broker.interfaces.ActivityInterface;
 import pt.ulisboa.tecnico.softeng.broker.interfaces.BankInterface;
 import pt.ulisboa.tecnico.softeng.broker.interfaces.HotelInterface;
@@ -26,6 +28,7 @@ public class Adventure {
 	private String activityBooking;
 
 	public Adventure(Broker broker, LocalDate begin, LocalDate end, int age, String IBAN, int amount) {
+		fullCheck();
 		this.ID = broker.getCode() + Integer.toString(++counter);
 		this.broker = broker;
 		this.begin = begin;
@@ -33,8 +36,22 @@ public class Adventure {
 		this.age = age;
 		this.IBAN = IBAN;
 		this.amount = amount;
-
 		broker.addAdventure(this);
+	}
+	
+	public void fullCheck() {
+		if(broker==null) throw new BrokerException("null broker");
+		if(begin==null) throw new BrokerException("null begin date");
+		if(end==null) throw new BrokerException("null end date");
+		if(IBAN==null) throw new BrokerException("null IBAN");
+		if(end.isBefore(begin)) throw new BrokerException("begin date after end date");
+		if(begin.isBefore(LocalDate.now())) throw new BrokerException("begin date before actual date(today)");
+		if(age<0) throw new BrokerException("min age 0");
+		if(age>150) throw new BrokerException("max age 150");
+		if(amount<0) throw new BrokerException("amount <0 should not exist");
+		if(IBAN.length()<5) throw new BrokerException("IBAN can't be shorter than 5 digits");
+		if(IBAN.trim().length()==0) throw new BrokerException("blank IBAN");
+		if(broker.hasAdventure(this)) throw new BrokerException("duplicate Adventure");
 	}
 
 	public String getID() {

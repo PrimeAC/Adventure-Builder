@@ -13,6 +13,7 @@ import pt.ulisboa.tecnico.softeng.broker.exception.BrokerException;
 
 public class AdventureConstructorMethodTest {
 	private Broker broker;
+
 	public static final int CODE_SIZE = 4;
 
 	@Before
@@ -87,7 +88,7 @@ public class AdventureConstructorMethodTest {
 	
 	@Test(expected=BrokerException.class)
 	public void minAgeTest() {
-		// age >0
+		// age>-1
 		LocalDate begin = new LocalDate(2016, 12, 20);
 		LocalDate end = new LocalDate(2016, 12, 21);
 		 new Adventure(this.broker, end, begin, -1, "BK011234567", 300);
@@ -95,15 +96,15 @@ public class AdventureConstructorMethodTest {
 	
 	@Test(expected=BrokerException.class)
 	public void maxAgeTest() {
-		// age <150
+		// age<151
 		LocalDate begin = new LocalDate(2016, 12, 20);
 		LocalDate end = new LocalDate(2016, 12, 21);
-		 new Adventure(this.broker, end, begin, 150, "BK011234567", 300);
+		 new Adventure(this.broker, end, begin, 151, "BK011234567", 300);
 	}
 
 	@Test(expected=BrokerException.class)
-	public void valueTest() {
-		// amount >0
+	public void minAmountTest() {
+		// amount > -1
 		LocalDate begin = new LocalDate(2016, 12, 19);
 		LocalDate end = new LocalDate(2016, 12, 21);
 		 new Adventure(this.broker, end, begin, 20, "BK011234567", -1);
@@ -119,32 +120,11 @@ public class AdventureConstructorMethodTest {
 	}
 	
 	@Test(expected=BrokerException.class)
-	public void IBANWhitespaceStringTest() {
+	public void IBANBlankStringTest() {
+		// bank IBAN can't have 5 whitespaces only(passes size test) or it is blank
 		LocalDate begin = new LocalDate(2016, 12, 19);
 		LocalDate end = new LocalDate(2016, 12, 21);
-		 new Adventure(this.broker, begin, end, 20, "BK0112 34567", 300);
-	}
-	
-	@Test(expected=BrokerException.class)
-	public void IBANCheckCode() {
-		// check if the IBAN code (1st 4 characters) is the same as the bank code
-		LocalDate begin = new LocalDate(2016, 12, 19);
-		LocalDate end = new LocalDate(2016, 12, 21);
-		new Adventure(this.broker, begin, end, 20, "BK001234567", 300);
-	}
-	
-	@Test(expected=BrokerException.class)
-	public void nonAsciiIBAN() { 
-		LocalDate begin = new LocalDate(2016, 12, 19);
-		LocalDate end = new LocalDate(2016, 12, 21);
-		new Adventure(this.broker, begin, end, 20, "á", 300);
-	}
-	
-	@Test(expected=BrokerException.class)
-	public void IBANspecialCharacter() { 
-		LocalDate begin = new LocalDate(2016, 12, 19);
-		LocalDate end = new LocalDate(2016, 12, 21);
-		new Adventure(this.broker, begin, end, 20, "\n", 300);
+		 new Adventure(this.broker, begin, end, 20, "     ", 300);
 	}
 	
 	@Test(expected=BrokerException.class)
@@ -155,7 +135,6 @@ public class AdventureConstructorMethodTest {
 		new Adventure(this.broker, begin, end, 20, "BK011234567", 300);
 		new Adventure(this.broker, begin, end, 20, "BK011234567", 300);
 	}
-	
 	
 	@After
 	public void tearDown() {
