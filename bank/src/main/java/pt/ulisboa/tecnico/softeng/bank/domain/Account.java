@@ -11,17 +11,13 @@ public class Account {
 	private int balance;
 
 	public Account(Bank bank, Client client) {
-		if(bank != null && client != null && bank.hasClient(client)) {
-			this.bank = bank;
-			this.IBAN = bank.getCode() + Integer.toString(++Account.counter);
-			this.client = client;
-			this.balance = 0;
+		checkArguments(bank,client);
+		this.bank = bank;
+		this.IBAN = bank.getCode() + Integer.toString(++Account.counter);
+		this.client = client;
+		this.balance = 0;
 
-			bank.addAccount(this);
-		}
-		else{
-			throw new BankException("invalid argument");
-		}
+		bank.addAccount(this);
 	}
 
 	Bank getBank() {
@@ -57,4 +53,12 @@ public class Account {
 		return new Operation(Operation.Type.WITHDRAW, this, amount).getReference();
 	}
 
+	public void checkArguments(Bank bank, Client client) {
+		if(bank == null) {
+			throw new BankException("invalid bank");
+		}
+		else if(client == null) {
+			throw new BankException("invalid client");
+		}
+	}
 }

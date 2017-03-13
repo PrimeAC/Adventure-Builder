@@ -18,12 +18,7 @@ class Operation {
 	private final LocalDateTime time;
 
 	Operation(Type type, Account account, int value) {
-		if(type == null || account == null){
-			throw new BankException("invalid type or account");
-		}
-		else if(value <= 0){
-			throw new BankException("invalid value");
-		}
+		checkArguments(type,account,value);
 		this.reference = account.getBank().getCode() + Integer.toString(++Operation.counter);
 		this.type = type;
 		this.account = account;
@@ -51,6 +46,18 @@ class Operation {
 
 	LocalDateTime getTime() {
 		return this.time;
+	}
+
+	private void checkArguments(Type type, Account account, int value) {
+		if(type == null){
+			throw new BankException("invalid type");
+		}
+		else if(account == null) {
+			throw new BankException("invalid account");
+		}
+		else if(value <= 0){
+			throw new BankException("invalid value");
+		}
 	}
 
 }
