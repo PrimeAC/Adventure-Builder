@@ -60,5 +60,8 @@ public class Account {
 		else if(client == null) {
 			throw new BankException("invalid client");
 		}
+		else if(!bank.hasClient(client)) {
+			throw new BankException("client don't belong to bank");
+		}
 	}
 }
