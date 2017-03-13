@@ -49,7 +49,7 @@ public class Adventure {
 		if(begin.isBefore(LocalDate.now())) throw new BrokerException("begin date before actual date(today)");
 		
 		if(age<18) throw new BrokerException("min age >17");
-		if(age>100) throw new BrokerException("max age <100");
+		if(age>99) throw new BrokerException("max age <100");
 		if(amount<0) throw new BrokerException("amount <0 should not exist");
 		
 		if(IBAN.length()<5) throw new BrokerException("IBAN can't be shorter than 5 digits");
