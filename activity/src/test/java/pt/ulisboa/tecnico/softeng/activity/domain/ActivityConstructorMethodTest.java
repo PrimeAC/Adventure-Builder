@@ -28,73 +28,73 @@ public class ActivityConstructorMethodTest {
 		Assert.assertEquals(1, this.provider.getNumberOfActivities());
 	}
 
-	// Test to verify if minimum age is under the limit
+	// Test to verify if minimum age is under the lowest limit
 	@Test (expected = ActivityException.class)
-	public void testAge01() {
+	public void testMinAgeUnder18() {
 		new Activity(this.provider, "Bush Walking", 17, 80, 25);
 	}
 
-    // Test to verify if both ages are between the limits
+    // Test to verify if minimum age is above the lowest limit
     @Test
-	public void testAge02() { new Activity(this.provider, "Bush Walking", 19, 80, 25); }
+	public void testMinAgeAbove18() { new Activity(this.provider, "Bush Walking", 19, 80, 25); }
 
-    // Test to verify if both ages are between the limits
+    // Test to verify if maximum age is under the highest limit
 	@Test
-	public void testAge03() {
+	public void testMaxAgeUnder99() {
 		new Activity(this.provider, "Bush Walking", 20, 98, 25);
 	}
 
-    // Test to verify if maximum age is above the limit
+    // Test to verify if maximum age is above the highest limit
 	@Test (expected = ActivityException.class)
-	public void testAge04() {
+	public void testMaxAgeAbove99() {
 		new Activity(this.provider, "Bush Walking", 20, 100, 25);
 	}
 
-    // Test to verify if ages are switched
+    // Test to verify if minimum and maximum ages are switched
 	@Test (expected = ActivityException.class)
-	public void testAge05() {
+	public void testMinMaxAgeSwitched() {
 		new Activity(this.provider, "Bush Walking", 99, 18, 25);
 	}
 
-    // Test to verify if both ages are between the limits
+    // Test to verify if minimum and maximum ages are equal to lowest limit
 	@Test
-	public void testAge06() {
+	public void testMinMaxAgeEqual18() {
 		new Activity(this.provider, "Bush Walking", 18, 18, 25);
 	}
 
-    // Test to verify if both ages are between the limits
+    // Test to verify if minimum and maximum ages are equal to highest limit
 	@Test
-	public void testAge07() {
+	public void testMinMaxAgeEqual99() {
 		new Activity(this.provider, "Bush Walking", 99, 99, 25);
 	}
 
     // Test to verify if capacity is under the limit
     @Test (expected = ActivityException.class)
-    public void testCapacity01() { new Activity(this.provider, "Bush Walking", 18, 80, 0); }
+    public void testCapacityEqual0() { new Activity(this.provider, "Bush Walking", 18, 80, 0); }
 
-    // Test to verify if capacity is in the limit
+    // Test to verify if capacity is equal to limit
     @Test
-    public void testCapacity02() { new Activity(this.provider, "Bush Walking", 18, 80, 1); }
+    public void testCapacityEqual1() { new Activity(this.provider, "Bush Walking", 18, 80, 1); }
 
-    // Test to verify if capacity is above the limit
+    // Test to verify if capacity is a negative number
     @Test (expected = ActivityException.class)
-    public void testCapacity03() { new Activity(this.provider, "Bush Walking", 18, 80, -1); }
+    public void testCapacityEqualMinus1() { new Activity(this.provider, "Bush Walking", 18, 80, -1); }
 
     // Test to verify if ActivityProvider is null
     @Test (expected = ActivityException.class)
-    public void testArguments01() { new Activity(null,  "Bush Walking", 18, 80, 25); }
+    public void testProviderNull() { new Activity(null,  "Bush Walking", 18, 80, 25); }
 
     // Test to verify if name is null
     @Test (expected = ActivityException.class)
-    public void testArguments02() { new Activity(this.provider,  null, 18, 80, 25); }
+    public void testNameNull() { new Activity(this.provider,  null, 18, 80, 25); }
 
     // Test to verify if name is an empty string
     @Test (expected = ActivityException.class)
-    public void testArguments03() { new Activity(this.provider,  "", 18, 80, 25); }
+    public void testNameEmpty() { new Activity(this.provider,  "", 18, 80, 25); }
 
     // Test to verify if name is a blank string
     @Test (expected = ActivityException.class)
-    public void testArguments04() { new Activity(this.provider,  " ", 18, 80, 25); }
+    public void testNameBlank() { new Activity(this.provider,  " ", 18, 80, 25); }
 
 	@After
 	public void tearDown() {
