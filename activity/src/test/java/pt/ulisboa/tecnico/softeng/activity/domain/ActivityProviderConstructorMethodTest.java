@@ -20,63 +20,63 @@ public class ActivityProviderConstructorMethodTest {
 	
 	//Test to verify if Arguments of ActivityProvider's Constructor are valid
 	@Test (expected = ActivityException.class)
-	public void testArguments01() {
+	public void testCodeNull() {
 	 	ActivityProvider provider = new ActivityProvider(null, "Adventure++");
 	}
 	
 	//Test to verify if Arguments of ActivityProvider's Constructor are valid
 	@Test (expected = ActivityException.class)
-	public void testArguments02() {
+	public void testEmptyCode() {
 		ActivityProvider provider = new ActivityProvider("", "Adventure++");
 	}
 	
 	//Test to verify if Arguments of ActivityProvider's Constructor are valid
 	@Test (expected = ActivityException.class)
-	public void testArguments03() {
+	public void testBlankCode() {
 		ActivityProvider provider = new ActivityProvider("      ", "Adventure++");
 	}
 	
 	//Test to verify if Arguments of ActivityProvider's Constructor are valid
 	@Test (expected = ActivityException.class)
-	public void testArguments04() {
+	public void testNameNull() {
 		ActivityProvider provider = new ActivityProvider("XtremX", null);
 	}
 	 
 	//Test to verify if Arguments of ActivityProvider's Constructor are valid
 	@Test (expected = ActivityException.class)
-	public void testArguments05() {
+	public void testEmptyName() {
 		ActivityProvider provider = new ActivityProvider("XtremX", "");
 	}
 	
 	//Test to verify if Arguments of ActivityProvider's Constructor are valid
 	@Test (expected = ActivityException.class)
-	public void testArguments06() {
+	public void testBlankName() {
 		ActivityProvider provider = new ActivityProvider("XtremX", "      ");
-	}
-	
-	// Test to verify if ActivityProvider's name is unique
-	@Test (expected = ActivityException.class)
-	public void testUnique01() {
-		ActivityProvider provider = new ActivityProvider("XtremX", "Adventure++");
-		ActivityProvider provider1 = new ActivityProvider("Xtrem1", "Adventure++");
 	}
 	
 	// Test to verify if ActivityProvider's code is unique
 	@Test (expected = ActivityException.class)
-	public void testUnique02() {
+	public void testUniqueCode() {
+		ActivityProvider provider = new ActivityProvider("XtremX", "Adventure++");
+		ActivityProvider provider1 = new ActivityProvider("Xtrem1", "Adventure++");
+	}
+	
+	// Test to verify if ActivityProvider's name is unique
+	@Test (expected = ActivityException.class)
+	public void testUniqueName() {
 		ActivityProvider provider = new ActivityProvider("XtremX", "Adventure++");
 		ActivityProvider provider1 = new ActivityProvider("XtremX", "Adventure++1");
 	}
 	
-	// Test to verify if ActivityProvider's code is grader than 6
+	// Test to verify if ActivityProvider's code is greater than 6
 	@Test (expected = ActivityException.class)
-	public void testLength01() {
+	public void testCodeLenghtGreaterThanSix() {
 		ActivityProvider provider = new ActivityProvider("XtremX7", "Adventure++");
 	}
 	
 	// Test to verify if ActivityProvider's name is less than 6
 	@Test (expected = ActivityException.class)
-	public void testLength02() {
+	public void testCodeLenghtLessThanSix() {
 		ActivityProvider provider = new ActivityProvider("Xtre5", "Adventure++");
 	}
 
