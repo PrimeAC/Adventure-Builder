@@ -32,14 +32,14 @@ public class BookingContructorMethodTest {
 
 	// Test to verify if Activity's capacity wasn't exceeded
 	@Test
-	public void testCapacity01() {
+	public void testCapacity02Bookings() {
 		new Booking(this.provider, this.offer);
 		new Booking(this.provider, this.offer);
 	}
 
 	// Test to verify if Activity's capacity wasn't exceeded
 	@Test
-	public void testCapacity02() {
+	public void testCapacity03Bookings() {
 		new Booking(this.provider, this.offer);
 		new Booking(this.provider, this.offer);
 		new Booking(this.provider, this.offer);
@@ -47,7 +47,7 @@ public class BookingContructorMethodTest {
 
 	// Test to verify if Activity's capacity was exceeded
 	@Test (expected = ActivityException.class)
-	public void testCapacity03() {
+	public void testCapacity04Bookings() {
 		new Booking(this.provider, this.offer);
 		new Booking(this.provider, this.offer);
 		new Booking(this.provider, this.offer);
@@ -56,13 +56,13 @@ public class BookingContructorMethodTest {
 
 	// Test to verify if Arguments of Booking's Constructor are valid
 	@Test (expected = ActivityException.class)
-	public void testArguments01() {
+	public void testProviderNull() {
 		new Booking(null, this.offer);
 	}
 
 	// Test to verify if Arguments of Booking's Constructor are valid
 	@Test (expected = ActivityException.class)
-	public void testArguments02() {
+	public void testOfferNull() {
 		new Booking(this.provider, null);
 	}
 
