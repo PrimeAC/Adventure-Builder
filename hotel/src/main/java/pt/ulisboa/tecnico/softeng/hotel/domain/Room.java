@@ -22,11 +22,22 @@ public class Room {
 	private final Set<Booking> bookings = new HashSet<>();
 
 	public Room(Hotel hotel, String number, Type type) {
+		checkHotel(hotel);
+		checkType(type);
+
 		this.hotel = hotel;
 		this.number = number;
 		this.type = type;
 
 		this.hotel.addRoom(this);
+	}
+
+	private void checkHotel(Hotel hotel) {
+		if (hotel == null) { throw new HotelException("invalid hotel"); };
+	}
+
+	private void checkType(Type type) {
+		if (type == null) { throw new HotelException("invalid room type"); };
 	}
 
 	Hotel getHotel() {

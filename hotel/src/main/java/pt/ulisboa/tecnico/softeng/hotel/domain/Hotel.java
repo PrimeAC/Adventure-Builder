@@ -27,11 +27,17 @@ public class Hotel {
 	}
 
 	private void checkCode(String code) {
-		if (!isFormatOk(code) || !isLengthOk(code) || !isUnique(code)) throw new HotelException("invalid code format");
+		if (!isFormatOk(code) || !isLengthOk(code) || !isUniqueHotel(code)) throw new HotelException("invalid code format");
 	}
 
 	private void checkName(String name) {
 		if (!isFormatOk(name)) throw new HotelException("invalid name format (null, empty or blank characters)");
+
+	}
+
+	private void checkRoom(Room room) {
+		String number = room.getNumber();
+		if (!isRoomNumberOk(number) || !isUniqueRoom(number)) throw new HotelException("invalid room");
 	}
 
 	private boolean isFormatOk(String cn) {
@@ -42,12 +48,30 @@ public class Hotel {
 		return (code.length() == Hotel.CODE_SIZE);
 	}
 
-	private boolean isUnique(String code) {
+	private boolean isUniqueHotel(String code) {
 		for (Hotel h : hotels) {
 			if (h.getCode().equals(code))
 				return false;
 		}
 		return true;
+	}
+
+	private boolean isUniqueRoom(String number) {
+		for (Room room : rooms) {
+			if (room.getNumber().equals(number))
+				return false;
+		}
+		return true;
+	}
+
+	private boolean isRoomNumberOk(String number) {
+		// check if non-number character present in room number
+		try {
+			int n = Integer.parseInt(number);
+			return true;
+		} catch (NumberFormatException e) {
+			return false;
+		}
 	}
 
 	public Room hasVacancy(Room.Type type, LocalDate arrival, LocalDate departure) {
@@ -68,6 +92,7 @@ public class Hotel {
 	}
 
 	void addRoom(Room room) {
+		checkRoom(room);
 		this.rooms.add(room);
 	}
 
