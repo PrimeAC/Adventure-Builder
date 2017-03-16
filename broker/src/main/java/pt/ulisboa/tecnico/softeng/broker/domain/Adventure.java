@@ -50,7 +50,7 @@ public class Adventure {
 		
 		if(age<18) throw new BrokerException("min age >17");
 		if(age>99) throw new BrokerException("max age <100");
-		if(amount<0) throw new BrokerException("amount <0 should not exist");
+		if(amount<1) throw new BrokerException("amount <0 should not exist");
 		
 		if(IBAN.length()<5) throw new BrokerException("IBAN can't be shorter than 5 digits");
 		if(IBAN.trim().length()==0) throw new BrokerException("blank IBAN");

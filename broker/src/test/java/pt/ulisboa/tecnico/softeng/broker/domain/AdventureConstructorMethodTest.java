@@ -104,10 +104,10 @@ public class AdventureConstructorMethodTest {
 
 	@Test(expected=BrokerException.class)
 	public void minAmountTest() {
-		// amount > -1
+		// amount > 0
 		LocalDate begin = new LocalDate(2016, 12, 19);
 		LocalDate end = new LocalDate(2016, 12, 21);
-		 new Adventure(this.broker, end, begin, 20, "BK011234567", -1);
+		 new Adventure(this.broker, end, begin, 20, "BK011234567", 0);
 	}
 	
 	@Test(expected=BrokerException.class)
