@@ -45,8 +45,12 @@ public class Account {
 	}
 
 	public String withdraw(int amount) {
+		if(amount <= 0) {
+			throw new BankException("Invalid amount");
+		}
+
 		if (amount > this.balance) {
-			throw new BankException();
+			throw new BankException("Insufficient Funds!");
 		}
 
 		this.balance = this.balance - amount;
