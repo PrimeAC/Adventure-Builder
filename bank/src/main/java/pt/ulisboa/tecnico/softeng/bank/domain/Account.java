@@ -37,6 +37,7 @@ public class Account {
 	}
 
 	public String deposit(int amount) {
+		checkValue(amount);
 		this.balance = this.balance + amount;
 
 		Operation operation = new Operation(Operation.Type.DEPOSIT, this, amount);
@@ -62,6 +63,12 @@ public class Account {
 		}
 		else if(!bank.hasClient(client)) {
 			throw new BankException("client don't belong to bank");
+		}
+	}
+
+	void checkValue(int amount) {
+		if(amount <= 0 ) {
+			throw new BankException("invalid amount");
 		}
 	}
 }
