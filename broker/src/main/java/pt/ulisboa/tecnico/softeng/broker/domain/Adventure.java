@@ -40,22 +40,22 @@ public class Adventure {
 	}
 	
 	public void fullCheck() {
-		if(broker==null) throw new BrokerException("null broker");
-		if(begin==null) throw new BrokerException("null begin date");
-		if(end==null) throw new BrokerException("null end date");
-		if(IBAN==null) throw new BrokerException("null IBAN");
+		if(broker==null) throw new BrokerException("Null broker");
+		if(begin==null) throw new BrokerException("Null begin date");
+		if(end==null) throw new BrokerException("Null end date");
+		if(IBAN==null) throw new BrokerException("Null IBAN");
 		
-		if(end.isBefore(begin)) throw new BrokerException("begin date after end date");
-		if(begin.isBefore(LocalDate.now())) throw new BrokerException("begin date before actual date(today)");
+		if(end.isBefore(begin)) throw new BrokerException("Begin date after end date");
+		if(begin.isBefore(LocalDate.now())) throw new BrokerException("Begin date before actual date(today)");
 		
-		if(age<18) throw new BrokerException("min age >17");
-		if(age>99) throw new BrokerException("max age <100");
-		if(amount<1) throw new BrokerException("amount <0 should not exist");
+		if(age<18) throw new BrokerException("Min age >17");
+		if(age>99) throw new BrokerException("Max age <100");
+		if(amount<1) throw new BrokerException("Amount <0 should not exist");
 		
 		if(IBAN.length()<5) throw new BrokerException("IBAN can't be shorter than 5 digits");
-		if(IBAN.trim().length()==0) throw new BrokerException("blank IBAN");
+		if(IBAN.trim().length()==0) throw new BrokerException("IBAN composed only of whitespaces");
 		
-		if(broker.hasAdventure(this)) throw new BrokerException("duplicate Adventure");
+		if(broker.hasAdventure(this)) throw new BrokerException("Duplicate Adventure");
 	}
 
 	public String getID() {
