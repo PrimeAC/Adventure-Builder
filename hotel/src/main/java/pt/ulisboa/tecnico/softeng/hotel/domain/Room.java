@@ -68,7 +68,7 @@ public class Room {
 
 	public Booking reserve(Type type, LocalDate arrival, LocalDate departure) {
 		if (!isFree(type, arrival, departure)) {
-			throw new HotelException();
+			throw new HotelException("Room not available for selected dates or incorrect type");
 		}
 
 		Booking booking = new Booking(this.hotel, arrival, departure);
