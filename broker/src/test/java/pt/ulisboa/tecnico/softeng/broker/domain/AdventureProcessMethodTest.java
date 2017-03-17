@@ -39,6 +39,8 @@ public class AdventureProcessMethodTest {
 		Activity activity = new Activity(provider, "Bush Walking", 18, 80, 3);
 		new ActivityOffer(activity, this.begin, this.end);
 	}
+	
+	
 
 	@Test
 	public void success() {
