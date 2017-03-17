@@ -16,6 +16,9 @@ public class RoomConstructorMethodTest {
 		this.hotel = new Hotel("XPTO123", "Lisboa");
 	}
 
+	@After
+	public void tearDown() { Hotel.hotels.clear(); }
+
 	@Test
 	public void success() {
 		Room room = new Room(this.hotel, "01", Type.DOUBLE);
@@ -27,13 +30,13 @@ public class RoomConstructorMethodTest {
 	}
 
 	@Test (expected = HotelException.class)
-	public void uniqueRoomNumberDifferentType {
+	public void uniqueRoomNumberDifferentType() {
 		Room room1 = new Room(this.hotel, "01", Type.DOUBLE);
 		Room room2 = new Room(this.hotel, "01", Type.SINGLE);
 	}
 
 	@Test (expected = HotelException.class)
-	public void uniqueRoomNumberSameType {
+	public void uniqueRoomNumberSameType() {
 		Room room1 = new Room(this.hotel, "01", Type.SINGLE);
 		Room room2 = new Room(this.hotel, "01", Type.SINGLE);
 	}
@@ -62,17 +65,8 @@ public class RoomConstructorMethodTest {
 	@Test (expected = HotelException.class)
 	public void nullHotel() { Room room = new Room(null,"01", Type.SINGLE); }
 
-	// not a hotel class in input
-	@Test (expected = HotelException.class)
-	public void notHotel() { Room room = new Room("not a hotel", "01", Type.SINGLE); }
-
 	// null room type input
 	@Test (expected = HotelException.class)
 	public void nullRoomType() { Room room = new Room(this.hotel,"01", null); }
 
-	// invalid room type input
-	@Test (expected = HotelException.class)
-	public void invalidRoomType() { Room room = new Room(this.hotel,"01", "invalid type"); }
-
-	public void tearDown() { Hotel.hotels.clear(); }
 }
