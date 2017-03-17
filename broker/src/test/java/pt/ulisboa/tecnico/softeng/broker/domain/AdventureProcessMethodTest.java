@@ -17,8 +17,8 @@ import pt.ulisboa.tecnico.softeng.hotel.domain.Room;
 import pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type;
 
 public class AdventureProcessMethodTest {
-	private final LocalDate begin = new LocalDate(2016, 12, 19);
-	private final LocalDate end = new LocalDate(2016, 12, 19);
+	private final LocalDate begin = LocalDate.now();
+	private final LocalDate end = begin.plusDays(1);
 	private Broker broker;
 	private String IBAN;
 

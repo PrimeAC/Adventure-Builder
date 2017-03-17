@@ -11,6 +11,9 @@ import pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type;
 public class RoomReserveMethodTest {
 	Room room;
 
+	LocalDate arrival = LocalDate.now();
+	LocalDate departure = arrival.plusDays(4);
+
 	@Before
 	public void setUp() {
 		Hotel hotel = new Hotel("XPTO123", "Lisboa");
@@ -19,8 +22,7 @@ public class RoomReserveMethodTest {
 
 	@Test
 	public void success() {
-		LocalDate arrival = new LocalDate(2016, 12, 19);
-		LocalDate departure = new LocalDate(2016, 12, 24);
+
 		Booking booking = this.room.reserve(Type.SINGLE, arrival, departure);
 
 		Assert.assertTrue(booking.getReference().length() > 0);

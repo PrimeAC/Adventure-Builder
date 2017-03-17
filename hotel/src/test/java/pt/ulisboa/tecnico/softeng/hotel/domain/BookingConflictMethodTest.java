@@ -10,8 +10,8 @@ import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 public class BookingConflictMethodTest {
 	Booking booking;
 
-	private LocalDate bookingArrival = new LocalDate(2016, 12, 19);
-	private LocalDate bookingDeparture = new LocalDate(2016, 12, 24);
+	private LocalDate bookingArrival = LocalDate.now();
+	private LocalDate bookingDeparture = bookingArrival.plusDays(5);
 
 	@Before
 	public void setUp() {
@@ -22,8 +22,8 @@ public class BookingConflictMethodTest {
 
 	@Test
 	public void noConflictBeforeLimitCase() {
-		LocalDate arrival = new LocalDate(2016, 12, 16);
-		LocalDate departure = new LocalDate(2016, 12, 19);
+		LocalDate departure = bookingArrival;
+		LocalDate arrival = departure.minusDays(3);
 
 		Assert.assertFalse(this.booking.conflict(arrival, departure));
 	}
@@ -38,8 +38,8 @@ public class BookingConflictMethodTest {
 
 	@Test
 	public void noConflictAfterLimitCase() {
-		LocalDate arrival = new LocalDate(2016, 12, 24);
-		LocalDate departure = new LocalDate(2016, 12, 30);
+		LocalDate arrival = bookingDeparture;
+		LocalDate departure = arrival.plusDays(3);
 
 		Assert.assertFalse(this.booking.conflict(arrival, departure));
 	}
