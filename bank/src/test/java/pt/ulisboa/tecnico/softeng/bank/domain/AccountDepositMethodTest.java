@@ -38,6 +38,16 @@ public class AccountDepositMethodTest {
 		String reference = this.account.deposit(0);
 	}
 
+	@Test
+	public void validBorderAmount() {
+		String reference = this.account.deposit(1);
+	}
+
+	@Test
+	public void invalidBorderAmount() {
+		String reference = this.account.deposit(-1);
+	}
+
 	@After
 	public void tearDown() {
 		Bank.banks.clear();
