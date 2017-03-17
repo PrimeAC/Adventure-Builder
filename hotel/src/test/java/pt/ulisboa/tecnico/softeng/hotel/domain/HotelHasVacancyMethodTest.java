@@ -11,6 +11,9 @@ import pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type;
 public class HotelHasVacancyMethodTest {
 	private Hotel hotel;
 
+	private LocalDate arrival = LocalDate.now();
+	private LocalDate departure = arrival.plusDays(2);
+
 	@Before
 	public void setUp() {
 		this.hotel = new Hotel("XPTO123", "Paris");
@@ -19,8 +22,6 @@ public class HotelHasVacancyMethodTest {
 
 	@Test
 	public void roomAvailable() {
-		LocalDate arrival = new LocalDate(2016, 12, 19);
-		LocalDate departure = new LocalDate(2016, 12, 21);
 
 		Room room = this.hotel.hasVacancy(Type.DOUBLE, arrival, departure);
 
@@ -30,9 +31,6 @@ public class HotelHasVacancyMethodTest {
 	@Test
 	public void roomTypeNotAvailable() {
 
-		LocalDate arrival = new LocalDate(2016, 12, 18);
-		LocalDate departure = new LocalDate(2016, 12, 22);
-
 		Room room = this.hotel.hasVacancy(Type.SINGLE, arrival, departure);
 
 		Assert.assertEquals(null, room);
@@ -40,13 +38,10 @@ public class HotelHasVacancyMethodTest {
 
 	@Test
 	public void oneRoomNotAvailable() {
-		LocalDate booked_arrival = new LocalDate(2016, 12, 19);
-		LocalDate booked_departure = new LocalDate(2016, 12, 21);
+		LocalDate booked_arrival = arrival.minusDays(2);
+		LocalDate booked_departure = arrival.plusDays(1);
 
 		this.hotel.reserveHotel(Type.DOUBLE, booked_arrival, booked_departure);
-
-		LocalDate arrival = new LocalDate(2016, 12, 18);
-		LocalDate departure = new LocalDate(2016, 12, 22);
 
 		Room room = this.hotel.hasVacancy(Type.DOUBLE, arrival, departure);
 
@@ -57,14 +52,11 @@ public class HotelHasVacancyMethodTest {
 	public void twoRoomsAvailable() {
 		new Room(this.hotel, "02", Type.SINGLE);
 
-		LocalDate booked_arrival = new LocalDate(2016, 12, 19);
-		LocalDate booked_departure = new LocalDate(2016, 12, 21);
+		LocalDate booked_arrival = arrival.plusDays(2);
+		LocalDate booked_departure = arrival.plusDays(5);
 
 		this.hotel.reserveHotel(Type.DOUBLE, booked_arrival, booked_departure);
 		this.hotel.reserveHotel(Type.SINGLE, booked_arrival, booked_departure);
-
-		LocalDate arrival = new LocalDate(2016, 12, 22);
-		LocalDate departure = new LocalDate(2016, 12, 24);
 
 		Room room1 = this.hotel.hasVacancy(Type.DOUBLE, arrival, departure);
 		Room room2 = this.hotel.hasVacancy(Type.SINGLE, arrival, departure);
@@ -77,14 +69,11 @@ public class HotelHasVacancyMethodTest {
 	public void twoRoomsNotAvailable() {
 		new Room(this.hotel, "02", Type.SINGLE);
 
-		LocalDate booked_arrival = new LocalDate(2016, 12, 19);
-		LocalDate booked_departure = new LocalDate(2016, 12, 21);
+		LocalDate booked_arrival = arrival.minusDays(2);
+		LocalDate booked_departure = arrival.plusDays(1);
 
 		this.hotel.reserveHotel(Type.DOUBLE, booked_arrival, booked_departure);
 		this.hotel.reserveHotel(Type.SINGLE, booked_arrival, booked_departure);
-
-		LocalDate arrival = new LocalDate(2016, 12, 18);
-		LocalDate departure = new LocalDate(2016, 12, 22);
 
 		Room room1 = this.hotel.hasVacancy(Type.DOUBLE, arrival, departure);
 		Room room2 = this.hotel.hasVacancy(Type.SINGLE, arrival, departure);
