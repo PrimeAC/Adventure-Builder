@@ -16,7 +16,6 @@ public class Broker {
 	private final String code;
 	private final String name;
 	private final Set<Adventure> adventures = new HashSet<>();
-
 	public Broker(String code, String name) {
 		checkCode(code);
 		this.code = code;
