@@ -85,12 +85,14 @@ public class Bank {
 	}
 
 	public Account getAccount(String IBAN) {
+		if(IBAN==null || IBAN.trim().isEmpty()) throw new BankException("Invalid IBAN");
+		if(this.accounts.isEmpty()) throw new BankException("No Accounts found");
 		for (Account account : this.accounts) {
 			if (account.getIBAN().equals(IBAN)) {
 				return account;
 			}
 		}
-		throw new BankException();
+		throw new BankException("No account with given IBAN found when searching");
 	}
 
 	public Operation getOperation(String reference) {

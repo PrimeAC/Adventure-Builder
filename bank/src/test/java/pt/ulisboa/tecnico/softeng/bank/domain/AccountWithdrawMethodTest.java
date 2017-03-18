@@ -41,7 +41,24 @@ public class AccountWithdrawMethodTest {
 
 	@Test(expected = BankException.class)
 	public void testCheckValueSuperiorBalance() {
-		this.account.withdraw(200);
+		this.account.withdraw(500);
+	}
+
+	@Test(expected = BankException.class)
+	public void testCheckValueSuperiorLimitBalance() {
+		this.account.withdraw(101);
+	}
+
+	@Test
+	public void testCheckValueEqualBalance() {
+		this.account.withdraw(100);
+		Assert.assertEquals(0, this.account.getBalance());
+	}
+
+	@Test
+	public void testCheckValueInferiorLimitBalance() {
+		this.account.withdraw(99);
+		Assert.assertEquals(1, this.account.getBalance());
 	}
 
 	@After

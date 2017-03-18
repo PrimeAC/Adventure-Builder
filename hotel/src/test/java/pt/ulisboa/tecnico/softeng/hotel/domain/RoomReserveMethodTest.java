@@ -15,6 +15,9 @@ public class RoomReserveMethodTest {
 	private LocalDate departure;
 	private Booking booking, booking2;
 
+	LocalDate arrival = LocalDate.now();
+	LocalDate departure = arrival.plusDays(4);
+
 	@Before
 	public void setUp() {
 		Hotel hotel = new Hotel("XPTO123", "Lisboa");
