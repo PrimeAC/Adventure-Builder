@@ -67,6 +67,9 @@ public class Room {
 	}
 
 	public Booking reserve(Type type, LocalDate arrival, LocalDate departure) {
+		checkType(type);
+		checkDate(arrival, departure);
+
 		if (!isFree(type, arrival, departure)) {
 			throw new HotelException("Room not available for selected dates or incorrect type");
 		}
@@ -75,6 +78,10 @@ public class Room {
 		this.bookings.add(booking);
 
 		return booking;
+	}
+
+	private void checkDate(LocalDate date1, LocalDate date2) {
+		if (date1 == null || date2 == null) throw new HotelException("Null date entered");
 	}
 
 }

@@ -20,8 +20,9 @@ public class RoomReserveMethodTest {
 		Hotel hotel = new Hotel("XPTO123", "Lisboa");
 		this.room = new Room(hotel, "01", Type.SINGLE);
 
-		arrival = new LocalDate(2016, 12, 19);
-		departure = new LocalDate(2016, 12, 24);
+		arrival = new LocalDate();
+		arrival.now();
+		departure = arrival.plusDays(5);
 		booking = this.room.reserve(Type.SINGLE, arrival, departure);
 	}
 
@@ -34,8 +35,8 @@ public class RoomReserveMethodTest {
 
 	@Test
 	public void noConflictBefore() {
-		LocalDate arrival2 = new LocalDate(2016, 12, 5);
-		LocalDate departure2 = new LocalDate(2016, 12, 19);
+		LocalDate arrival2 = arrival.minusDays(5);
+		LocalDate departure2 = arrival;
 		booking2 = this.room.reserve(Type.SINGLE, arrival2, departure2);
 
 		Assert.assertTrue(booking2.getReference().length() > 0);
@@ -45,8 +46,8 @@ public class RoomReserveMethodTest {
 
 	@Test
 	public void noConflictAfter() {
-		LocalDate arrival2 = new LocalDate(2016, 12, 24);
-		LocalDate departure2 = new LocalDate(2016, 12, 28);
+		LocalDate arrival2 = departure;
+		LocalDate departure2 = departure.plusDays(5);
 		booking2 = this.room.reserve(Type.SINGLE, arrival2, departure2);
 
 		Assert.assertTrue(booking2.getReference().length() > 0);
@@ -56,29 +57,48 @@ public class RoomReserveMethodTest {
 
 	@Test (expected = HotelException.class)
 	public void checkWrongType() {
-		LocalDate arrival = new LocalDate(2016, 12, 5);
-		LocalDate departure = new LocalDate(2016, 12, 19);
-		this.room.reserve(Type.DOUBLE, arrival, departure);
+		LocalDate arrival2 = departure.plusDays(5);
+		LocalDate departure2 = departure.plusDays(10);
+		this.room.reserve(Type.DOUBLE, arrival2, departure2);
+	}
+
+	@Test (expected = HotelException.class)
+	public void checkNullType() {
+		LocalDate arrival2 = departure.plusDays(5);
+		LocalDate departure2 = departure.plusDays(10);
+		this.room.reserve(null, arrival2, departure2);
+	}
+
+	@Test (expected = HotelException.class)
+	public void checkNullArrival() {
+		LocalDate departure2 = arrival.minusDays(5);
+		this.room.reserve(Type.SINGLE, null, departure2);
+	}
+
+	@Test (expected = HotelException.class)
+	public void checkNullDeparture() {
+		LocalDate arrival = departure.plusDays(5);
+		this.room.reserve(Type.SINGLE, arrival, null);
 	}
 
 	@Test (expected = HotelException.class)
 	public void checkDoubleBookingStart() {
-		LocalDate arrival2 = new LocalDate(2016, 12, 20);
-		LocalDate departure2 = new LocalDate(2016, 12, 27);
+		LocalDate arrival2 = arrival.plusDays(2);
+		LocalDate departure2 = departure.plusDays(2);
 		this.room.reserve(Type.SINGLE, arrival2, departure2);
 	}
 
 	@Test (expected = HotelException.class)
 	public void checkDoubleBookingMiddle() {
-		LocalDate arrival2 = new LocalDate(2016, 12, 20);
-		LocalDate departure2 = new LocalDate(2016, 12, 22);
+		LocalDate arrival2 = arrival.plusDays(1);
+		LocalDate departure2 = departure.minusDays(1);
 		this.room.reserve(Type.SINGLE, arrival2, departure2);
 	}
 
 	@Test (expected = HotelException.class)
 	public void checkDoubleBookingEnd() {
-		LocalDate arrival2 = new LocalDate(2016, 12, 17);
-		LocalDate departure2 = new LocalDate(2016, 12, 20);
+		LocalDate arrival2 = arrival.minusDays(2);
+		LocalDate departure2 = departure.minusDays(2);
 		this.room.reserve(Type.SINGLE, arrival2, departure2);
 	}
 
