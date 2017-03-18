@@ -10,22 +10,15 @@ import pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
 public class RoomReserveMethodTest {
-	Room room;
-	private LocalDate arrival;
-	private LocalDate departure;
+	private Room room;
 	private Booking booking, booking2;
-
-	LocalDate arrival = LocalDate.now();
-	LocalDate departure = arrival.plusDays(4);
+	private LocalDate arrival = LocalDate.now().plusDays(10);
+	private LocalDate departure = arrival.plusDays(5);
 
 	@Before
 	public void setUp() {
 		Hotel hotel = new Hotel("XPTO123", "Lisboa");
 		this.room = new Room(hotel, "01", Type.SINGLE);
-
-		arrival = new LocalDate();
-		arrival.now();
-		departure = arrival.plusDays(5);
 		booking = this.room.reserve(Type.SINGLE, arrival, departure);
 	}
 
