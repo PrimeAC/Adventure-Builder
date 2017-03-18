@@ -43,7 +43,7 @@ public class AccountDepositMethodTest {
 		String reference = this.account.deposit(1);
 	}
 
-	@Test
+	@Test(expected = BankException.class)
 	public void invalidBorderAmount() {
 		String reference = this.account.deposit(-1);
 	}
