@@ -27,17 +27,18 @@ public class Hotel {
 	}
 
 	private void checkCode(String code) {
-		if (!isFormatOk(code) || !isLengthOk(code) || !isUniqueHotel(code)) throw new HotelException("invalid code format");
+		if (!isFormatOk(code) || !isLengthOk(code)) throw new HotelException("Invalid code format");
+		if (!isUniqueHotel(code)) throw new HotelException("Code in use");
 	}
 
 	private void checkName(String name) {
-		if (!isFormatOk(name)) throw new HotelException("invalid name format (null, empty or blank characters)");
+		if (!isFormatOk(name)) throw new HotelException("Invalid name format (null, empty or blank characters)");
 
 	}
 
 	private void checkRoom(Room room) {
 		String number = room.getNumber();
-		if (!isRoomNumberOk(number) || !isUniqueRoom(number)) throw new HotelException("invalid room");
+		if (!isRoomNumberOk(number) || !isUniqueRoom(number)) throw new HotelException("Invalid room");
 	}
 
 	private boolean isFormatOk(String cn) {
