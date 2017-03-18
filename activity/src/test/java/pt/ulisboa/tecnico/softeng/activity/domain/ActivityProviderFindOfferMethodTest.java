@@ -15,8 +15,6 @@ public class ActivityProviderFindOfferMethodTest {
 	private ActivityOffer offer1_1;
 	private ActivityOffer offer1_2;
 	private ActivityOffer offer2_1;
-	private ActivityOffer offer2_2;
-	private ActivityOffer offer3_1;
 
 	@Before
 	public void setUp() {
@@ -25,198 +23,132 @@ public class ActivityProviderFindOfferMethodTest {
 		//Creating activities
 		Activity activity1 = new Activity(this.provider, "Bush Walking", 18, 30, 10);
 		Activity activity2 = new Activity(this.provider, "Sky Diving", 30, 50, 15);
-		Activity activity3 = new Activity(this.provider, "Swimming with Sharks", 18, 80, 12);
 
 		this.begin = LocalDate.now().plusDays(4);
 		this.end = begin.plusDays(7);
 
 		//Creating offers for activity1
 		this.offer1_1 = new ActivityOffer(activity1, this.begin, this.end);
-		this.offer1_2 = new ActivityOffer(activity1, this.end.plusDays(1), this.end.plusDays(8));
+		this.offer1_2 = new ActivityOffer(activity1, this.end.plusDays(3), this.end.plusDays(3));
 
 		//Creating offers for activity2
 		this.offer2_1 = new ActivityOffer(activity2, this.begin, this.end);
-		this.offer2_2 = new ActivityOffer(activity2, this.end.plusDays(1), this.end.plusDays(8));
 
-		//Creating offers for activity3
-		this.offer3_1 = new ActivityOffer(activity3, this.begin.plusDays(3), this.end.plusDays(3));
 	}
 
+	/**
+	 * Test to find if there's an {@link ActivityOffer} completely in the
+	 * range of the begin and end day minus one day it should not find any
+	 */
 	@Test
-	public void success01() {
+	public void testNoOfferAvailableForEndMinusOne() {
 		Set<ActivityOffer> offers = this.provider.findOffer(this.begin, this.end.minusDays(1), 18);
 
 		Assert.assertEquals(0, offers.size());
 	}
 
+	/**
+	 * Test to find if there's an {@link ActivityOffer} completely in the
+	 * range of the begin and end day, it should find offer1_1 that matches
+	 * those dates and age
+	 */
 	@Test
-	public void success02() {
+	public void testOneOfferAvailable() {
 		Set<ActivityOffer> offers = this.provider.findOffer(this.begin, this.end, 18);
 
 		Assert.assertEquals(1, offers.size());
 		Assert.assertTrue(offers.contains(this.offer1_1));
 	}
 
+	/**
+	 * Test to find if there's an {@link ActivityOffer} completely in the
+	 * range of the begin and end plus one day, it should find offer1_1
+	 * that matches those dates and age
+	 */
 	@Test
-	public void success03() {
-		Set<ActivityOffer> offers = this.provider.findOffer(this.begin, this.end.plusDays(2), 18);
+	public void testOneOfferAvailableForEndPlusOne() {
+		Set<ActivityOffer> offers = this.provider.findOffer(this.begin, this.end.plusDays(1), 18);
 
 		Assert.assertEquals(1, offers.size());
 		Assert.assertTrue(offers.contains(this.offer1_1));
 	}
 
+	/**
+	 * Test to find if there's an {@link ActivityOffer} completely in the
+	 * range of the begin minus one day and end it should not find any
+	 */
 	@Test
-	public void success04() {
+	public void testOneOfferAvailableForBeginMinusOne() {
+		Set<ActivityOffer> offers = this.provider.findOffer(this.begin.minusDays(1), this.end, 18);
+
+		Assert.assertEquals(1, offers.size());
+		Assert.assertTrue(offers.contains(this.offer1_1));
+	}
+
+	/**
+	 * Test to find if there's an {@link ActivityOffer} completely in the
+	 * range of the begin plus one day and end it should not find any
+	 */
+	@Test
+	public void testNoOfferAvailableForBeginPlusOne() {
+		Set<ActivityOffer> offers = this.provider.findOffer(this.begin.plusDays(1), this.end, 18);
+
+		Assert.assertEquals(0, offers.size());
+	}
+
+	/**
+	 * Test to find if there's two {@link ActivityOffer} completely in the
+	 * range of the begin of one offer and end day of another, it should
+	 * find offer1_1 and offer3_1 that matches those dates and age
+	 */
+	@Test
+	public void testTwoOffersAvailable() {
 		Set<ActivityOffer> offers = this.provider.findOffer(this.begin, this.end.plusDays(3), 18);
 
 		Assert.assertEquals(2, offers.size());
 		Assert.assertTrue(offers.contains(this.offer1_1));
-		Assert.assertTrue(offers.contains(this.offer3_1));
+		Assert.assertTrue(offers.contains(this.offer1_2));
 	}
 
+	/**
+	 * Test to find if there's an {@link ActivityOffer} where the age is lower
+	 * than the maximum and minimum of activity
+	 */
 	@Test
-	public void success05() {
-		Set<ActivityOffer> offers = this.provider.findOffer(this.begin, this.end.plusDays(7), 18);
+	public void testAgeLowerThanMaxAndMin() {
+		Set<ActivityOffer> offers = this.provider.findOffer(this.begin, this.end.plusDays(3), 29);
 
 		Assert.assertEquals(2, offers.size());
 		Assert.assertTrue(offers.contains(this.offer1_1));
-		Assert.assertTrue(offers.contains(this.offer3_1));
-	}
-
-	@Test
-	public void success06() {
-		Set<ActivityOffer> offers = this.provider.findOffer(this.begin, this.end.plusDays(8), 18);
-
-		Assert.assertEquals(3, offers.size());
-		Assert.assertTrue(offers.contains(this.offer1_1));
-		Assert.assertTrue(offers.contains(this.offer1_2));
-		Assert.assertTrue(offers.contains(this.offer3_1));
-	}
-
-	@Test
-	public void success07() {
-		Set<ActivityOffer> offers = this.provider.findOffer(this.begin.plusDays(1), this.end.plusDays(8), 18);
-
-		Assert.assertEquals(2, offers.size());
-		Assert.assertTrue(offers.contains(this.offer1_2));
-		Assert.assertTrue(offers.contains(this.offer3_1));
-	}
-
-	@Test
-	public void success08() {
-		Set<ActivityOffer> offers = this.provider.findOffer(this.begin.plusDays(3), this.end.plusDays(8), 18);
-
-		Assert.assertEquals(2, offers.size());
-		Assert.assertTrue(offers.contains(this.offer1_2));
-		Assert.assertTrue(offers.contains(this.offer3_1));
-	}
-
-	@Test
-	public void success09() {
-		Set<ActivityOffer> offers = this.provider.findOffer(this.begin.plusDays(4), this.end.plusDays(8), 18);
-
-		Assert.assertEquals(1, offers.size());
 		Assert.assertTrue(offers.contains(this.offer1_2));
 	}
 
+	/**
+	 * Test to find if there's an {@link ActivityOffer} where the age is equal
+	 * than the maximum and minimum of activity
+	 */
 	@Test
-	public void success10() {
-		Set<ActivityOffer> offers = this.provider.findOffer(this.end.plusDays(1), this.end.plusDays(8), 18);
+	public void testAgeEqualsMaxAndMin() {
+		Set<ActivityOffer> offers = this.provider.findOffer(this.begin, this.end.plusDays(3), 30);
 
-		Assert.assertEquals(1, offers.size());
-		Assert.assertTrue(offers.contains(this.offer1_2));
-	}
-
-	@Test
-	public void success11() {
-		Set<ActivityOffer> offers = this.provider.findOffer(this.end.plusDays(2), this.end.plusDays(8), 18);
-
-		Assert.assertEquals(0, offers.size());
-	}
-
-	@Test
-	public void success12() {
-		Set<ActivityOffer> offers = this.provider.findOffer(this.begin, this.end.plusDays(8), 29);
-
-		Assert.assertEquals(3, offers.size());
-		Assert.assertTrue(offers.contains(this.offer1_1));
-		Assert.assertTrue(offers.contains(this.offer1_2));
-		Assert.assertTrue(offers.contains(this.offer3_1));
-	}
-
-	@Test
-	public void success13() {
-		Set<ActivityOffer> offers = this.provider.findOffer(this.begin, this.end.plusDays(8), 30);
-
-		Assert.assertEquals(5, offers.size());
+		Assert.assertEquals(4, offers.size());
 		Assert.assertTrue(offers.contains(this.offer1_1));
 		Assert.assertTrue(offers.contains(this.offer1_2));
 		Assert.assertTrue(offers.contains(this.offer2_1));
-		Assert.assertTrue(offers.contains(this.offer2_2));
-		Assert.assertTrue(offers.contains(this.offer3_1));
+
 	}
 
+	/**
+	 * Test to find if there's an {@link ActivityOffer} where the age is higher
+	 * than the maximum and minimum of activity
+	 */
 	@Test
-	public void success14() {
-		Set<ActivityOffer> offers = this.provider.findOffer(this.begin, this.end.plusDays(8), 31);
-
-		Assert.assertEquals(3, offers.size());
-		Assert.assertTrue(offers.contains(this.offer2_1));
-		Assert.assertTrue(offers.contains(this.offer2_2));
-		Assert.assertTrue(offers.contains(this.offer3_1));
-	}
-
-	@Test
-	public void success15() {
-		Set<ActivityOffer> offers = this.provider.findOffer(this.begin, this.end.plusDays(8), 49);
-
-		Assert.assertEquals(3, offers.size());
-		Assert.assertTrue(offers.contains(this.offer2_1));
-		Assert.assertTrue(offers.contains(this.offer2_2));
-		Assert.assertTrue(offers.contains(this.offer3_1));
-	}
-
-	@Test
-	public void success16() {
-		Set<ActivityOffer> offers = this.provider.findOffer(this.begin, this.end.plusDays(8), 50);
-
-		Assert.assertEquals(3, offers.size());
-		Assert.assertTrue(offers.contains(this.offer2_1));
-		Assert.assertTrue(offers.contains(this.offer2_2));
-		Assert.assertTrue(offers.contains(this.offer3_1));
-	}
-
-	@Test
-	public void success17() {
-		Set<ActivityOffer> offers = this.provider.findOffer(this.begin, this.end.plusDays(8), 51);
+	public void testAgeHigherThanMaxAndMin() {
+		Set<ActivityOffer> offers = this.provider.findOffer(this.begin.plusDays(1), this.end.plusDays(8), 31);
 
 		Assert.assertEquals(1, offers.size());
-		Assert.assertTrue(offers.contains(this.offer3_1));
+		Assert.assertTrue(offers.contains(this.offer2_1));
 	}
-
-	@Test
-	public void success18() {
-		Set<ActivityOffer> offers = this.provider.findOffer(this.begin, this.end.plusDays(8), 80);
-
-		Assert.assertEquals(1, offers.size());
-		Assert.assertTrue(offers.contains(this.offer3_1));
-	}
-
-	@Test
-	public void success19() {
-		Set<ActivityOffer> offers = this.provider.findOffer(this.begin, this.end.plusDays(8), 81);
-
-		Assert.assertEquals(0, offers.size());
-	}
-
-    @Test
-    public void success20() {
-        Set<ActivityOffer> offers = this.provider.findOffer(this.begin.minusDays(4), this.end, 30);
-
-        Assert.assertEquals(2, offers.size());
-        Assert.assertTrue(offers.contains(this.offer1_1));
-        Assert.assertTrue(offers.contains(this.offer2_1));
-    }
 
 	@After
 	public void tearDown() {
