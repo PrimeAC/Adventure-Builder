@@ -22,11 +22,22 @@ public class Room {
 	private final Set<Booking> bookings = new HashSet<>();
 
 	public Room(Hotel hotel, String number, Type type) {
+		checkHotel(hotel);
+		checkType(type);
+
 		this.hotel = hotel;
 		this.number = number;
 		this.type = type;
 
 		this.hotel.addRoom(this);
+	}
+
+	private void checkHotel(Hotel hotel) {
+		if (hotel == null) { throw new HotelException("invalid hotel"); };
+	}
+
+	private void checkType(Type type) {
+		if (type == null) { throw new HotelException("invalid room type"); };
 	}
 
 	Hotel getHotel() {
@@ -56,14 +67,21 @@ public class Room {
 	}
 
 	public Booking reserve(Type type, LocalDate arrival, LocalDate departure) {
+		checkType(type);
+		checkDate(arrival, departure);
+
 		if (!isFree(type, arrival, departure)) {
-			throw new HotelException();
+			throw new HotelException("Room not available for selected dates or incorrect type");
 		}
 
 		Booking booking = new Booking(this.hotel, arrival, departure);
 		this.bookings.add(booking);
 
 		return booking;
+	}
+
+	private void checkDate(LocalDate date1, LocalDate date2) {
+		if (date1 == null || date2 == null) throw new HotelException("Null date entered");
 	}
 
 }

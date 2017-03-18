@@ -11,6 +11,7 @@ public class Account {
 	private int balance;
 
 	public Account(Bank bank, Client client) {
+		checkArguments(bank,client);
 		this.bank = bank;
 		this.IBAN = bank.getCode() + Integer.toString(++Account.counter);
 		this.client = client;
@@ -36,6 +37,7 @@ public class Account {
 	}
 
 	public String deposit(int amount) {
+		checkValue(amount);
 		this.balance = this.balance + amount;
 
 		Operation operation = new Operation(Operation.Type.DEPOSIT, this, amount);
@@ -43,8 +45,12 @@ public class Account {
 	}
 
 	public String withdraw(int amount) {
+		if(amount <= 0) {
+			throw new BankException("Invalid amount");
+		}
+
 		if (amount > this.balance) {
-			throw new BankException();
+			throw new BankException("Insufficient Funds!");
 		}
 
 		this.balance = this.balance - amount;
@@ -52,4 +58,21 @@ public class Account {
 		return new Operation(Operation.Type.WITHDRAW, this, amount).getReference();
 	}
 
+	public void checkArguments(Bank bank, Client client) {
+		if(bank == null) {
+			throw new BankException("invalid bank");
+		}
+		else if(client == null) {
+			throw new BankException("invalid client");
+		}
+		else if(!bank.hasClient(client)) {
+			throw new BankException("client don't belong to bank");
+		}
+	}
+
+	void checkValue(int amount) {
+		if(amount <= 0 ) {
+			throw new BankException("invalid amount");
+		}
+	}
 }

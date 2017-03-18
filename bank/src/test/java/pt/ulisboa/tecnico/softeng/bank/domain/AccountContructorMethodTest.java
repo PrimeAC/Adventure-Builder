@@ -4,9 +4,10 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import pt.ulisboa.tecnico.softeng.bank.exception.BankException;
 
 public class AccountContructorMethodTest {
-	Bank bank;
+	Bank bank, bank1;
 	Client client;
 
 	@Before
@@ -26,6 +27,23 @@ public class AccountContructorMethodTest {
 		Assert.assertEquals(1, this.bank.getNumberOfAccounts());
 		Assert.assertTrue(this.bank.hasClient(this.client));
 	}
+
+	@Test(expected=BankException.class)
+	public void nullClient() {
+		Account account = new Account(this.bank, null);
+	}
+
+	@Test(expected=BankException.class)
+	public void nullBank() {
+		Account account = new Account(null, this.client);
+	}
+
+	@Test(expected=BankException.class)
+	public void notClient() {
+		this.bank1 = new Bank("Moneyz", "BK21");
+		Account account = new Account(this.bank1, this.client);
+	}
+
 
 	@After
 	public void tearDown() {

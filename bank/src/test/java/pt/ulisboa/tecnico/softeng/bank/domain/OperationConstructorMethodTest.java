@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import pt.ulisboa.tecnico.softeng.bank.domain.Operation.Type;
+import pt.ulisboa.tecnico.softeng.bank.exception.BankException;
 
 public class OperationConstructorMethodTest {
 	private final Logger logger = LoggerFactory.getLogger(OperationConstructorMethodTest.class);
@@ -33,6 +34,26 @@ public class OperationConstructorMethodTest {
 		Assert.assertEquals(1000, operation.getValue());
 		Assert.assertTrue(operation.getTime() != null);
 		Assert.assertEquals(operation, this.bank.getOperation(operation.getReference()));
+	}
+
+	@Test(expected = BankException.class)
+	public void nullAccount() {
+		Operation operation = new Operation(Type.DEPOSIT, null, 1000);
+	}
+
+	@Test(expected = BankException.class)
+	public void nullType() {
+		Operation operation = new Operation(null, this.account, 1000);
+	}
+
+	@Test(expected = BankException.class)
+	public void negativeValue() {
+		Operation operation = new Operation(Type.DEPOSIT, this.account, -50);
+	}
+
+	@Test(expected = BankException.class)
+	public void zeroValue() {
+		Operation operation = new Operation(Type.DEPOSIT, this.account, 0);
 	}
 
 	@After

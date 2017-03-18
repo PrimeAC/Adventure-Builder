@@ -5,6 +5,7 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import pt.ulisboa.tecnico.softeng.activity.domain.exception.ActivityException;
 
 public class BookingContructorMethodTest {
 	private ActivityProvider provider;
@@ -13,10 +14,10 @@ public class BookingContructorMethodTest {
 	@Before
 	public void setUp() {
 		this.provider = new ActivityProvider("XtremX", "ExtremeAdventure");
-		Activity activity = new Activity(this.provider, "Bush Walking", 18, 80, 25);
+		Activity activity = new Activity(this.provider, "Bush Walking", 18, 40, 3);
 
-		LocalDate begin = new LocalDate(2016, 12, 19);
-		LocalDate end = new LocalDate(2016, 12, 21);
+		LocalDate begin = LocalDate.now();
+		LocalDate end = begin.plusDays(3);
 		this.offer = new ActivityOffer(activity, begin, end);
 	}
 
@@ -29,9 +30,44 @@ public class BookingContructorMethodTest {
 		Assert.assertEquals(1, this.offer.getNumberOfBookings());
 	}
 
+	// Test to verify if Activity's capacity wasn't exceeded
+	@Test
+	public void testCapacity02Bookings() {
+		new Booking(this.provider, this.offer);
+		new Booking(this.provider, this.offer);
+	}
+
+	// Test to verify if Activity's capacity wasn't exceeded
+	@Test
+	public void testCapacity03Bookings() {
+		new Booking(this.provider, this.offer);
+		new Booking(this.provider, this.offer);
+		new Booking(this.provider, this.offer);
+	}
+
+	// Test to verify if Activity's capacity was exceeded
+	@Test (expected = ActivityException.class)
+	public void testCapacity04Bookings() {
+		new Booking(this.provider, this.offer);
+		new Booking(this.provider, this.offer);
+		new Booking(this.provider, this.offer);
+		new Booking(this.provider, this.offer);
+	}
+
+	// Test to verify if Arguments of Booking's Constructor are valid
+	@Test (expected = ActivityException.class)
+	public void testProviderNull() {
+		new Booking(null, this.offer);
+	}
+
+	// Test to verify if Arguments of Booking's Constructor are valid
+	@Test (expected = ActivityException.class)
+	public void testOfferNull() {
+		new Booking(this.provider, null);
+	}
+
 	@After
 	public void tearDown() {
 		ActivityProvider.providers.clear();
 	}
-
 }

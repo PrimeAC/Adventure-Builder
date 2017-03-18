@@ -19,6 +19,7 @@ import pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type;
 public class AdventureProcessMethodTest {
 	private final LocalDate begin = LocalDate.now().plusDays(1);
 	private final LocalDate end = LocalDate.now().plusDays(2);
+
 	private Broker broker;
 	private String IBAN;
 
@@ -39,6 +40,8 @@ public class AdventureProcessMethodTest {
 		Activity activity = new Activity(provider, "Bush Walking", 18, 80, 3);
 		new ActivityOffer(activity, this.begin, this.end);
 	}
+	
+	
 
 	@Test
 	public void success() {

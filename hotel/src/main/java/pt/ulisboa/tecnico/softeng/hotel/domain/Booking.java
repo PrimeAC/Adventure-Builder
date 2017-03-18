@@ -1,6 +1,8 @@
 package pt.ulisboa.tecnico.softeng.hotel.domain;
 
+import org.joda.time.Interval;
 import org.joda.time.LocalDate;
+import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
 public class Booking {
 	private static int counter = 0;
@@ -10,6 +12,8 @@ public class Booking {
 	private final LocalDate departure;
 
 	Booking(Hotel hotel, LocalDate arrival, LocalDate departure) {
+		validateNewDates(arrival, departure);
+
 		this.reference = hotel.getCode() + Integer.toString(++Booking.counter);
 		this.arrival = arrival;
 		this.departure = departure;
@@ -28,19 +32,25 @@ public class Booking {
 	}
 
 	boolean conflict(LocalDate arrival, LocalDate departure) {
-		if (arrival.isAfter(this.arrival) && arrival.isBefore(this.departure)) {
-			return true;
-		}
+		validatesDates(arrival, departure);
 
-		if (departure.isAfter(this.arrival) && departure.isBefore(this.departure)) {
-			return true;
-		}
+		Interval thisInterval = new Interval(this.arrival.toDate().getTime(), this.departure.toDate().getTime());
+		Interval interval = new Interval(arrival.toDate().getTime(), departure.toDate().getTime());
 
-		if (arrival.isBefore(this.arrival) && departure.isAfter(this.departure)) {
-			return true;
-		}
+		return interval.overlaps(thisInterval);
+	}
 
-		return false;
+	private void validateNewDates(LocalDate arrival, LocalDate departure) {
+		validatesDates(arrival, departure);
+		if (arrival.isBefore(LocalDate.now())) {
+			throw new HotelException("Arrival is before today");
+		}
+	}
+
+	private void validatesDates(LocalDate arrival, LocalDate departure) {
+		if (arrival.isAfter(departure)) {
+			throw new HotelException("Arrival is after departure");
+		}
 	}
 
 }

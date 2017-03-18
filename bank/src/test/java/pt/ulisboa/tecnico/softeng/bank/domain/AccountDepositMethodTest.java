@@ -4,6 +4,7 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import pt.ulisboa.tecnico.softeng.bank.exception.BankException;
 
 public class AccountDepositMethodTest {
 	private Bank bank;
@@ -25,6 +26,26 @@ public class AccountDepositMethodTest {
 		Assert.assertEquals(Operation.Type.DEPOSIT, operation.getType());
 		Assert.assertEquals(this.account, operation.getAccount());
 		Assert.assertEquals(50, operation.getValue());
+	}
+
+	@Test(expected = BankException.class)
+	public void negativeAmount() {
+		String reference = this.account.deposit(-15);
+	}
+
+	@Test(expected = BankException.class)
+	public void zeroAmount() {
+		String reference = this.account.deposit(0);
+	}
+
+	@Test
+	public void validBorderAmount() {
+		String reference = this.account.deposit(1);
+	}
+
+	@Test(expected = BankException.class)
+	public void invalidBorderAmount() {
+		String reference = this.account.deposit(-1);
 	}
 
 	@After

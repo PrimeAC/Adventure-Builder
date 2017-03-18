@@ -28,19 +28,19 @@ public class Broker {
 
 	private void checkCode(String code) {
 		if (code == null || code.trim().length() == 0) {
-			throw new BrokerException();
+			throw new BrokerException("invalid code");
 		}
 
 		for (Broker broker : Broker.brokers) {
 			if (broker.getCode().equals(code)) {
-				throw new BrokerException();
+				throw new BrokerException("duplicate code");
 			}
 		}
 	}
 
 	private void checkName(String name) {
 		if (name == null || name.trim().length() == 0) {
-			throw new BrokerException();
+			throw new BrokerException("invalid name");
 		}
 	}
 
