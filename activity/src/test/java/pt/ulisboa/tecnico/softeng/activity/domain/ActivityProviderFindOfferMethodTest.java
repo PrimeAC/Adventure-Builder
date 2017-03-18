@@ -131,7 +131,7 @@ public class ActivityProviderFindOfferMethodTest {
 	public void testAgeEqualsMaxAndMin() {
 		Set<ActivityOffer> offers = this.provider.findOffer(this.begin, this.end.plusDays(3), 30);
 
-		Assert.assertEquals(4, offers.size());
+		Assert.assertEquals(3, offers.size());
 		Assert.assertTrue(offers.contains(this.offer1_1));
 		Assert.assertTrue(offers.contains(this.offer1_2));
 		Assert.assertTrue(offers.contains(this.offer2_1));
@@ -144,7 +144,7 @@ public class ActivityProviderFindOfferMethodTest {
 	 */
 	@Test
 	public void testAgeHigherThanMaxAndMin() {
-		Set<ActivityOffer> offers = this.provider.findOffer(this.begin.plusDays(1), this.end.plusDays(8), 31);
+		Set<ActivityOffer> offers = this.provider.findOffer(this.begin, this.end.plusDays(3), 31);
 
 		Assert.assertEquals(1, offers.size());
 		Assert.assertTrue(offers.contains(this.offer2_1));
