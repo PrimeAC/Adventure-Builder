@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type;
+import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
 public class HotelHasVacancyMethodTest {
 	private Hotel hotel;
@@ -82,6 +83,20 @@ public class HotelHasVacancyMethodTest {
 		Assert.assertEquals(null, room2);
 	}
 
+	@Test (expected = HotelException.class)
+	public void nullRoomType() {
+		this.hotel.hasVacancy(null, arrival, departure);
+	}
+
+	@Test (expected = HotelException.class)
+	public void nullArrivalDate() {
+		this.hotel.hasVacancy(Type.DOUBLE, null, departure);
+	}
+
+	@Test (expected = HotelException.class)
+	public void nullDepartureDate() {
+		this.hotel.hasVacancy(Type.DOUBLE, arrival, null);
+	}
 	@After
 	public void tearDown() {
 		Hotel.hotels.clear();
