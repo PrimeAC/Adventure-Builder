@@ -13,7 +13,7 @@ public class HotelHasVacancyMethodTest {
 	private Hotel hotel;
 
 	private LocalDate arrival = LocalDate.now();
-	private LocalDate departure = arrival.plusDays(2);
+	private LocalDate departure = arrival.plusDays(4);
 
 	@Before
 	public void setUp() {
@@ -39,8 +39,8 @@ public class HotelHasVacancyMethodTest {
 
 	@Test
 	public void oneRoomNotAvailable() {
-		LocalDate booked_arrival = arrival.minusDays(2);
-		LocalDate booked_departure = arrival.plusDays(1);
+		LocalDate booked_arrival = departure.minusDays(2);
+		LocalDate booked_departure = departure.plusDays(1);
 
 		this.hotel.reserveHotel(Type.DOUBLE, booked_arrival, booked_departure);
 
@@ -53,8 +53,8 @@ public class HotelHasVacancyMethodTest {
 	public void twoRoomsAvailable() {
 		new Room(this.hotel, "02", Type.SINGLE);
 
-		LocalDate booked_arrival = arrival.plusDays(2);
-		LocalDate booked_departure = arrival.plusDays(5);
+		LocalDate booked_arrival = departure.plusDays(2);
+		LocalDate booked_departure = departure.plusDays(5);
 
 		this.hotel.reserveHotel(Type.DOUBLE, booked_arrival, booked_departure);
 		this.hotel.reserveHotel(Type.SINGLE, booked_arrival, booked_departure);
@@ -70,8 +70,8 @@ public class HotelHasVacancyMethodTest {
 	public void twoRoomsNotAvailable() {
 		new Room(this.hotel, "02", Type.SINGLE);
 
-		LocalDate booked_arrival = arrival.minusDays(2);
-		LocalDate booked_departure = arrival.plusDays(1);
+		LocalDate booked_arrival = departure.minusDays(2);
+		LocalDate booked_departure = departure.plusDays(1);
 
 		this.hotel.reserveHotel(Type.DOUBLE, booked_arrival, booked_departure);
 		this.hotel.reserveHotel(Type.SINGLE, booked_arrival, booked_departure);
