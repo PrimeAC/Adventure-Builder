@@ -10,7 +10,7 @@ To check test coverage execute: mvn clean cobertura:cobertura
 |            |                         |                                   |                |   3   |
 |82539       |Afonso Caetano           |afonso.caetano@tecnico.ulisboa.pt  |@PrimeAC        |   4   |
 |            |                         |                                   |                |   5   |
-|            |                         |                                   |                |   6   |
+|82528       |João Carlos              |joaocarlos95@gmail.com             |@joaocarlos95   |   6   |
 |            |                         |                                   |                |   7   |
 |82053       |Bruno Santos             |bruno_scp5@hotmail.com             |@brunoaosantos  |   8   |
 |            |                         |                                   |                |   9   |
