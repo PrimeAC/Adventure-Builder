@@ -12,5 +12,5 @@ To check test coverage execute: mvn clean cobertura:cobertura
 |            |                         |                                   |                |   5   |
 |            |                         |                                   |                |   6   |
 |            |                         |                                   |                |   7   |
-|            |                         |                                   |                |   8   |
+|82053       |Bruno Santos             |bruno_scp5@hotmail.com             |@brunoaosantos  |   8   |
 |            |                         |                                   |                |   9   |
