@@ -13,4 +13,4 @@ To check test coverage execute: mvn clean cobertura:cobertura
 |82528       |João Carlos              |joaocarlos95@gmail.com             |@joaocarlos95   |   6   |
 |81950       |João Freitas             |joaotavaresfreitas@hotmail.com     |@jtf16          |   7   |
 |82053       |Bruno Santos             |bruno_scp5@hotmail.com             |@brunoaosantos  |   8   |
-|            |                         |                                   |                |   9   |
+|81968       |Diogo Mesquita           |d.mesquita285@gmail.com            |@DiMesq         |   9   |
