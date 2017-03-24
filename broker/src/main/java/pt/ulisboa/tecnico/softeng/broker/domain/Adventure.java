@@ -162,6 +162,7 @@ public class Adventure {
 		case CONFIRMED:
 			return this.oldState;
 		case CANCELLED:
+		case PROCESS_PAYMENT:
 			return this.state.getState();
 		default:
 			new BrokerException();
