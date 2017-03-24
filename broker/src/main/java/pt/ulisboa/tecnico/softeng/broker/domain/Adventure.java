@@ -158,7 +158,7 @@ public class Adventure {
 		switch (this.oldState) {
 		case RESERVE_ACTIVITY:
 			return this.oldState;
-    case UNDO:
+		case UNDO:
 		case CANCELLED:
 		case BOOK_ROOM:
 		case PROCESS_PAYMENT:
@@ -197,7 +197,7 @@ public class Adventure {
 
 		}
 	}
-	
+
 	public void process() {
 		logger.debug("process ID:{}, state:{} ", this.ID, this.oldState.name());
 
