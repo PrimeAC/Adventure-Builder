@@ -6,7 +6,7 @@ To check test coverage execute: mvn clean cobertura:cobertura
 |   Number   |          Name           |            Email        |   Name GitHUb  | Grupo |
 | ---------- | ----------------------- | ----------------------- | ---------------| ----- |
 |            |                         |                         |                |   1   |
-|            |                         |                         |                |   2   |
+|  81981          |  danielreis                       |  ddreis88@gmail.com                       |  danielreis1              |   2   |
 |            |                         |                         |                |   3   |
 |            |                         |                         |                |   4   |
 |            |                         |                         |                |   5   |
