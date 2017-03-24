@@ -160,9 +160,9 @@ public class Adventure {
 		case RESERVE_ACTIVITY:
 		case BOOK_ROOM:
 		case UNDO:
-		case CONFIRMED:
-			return this.state.getState();
+			return this.oldState;
 		case CANCELLED:
+		case CONFIRMED:
 			return this.state.getState();
 		default:
 			new BrokerException();
