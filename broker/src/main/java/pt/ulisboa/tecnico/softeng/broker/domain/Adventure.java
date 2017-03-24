@@ -157,13 +157,12 @@ public class Adventure {
 
 	public State getState() {
 		switch (this.oldState) {
-		case PROCESS_PAYMENT:
-		case BOOK_ROOM:
 		case UNDO:
-		case CONFIRMED:
-			return this.oldState;
-		case CANCELLED:
 		case RESERVE_ACTIVITY:
+    case CANCELLED:
+		case BOOK_ROOM:
+		case PROCESS_PAYMENT:
+		case CONFIRMED:
 			return this.state.getState();
 		default:
 			new BrokerException();
@@ -175,19 +174,19 @@ public class Adventure {
 		this.oldState = state;
 		switch (state) {
 		case PROCESS_PAYMENT:
-			this.state = null;
+			this.state = new ProcessPaymentState();
 			break;
 		case RESERVE_ACTIVITY:
 			this.state = new ReserveActivityState();
 			break;
 		case BOOK_ROOM:
-			this.state = null;
+			this.state = new BookRoomState();
 			break;
 		case UNDO:
-			this.state = null;
+			this.state = new UndoState();
 			break;
 		case CONFIRMED:
-			this.state = null;
+			this.state = new ConfirmedState();
 			break;
 		case CANCELLED:
 			this.state = new CancelledState();
@@ -204,123 +203,19 @@ public class Adventure {
 
 		switch (this.oldState) {
 		case PROCESS_PAYMENT:
-			try {
-				this.paymentConfirmation = BankInterface.processPayment(this.IBAN, this.amount);
-			} catch (BankException be) {
-				setState(State.CANCELLED);
-			} catch (RemoteAccessException rae) {
-				// increment number of errors
-				// if (number of errors == 3) {
-				// setState(State.CANCELLED);
-				// }
-				return;
-			}
-
-			setState(State.RESERVE_ACTIVITY);
-
+			this.state.process(this);
 			break;
 		case RESERVE_ACTIVITY:
 			this.state.process(this);
 			break;
 		case BOOK_ROOM:
-			try {
-				this.roomConfirmation = HotelInterface.reserveRoom(Room.Type.SINGLE, this.begin, this.end);
-			} catch (HotelException rae) {
-				setState(State.UNDO);
-			} catch (RemoteAccessException rae) {
-				// increment number of errors
-				// if (number of errors == 10) {
-				// adventure.setState(State.UNDO);
-				// }
-				// return;
-			}
-
-			setState(State.CONFIRMED);
-
+			this.state.process(this);
 			break;
 		case UNDO:
-			if (cancelPayment()) {
-				try {
-					this.paymentCancellation = BankInterface.cancelPayment(getPaymentConfirmation());
-				} catch (HotelException | RemoteAccessException ex) {
-					// does not change state
-				}
-			}
-
-			if (cancelActivity()) {
-				try {
-					this.activityCancellation = ActivityInterface.cancelReservation(getActivityConfirmation());
-				} catch (HotelException | RemoteAccessException ex) {
-					// does not change state
-				}
-			}
-
-			if (cancelRoom()) {
-				try {
-					this.roomCancellation = HotelInterface.cancelBooking(getRoomConfirmation());
-				} catch (HotelException | RemoteAccessException ex) {
-					// does not change state
-				}
-			}
-
-			if (!cancelPayment() && !cancelActivity() && !cancelRoom()) {
-				setState(State.CANCELLED);
-			}
+			this.state.process(this);
 			break;
 		case CONFIRMED:
-			BankOperationData operation;
-			try {
-				operation = BankInterface.getOperationData(getPaymentConfirmation());
-			} catch (BankException be) {
-				// increment number of errors
-				// if (number of errors == 5) {
-				// adventure.setState(State.UNDO);
-				// }
-				// return;
-			} catch (RemoteAccessException rae) {
-				// increment number of errors
-				// if (number of errors == 20) {
-				// adventure.setState(State.UNDO);
-				// }
-				// return;
-			}
-			// reset number of errors
-
-			ActivityReservationData reservation;
-			try {
-				reservation = ActivityInterface.getActivityReservationData(getActivityConfirmation());
-			} catch (ActivityException ae) {
-				setState(State.UNDO);
-				return;
-			} catch (RemoteAccessException rae) {
-				// increment number of errors
-				// if (number of errors == 20) {
-				// adventure.setState(State.UNDO);
-				// }
-				// return;
-			}
-			// reset number of errors
-
-			if (getRoomConfirmation() != null) {
-				RoomBookingData booking;
-				try {
-					booking = HotelInterface.getRoomBookingData(getRoomConfirmation());
-				} catch (HotelException he) {
-					setState(State.UNDO);
-					return;
-				} catch (RemoteAccessException rae) {
-					// increment number of errors
-					// if (number of errors == 20) {
-					// adventure.setState(State.UNDO);
-					// }
-					// return;
-				}
-				// reset number of errors
-			}
-
-			// TODO: prints the complete Adventure file, the info in operation,
-			// reservation and booking
-
+			this.state.process(this);
 			break;
 		case CANCELLED:
 			this.state.process(this);
