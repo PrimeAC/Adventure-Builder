@@ -161,7 +161,7 @@ public class Adventure {
 		case BOOK_ROOM:
 		case UNDO:
 		case CONFIRMED:
-			return this.oldState;
+			return this.state.getState();
 		case CANCELLED:
 			return this.state.getState();
 		default:
@@ -186,7 +186,7 @@ public class Adventure {
 			this.state = null;
 			break;
 		case CONFIRMED:
-			this.state = null;
+			this.state = new ConfirmedState();
 			break;
 		case CANCELLED:
 			this.state = new CancelledState();
