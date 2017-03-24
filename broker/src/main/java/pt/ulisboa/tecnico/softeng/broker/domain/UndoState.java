@@ -22,7 +22,6 @@ public class UndoState extends AdventureState {
 				String paymentCancellation = BankInterface.cancelPayment(adventure.getPaymentConfirmation());
 				adventure.setPaymentCancellation(paymentCancellation);
 			} catch (HotelException | RemoteAccessException ex) {
-				adventure.setState(Adventure.State.UNDO);
 			}
 		}
 
@@ -31,7 +30,6 @@ public class UndoState extends AdventureState {
 				String activityCancellation = ActivityInterface.cancelReservation(adventure.getActivityConfirmation());
 				adventure.setActivityCancellation(activityCancellation);
 			} catch (HotelException | RemoteAccessException ex) {
-				adventure.setState(Adventure.State.UNDO);
 			}
 		}
 
@@ -40,7 +38,6 @@ public class UndoState extends AdventureState {
 				String roomCancellation = HotelInterface.cancelBooking(adventure.getRoomConfirmation());
 				adventure.setRoomCancellation(roomCancellation);
 			} catch (HotelException | RemoteAccessException ex) {
-				adventure.setState(Adventure.State.UNDO);
 			}
 		}
 

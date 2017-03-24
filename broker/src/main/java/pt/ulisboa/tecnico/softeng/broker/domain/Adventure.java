@@ -159,9 +159,9 @@ public class Adventure {
 		case PROCESS_PAYMENT:
 		case RESERVE_ACTIVITY:
 		case BOOK_ROOM:
-		case UNDO:
 		case CONFIRMED:
 			return this.oldState;
+		case UNDO:
 		case CANCELLED:
 			return this.state.getState();
 		default:
@@ -197,7 +197,7 @@ public class Adventure {
 
 		}
 	}
-
+	
 	public void process() {
 		logger.debug("process ID:{}, state:{} ", this.ID, this.oldState.name());
 
