@@ -14,7 +14,7 @@ public class ReserveActivityState extends AdventureState {
 	
 	@Override
 	public State getState() {
-		return State.CANCELLED;
+		return State.RESERVE_ACTIVITY;
 	}
 
 	@Override

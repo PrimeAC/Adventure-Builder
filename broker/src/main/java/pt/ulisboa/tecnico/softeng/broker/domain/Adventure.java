@@ -25,7 +25,6 @@ public class Adventure {
 	}
 
 	private static int counter = 0;
-	private int errorNumber=0;
 	private final String ID;
 	private final Broker broker;
 	private final LocalDate begin;
@@ -155,25 +154,16 @@ public class Adventure {
 	public void setRoomCancellation(String roomCancellation) {
 		this.roomCancellation = roomCancellation;
 	}
-	
-	public int getErrorNumber() {
-		return errorNumber;
-	}
-
-	public void incErrorNumber() {
-		this.errorNumber++;
-	}
 
 	public State getState() {
 		switch (this.oldState) {
 		case PROCESS_PAYMENT:
-		case RESERVE_ACTIVITY:
-			return this.state.getState();
 		case BOOK_ROOM:
 		case UNDO:
 		case CONFIRMED:
 			return this.oldState;
 		case CANCELLED:
+		case RESERVE_ACTIVITY:
 			return this.state.getState();
 		default:
 			new BrokerException();
