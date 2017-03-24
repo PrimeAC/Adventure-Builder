@@ -156,12 +156,12 @@ public class Adventure {
 
 	public State getState() {
 		switch (this.oldState) {
-		case PROCESS_PAYMENT:
 		case RESERVE_ACTIVITY:
 		case BOOK_ROOM:
-		case UNDO:
 			return this.oldState;
+    case UNDO:
 		case CANCELLED:
+		case PROCESS_PAYMENT:
 		case CONFIRMED:
 			return this.state.getState();
 		default:
@@ -174,7 +174,7 @@ public class Adventure {
 		this.oldState = state;
 		switch (state) {
 		case PROCESS_PAYMENT:
-			this.state = null;
+			this.state = new ProcessPaymentState();
 			break;
 		case RESERVE_ACTIVITY:
 			this.state = null;
@@ -203,20 +203,7 @@ public class Adventure {
 
 		switch (this.oldState) {
 		case PROCESS_PAYMENT:
-			try {
-				this.paymentConfirmation = BankInterface.processPayment(this.IBAN, this.amount);
-			} catch (BankException be) {
-				setState(State.CANCELLED);
-			} catch (RemoteAccessException rae) {
-				// increment number of errors
-				// if (number of errors == 3) {
-				// setState(State.CANCELLED);
-				// }
-				return;
-			}
-
-			setState(State.RESERVE_ACTIVITY);
-
+			this.state.process(this);
 			break;
 		case RESERVE_ACTIVITY:
 			try {
