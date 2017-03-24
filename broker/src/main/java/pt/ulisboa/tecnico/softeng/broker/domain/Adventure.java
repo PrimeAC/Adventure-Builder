@@ -159,7 +159,7 @@ public class Adventure {
 		switch (this.oldState) {
 		case UNDO:
 		case RESERVE_ACTIVITY:
-    case CANCELLED:
+		case CANCELLED:
 		case BOOK_ROOM:
 		case PROCESS_PAYMENT:
 		case CONFIRMED:
