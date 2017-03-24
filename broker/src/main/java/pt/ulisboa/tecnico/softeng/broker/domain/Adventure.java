@@ -25,7 +25,6 @@ public class Adventure {
 	}
 
 	private static int counter = 0;
-
 	private final String ID;
 	private final Broker broker;
 	private final LocalDate begin;
@@ -43,6 +42,8 @@ public class Adventure {
 	private State oldState; // to be removed once all states are refactored as
 							// subclasses of AdventureState
 	private AdventureState state;
+	
+	
 
 	public Adventure(Broker broker, LocalDate begin, LocalDate end, int age, String IBAN, int amount) {
 		checkArguments(broker, begin, end, age, IBAN, amount);
@@ -156,9 +157,8 @@ public class Adventure {
 
 	public State getState() {
 		switch (this.oldState) {
-		case RESERVE_ACTIVITY:
-			return this.oldState;
 		case UNDO:
+		case RESERVE_ACTIVITY:
 		case CANCELLED:
 		case BOOK_ROOM:
 		case PROCESS_PAYMENT:
@@ -177,7 +177,7 @@ public class Adventure {
 			this.state = new ProcessPaymentState();
 			break;
 		case RESERVE_ACTIVITY:
-			this.state = null;
+			this.state = new ReserveActivityState();
 			break;
 		case BOOK_ROOM:
 			this.state = new BookRoomState();
@@ -206,24 +206,7 @@ public class Adventure {
 			this.state.process(this);
 			break;
 		case RESERVE_ACTIVITY:
-			try {
-				this.activityConfirmation = ActivityInterface.reserveActivity(this.begin, this.end, this.age);
-			} catch (ActivityException ae) {
-				setState(State.UNDO);
-			} catch (RemoteAccessException rae) {
-				// increment number of errors
-				// if (number of errors == 5) {
-				// adventure.setState(State.UNDO);
-				// }
-				// return;
-			}
-
-			if (this.begin.equals(this.end)) {
-				setState(State.CONFIRMED);
-			} else {
-				setState(State.BOOK_ROOM);
-			}
-
+			this.state.process(this);
 			break;
 		case BOOK_ROOM:
 			this.state.process(this);

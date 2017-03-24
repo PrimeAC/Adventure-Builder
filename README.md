@@ -6,7 +6,7 @@ To check test coverage execute: mvn clean cobertura:cobertura
 |   Number   |          Name           |            Email                  |   Name GitHUb  | Grupo |
 | ---------- | ----------------------- | --------------------------------- | ---------------| ----- |
 |51355       |João Silva               |joaoplancha@gmail.com              |@joaoplancha    |   1   |
-|            |                         |                                   |                |   2   |
+|81981       |Daniel Reis              |ddreis88@gmail.com                     |danielreis1 |   2   |
 |82064       |Daniel Reigada           |daniel.reigada@gmail.com           |@DReigada       |   3   |
 |82539       |Afonso Caetano           |afonso.caetano@tecnico.ulisboa.pt  |@PrimeAC        |   4   |
 |82553       |Mariana Cruz             |mariana.cruz@tecnico.ulisboa.pt    |@MarianaCruz    |   5   |
