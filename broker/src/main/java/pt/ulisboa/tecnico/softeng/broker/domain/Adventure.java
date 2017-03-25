@@ -4,18 +4,8 @@ import org.joda.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import pt.ulisboa.tecnico.softeng.activity.dataobjects.ActivityReservationData;
-import pt.ulisboa.tecnico.softeng.activity.exception.ActivityException;
-import pt.ulisboa.tecnico.softeng.bank.dataobjects.BankOperationData;
-import pt.ulisboa.tecnico.softeng.bank.exception.BankException;
 import pt.ulisboa.tecnico.softeng.broker.exception.BrokerException;
-import pt.ulisboa.tecnico.softeng.broker.exception.RemoteAccessException;
-import pt.ulisboa.tecnico.softeng.broker.interfaces.ActivityInterface;
-import pt.ulisboa.tecnico.softeng.broker.interfaces.BankInterface;
-import pt.ulisboa.tecnico.softeng.broker.interfaces.HotelInterface;
-import pt.ulisboa.tecnico.softeng.hotel.dataobjects.RoomBookingData;
-import pt.ulisboa.tecnico.softeng.hotel.domain.Room;
-import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
+
 
 public class Adventure {
 	private static Logger logger = LoggerFactory.getLogger(Adventure.class);
@@ -39,11 +29,8 @@ public class Adventure {
 	private String activityConfirmation;
 	private String activityCancellation;
 
-	private State oldState; // to be removed once all states are refactored as
-							// subclasses of AdventureState
 	private AdventureState state;
-	
-	
+
 
 	public Adventure(Broker broker, LocalDate begin, LocalDate end, int age, String IBAN, int amount) {
 		checkArguments(broker, begin, end, age, IBAN, amount);
@@ -156,7 +143,7 @@ public class Adventure {
 	}
 
 	public State getState() {
-		switch (this.oldState) {
+		switch (this.state.getState()) {
 		case UNDO:
 		case RESERVE_ACTIVITY:
 		case CANCELLED:
@@ -171,7 +158,6 @@ public class Adventure {
 	}
 
 	public void setState(State state) {
-		this.oldState = state;
 		switch (state) {
 		case PROCESS_PAYMENT:
 			this.state = new ProcessPaymentState();
@@ -199,9 +185,9 @@ public class Adventure {
 	}
 
 	public void process() {
-		logger.debug("process ID:{}, state:{} ", this.ID, this.oldState.name());
+		logger.debug("process ID:{}, state:{} ", this.ID, this.state.getState());
 
-		switch (this.oldState) {
+		switch (this.state.getState()) {
 		case PROCESS_PAYMENT:
 			this.state.process(this);
 			break;
