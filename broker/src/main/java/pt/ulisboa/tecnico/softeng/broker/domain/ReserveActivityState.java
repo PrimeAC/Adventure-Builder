@@ -22,6 +22,7 @@ public class ReserveActivityState extends AdventureState {
 		logger.debug("process");
 		try {
 			String activityConfirmation = ActivityInterface.reserveActivity(adventure.getBegin(), adventure.getEnd(), adventure.getAge());
+			adventure.setActivityConfirmation(activityConfirmation);
 		} catch (ActivityException ae) {
 			adventure.setState(State.UNDO);
 			return;
