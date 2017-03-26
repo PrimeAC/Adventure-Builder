@@ -143,18 +143,7 @@ public class Adventure {
 	}
 
 	public State getState() {
-		switch (this.state.getState()) {
-		case UNDO:
-		case RESERVE_ACTIVITY:
-		case CANCELLED:
-		case BOOK_ROOM:
-		case PROCESS_PAYMENT:
-		case CONFIRMED:
-			return this.state.getState();
-		default:
-			new BrokerException();
-			return null;
-		}
+		return this.state.getState();
 	}
 
 	public void setState(State state) {
@@ -178,37 +167,14 @@ public class Adventure {
 			this.state = new CancelledState();
 			break;
 		default:
-			new BrokerException();
-			break;
-
+			throw new BrokerException();
 		}
 	}
 
 	public void process() {
 		logger.debug("process ID:{}, state:{} ", this.ID, this.state.getState());
 
-		switch (this.state.getState()) {
-		case PROCESS_PAYMENT:
-			this.state.process(this);
-			break;
-		case RESERVE_ACTIVITY:
-			this.state.process(this);
-			break;
-		case BOOK_ROOM:
-			this.state.process(this);
-			break;
-		case UNDO:
-			this.state.process(this);
-			break;
-		case CONFIRMED:
-			this.state.process(this);
-			break;
-		case CANCELLED:
-			this.state.process(this);
-			break;
-		default:
-			throw new BrokerException();
-		}
+		this.state.process(this);
 	}
 
 	public boolean cancelRoom() {
