@@ -47,8 +47,6 @@ public class ConfirmedState extends AdventureState {
 		System.out.println("Type: " + operation.getType());
 		System.out.println("Value: " + operation.getValue());
 
-		resetNumOfRemoteErrors();
-
 		ActivityReservationData reservation;
 		try {
 			reservation = ActivityInterface.getActivityReservationData(adventure.getActivityConfirmation());
@@ -68,7 +66,6 @@ public class ConfirmedState extends AdventureState {
 		System.out.println("Begin: " + reservation.getBegin());
 		System.out.println("End: " + reservation.getEnd());
 
-		resetNumOfRemoteErrors();
 
 		if (adventure.getRoomConfirmation() != null) {
 			RoomBookingData booking;
@@ -92,7 +89,7 @@ public class ConfirmedState extends AdventureState {
 			System.out.println("Arrival: " + booking.getArrival());
 			System.out.println("Departure: " + booking.getDeparture());
 
-			resetNumOfRemoteErrors();
 		}
+		resetNumOfRemoteErrors();
 	}
 }
