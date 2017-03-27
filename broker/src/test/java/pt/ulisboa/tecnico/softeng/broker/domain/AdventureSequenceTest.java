@@ -9,21 +9,21 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import pt.ulisboa.tecnico.softeng.activity.exception.ActivityException;
+import pt.ulisboa.tecnico.softeng.bank.exception.BankException;
 import pt.ulisboa.tecnico.softeng.broker.interfaces.ActivityInterface;
 import pt.ulisboa.tecnico.softeng.broker.interfaces.BankInterface;
 import pt.ulisboa.tecnico.softeng.broker.interfaces.HotelInterface;
 import pt.ulisboa.tecnico.softeng.hotel.domain.Room;
+import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
 @RunWith(JMockit.class)
 public class AdventureSequenceTest {
 	private static final String IBAN = "BK01987654321";
 	private static final int AMOUNT = 300;
 	private static final int AGE = 20;
-	private static final String PAYMENT_CONFIRMATION = "PaymentConfirmation";
-	private static final String ACTIVITY_CONFIRMATION = "ActivityConfirmation";
-	private static final String ROOM_CONFIRMATION = "RoomConfirmation";
-	private final LocalDate begin = new LocalDate(2016, 12, 19);
-	private final LocalDate end = new LocalDate(2016, 12, 19);
+	private final LocalDate begin = LocalDate.now();
+	private final LocalDate end = LocalDate.now();
 	private Adventure adventureSameDay, adventureDifferentDays;
 	private int numberProcess;
 
@@ -39,7 +39,6 @@ public class AdventureSequenceTest {
 
 	@Test
 	public void testTransitionPaymentActivitySequencePayActConf(@Mocked final BankInterface bankInterface) {
-		this.adventureSameDay.setPaymentConfirmation(PAYMENT_CONFIRMATION);
 
 		new StrictExpectations() {
 			{
@@ -55,8 +54,6 @@ public class AdventureSequenceTest {
 	@Test
 	public void testTransitionActivityConfirmedSequencePayActConf(@Mocked final BankInterface bankInterface,
 																  @Mocked final ActivityInterface activityInterface) {
-		this.adventureSameDay.setPaymentConfirmation(PAYMENT_CONFIRMATION);
-		this.adventureSameDay.setActivityConfirmation(ACTIVITY_CONFIRMATION);
 
 		new StrictExpectations() {
 			{
@@ -74,8 +71,6 @@ public class AdventureSequenceTest {
 
 	@Test
 	public void testTransitionActivityRoomSequencePayActRooConf(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface) {
-		this.adventureDifferentDays.setPaymentConfirmation(PAYMENT_CONFIRMATION);
-		this.adventureDifferentDays.setActivityConfirmation(ACTIVITY_CONFIRMATION);
 
 		new StrictExpectations() {
 			{
@@ -93,9 +88,6 @@ public class AdventureSequenceTest {
 
 	@Test
 	public void testTransitionRoomConfirmedSequencePayActRooConf(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
-		this.adventureDifferentDays.setPaymentConfirmation(PAYMENT_CONFIRMATION);
-		this.adventureDifferentDays.setActivityConfirmation(ACTIVITY_CONFIRMATION);
-		this.adventureDifferentDays.setRoomConfirmation(ROOM_CONFIRMATION);
 
 		new StrictExpectations() {
 			{
