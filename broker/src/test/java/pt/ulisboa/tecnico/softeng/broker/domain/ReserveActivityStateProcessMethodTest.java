@@ -46,8 +46,6 @@ public class ReserveActivityStateProcessMethodTest {
 	@Test
 	public void ConfirmProcess(@Mocked final ActivityInterface activityInterface) {
 
-		// the following method have as 1st agr - a LocalDate, 2nd arg - same
-		// LocalDate as 1st arg
 		this.adventure = new Adventure(this.broker, this.begin, this.begin, 20, IBAN, 300);
 		this.adventure.setState(Adventure.State.RESERVE_ACTIVITY);
 
