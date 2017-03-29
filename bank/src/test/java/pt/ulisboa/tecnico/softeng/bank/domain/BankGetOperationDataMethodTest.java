@@ -50,7 +50,6 @@ public class BankGetOperationDataMethodTest {
 	
 	@Test(expected = BankException.class)
 	public void minReferenceSize() {
-		//min size reference= 5
 		Bank.getOperationData("AAAA");
 	}
 	
@@ -61,14 +60,12 @@ public class BankGetOperationDataMethodTest {
 
 	@Test(expected = BankException.class)
 	public void emptySetOfBanks() {
-		// check if the test is the same as previous, not supposed to be, this should check if static banks list is empty 1st
 		Bank.banks.clear();
 		Bank.getOperationData(this.operation.getReference());
 	}
 
 	@Test
 	public void multipleBanks() {
-		// testing with multiple banks 
 		Bank bank2 = new Bank("Moneyz", "BK02");
 		Client client2 = new Client(bank2, "António");
 		Account account2 = new Account(bank2, client2);
@@ -83,7 +80,6 @@ public class BankGetOperationDataMethodTest {
 	
 	@Test
 	public void TypeEnumToStringConversion() {
-		// this test checks type - enum to string conversion
 		BankOperationData bankOpData = Bank.getOperationData(this.operation.getReference());
 		Assert.assertEquals(bankOpData.getType(), this.operation.getType().toString());
 	}
