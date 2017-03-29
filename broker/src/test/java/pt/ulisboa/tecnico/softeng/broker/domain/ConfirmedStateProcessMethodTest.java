@@ -97,6 +97,28 @@ public class ConfirmedStateProcessMethodTest {
 	}
 
 	@Test
+	public void confirmedBankLess5RemoteErrors(@Mocked final BankInterface bankInterface,
+	                                       @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+
+		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
+
+		new Expectations() {
+			{
+				BankInterface.getOperationData(PAYMENT_CONFIRMATION);
+				this.result = new BankException();
+			}
+		};
+
+		int i = 0;
+		while (i < 4) {
+			this.adventure.process();
+			i++;
+		}
+
+		Assert.assertEquals(Adventure.State.CONFIRMED, this.adventure.getState());
+	}
+
+	@Test
 	public void confirmedBank5RemoteErrors(@Mocked final BankInterface bankInterface,
 	                                       @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
 
@@ -110,12 +132,56 @@ public class ConfirmedStateProcessMethodTest {
 		};
 
 		int i = 0;
-		while (i <= 4) {
+		while (i < 5) {
 			this.adventure.process();
 			i++;
 		}
 
 		Assert.assertEquals(Adventure.State.UNDO, this.adventure.getState());
+	}
+
+	@Test
+	public void confirmedBankMore5RemoteErrors(@Mocked final BankInterface bankInterface,
+	                                           @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+
+		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
+
+		new Expectations() {
+			{
+				BankInterface.getOperationData(PAYMENT_CONFIRMATION);
+				this.result = new BankException();
+			}
+		};
+
+		int i = 0;
+		while (i < 6) {
+			this.adventure.process();
+			i++;
+		}
+
+		Assert.assertEquals(Adventure.State.UNDO, this.adventure.getState());
+	}
+
+	@Test
+	public void confirmedBankLess20RemoteErrors(@Mocked final BankInterface bankInterface,
+	                                        @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+
+		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
+
+		new Expectations() {
+			{
+				BankInterface.getOperationData(PAYMENT_CONFIRMATION);
+				this.result = new RemoteAccessException();
+			}
+		};
+
+		int i = 0;
+		while (i < 19) {
+			this.adventure.process();
+			i++;
+		}
+
+		Assert.assertEquals(Adventure.State.CONFIRMED, this.adventure.getState());
 	}
 
 	@Test
@@ -132,7 +198,29 @@ public class ConfirmedStateProcessMethodTest {
 		};
 
 		int i = 0;
-		while (i <= 19) {
+		while (i < 20) {
+			this.adventure.process();
+			i++;
+		}
+
+		Assert.assertEquals(Adventure.State.UNDO, this.adventure.getState());
+	}
+
+	@Test
+	public void confirmedBankMore20RemoteErrors(@Mocked final BankInterface bankInterface,
+	                                        @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+
+		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
+
+		new Expectations() {
+			{
+				BankInterface.getOperationData(PAYMENT_CONFIRMATION);
+				this.result = new RemoteAccessException();
+			}
+		};
+
+		int i = 0;
+		while (i < 21) {
 			this.adventure.process();
 			i++;
 		}
@@ -178,6 +266,28 @@ public class ConfirmedStateProcessMethodTest {
 	}
 
 	@Test
+	public void confirmedActivityLess20RemoteErrors(@Mocked final BankInterface bankInterface,
+	                                            @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+
+		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
+
+		new Expectations() {
+			{
+				ActivityInterface.getActivityReservationData(ACTIVITY_CONFIRMATION);
+				this.result = new RemoteAccessException();
+			}
+		};
+
+		int i = 0;
+		while (i < 19) {
+			this.adventure.process();
+			i++;
+		}
+
+		Assert.assertEquals(Adventure.State.CONFIRMED, this.adventure.getState());
+	}
+
+	@Test
 	public void confirmedActivity20RemoteErrors(@Mocked final BankInterface bankInterface,
 	                                            @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
 
@@ -191,7 +301,29 @@ public class ConfirmedStateProcessMethodTest {
 		};
 
 		int i = 0;
-		while (i <= 19) {
+		while (i < 20) {
+			this.adventure.process();
+			i++;
+		}
+
+		Assert.assertEquals(Adventure.State.UNDO, this.adventure.getState());
+	}
+
+	@Test
+	public void confirmedActivityMore20RemoteErrors(@Mocked final BankInterface bankInterface,
+	                                            @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+
+		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
+
+		new Expectations() {
+			{
+				ActivityInterface.getActivityReservationData(ACTIVITY_CONFIRMATION);
+				this.result = new RemoteAccessException();
+			}
+		};
+
+		int i = 0;
+		while (i < 21) {
 			this.adventure.process();
 			i++;
 		}
@@ -237,6 +369,28 @@ public class ConfirmedStateProcessMethodTest {
 	}
 
 	@Test
+	public void confirmedHotelLess20RemoteErrors(@Mocked final BankInterface bankInterface,
+	                                         @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+
+		this.adventure.setRoomConfirmation(ROOM_CONFIRMATION);
+
+		new Expectations() {
+			{
+				HotelInterface.getRoomBookingData(ROOM_CONFIRMATION);
+				this.result = new RemoteAccessException();
+			}
+		};
+
+		int i = 0;
+		while (i < 19) {
+			this.adventure.process();
+			i++;
+		}
+
+		Assert.assertEquals(Adventure.State.CONFIRMED, this.adventure.getState());
+	}
+
+	@Test
 	public void confirmedHotel20RemoteErrors(@Mocked final BankInterface bankInterface,
 	                                         @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
 
@@ -250,12 +404,56 @@ public class ConfirmedStateProcessMethodTest {
 		};
 
 		int i = 0;
-		while (i <= 19) {
+		while (i < 20) {
 			this.adventure.process();
 			i++;
 		}
 
 		Assert.assertEquals(Adventure.State.UNDO, this.adventure.getState());
+	}
+
+	@Test
+	public void confirmedHotelMore20RemoteErrors(@Mocked final BankInterface bankInterface,
+	                                         @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+
+		this.adventure.setRoomConfirmation(ROOM_CONFIRMATION);
+
+		new Expectations() {
+			{
+				HotelInterface.getRoomBookingData(ROOM_CONFIRMATION);
+				this.result = new RemoteAccessException();
+			}
+		};
+
+		int i = 0;
+		while (i < 21) {
+			this.adventure.process();
+			i++;
+		}
+
+		Assert.assertEquals(Adventure.State.UNDO, this.adventure.getState());
+	}
+
+	@Test
+	public void confirmedNoRoomConfirmation(@Mocked final BankInterface bankInterface,
+	                                     @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+
+		this.adventure.process();
+
+		Assert.assertEquals(Adventure.State.CONFIRMED, this.adventure.getState());
+
+		new Verifications(){
+			{
+				BankInterface.getOperationData(this.anyString);
+				this.times = 1;
+
+				ActivityInterface.getActivityReservationData(this.anyString);
+				this.times = 1;
+
+				HotelInterface.getRoomBookingData(this.anyString);
+				this.times = 0;
+			}
+		};
 	}
 
 }
