@@ -109,7 +109,7 @@ public class BookRoomStateProcessMethodTest {
 			result = Collections.nCopies(9, new RemoteAccessException());
 			result = ROOM_CONFIRMATION;
 		}};
-		
+
 		int processCount = processUntilStateChanges(adventure);
 
 		assertEquals(10, processCount);
@@ -122,7 +122,28 @@ public class BookRoomStateProcessMethodTest {
 		}};
 	}
 
-	public int processUntilStateChanges(Adventure adventure) {
+	@Test
+	public void remoteExceptionBeforeHotelException(@Mocked HotelInterface hotelInterface) {
+
+		new Expectations() {{
+			HotelInterface.reserveRoom(Room.Type.SINGLE, adventure.getBegin(), adventure.getEnd());
+			result = new RemoteAccessException();
+			result = new HotelException();
+		}};
+
+		int processCount = processUntilStateChanges(adventure);
+
+		assertEquals(2, processCount);
+		assertEquals("Unexpected state", Adventure.State.UNDO, adventure.getState());
+		assertNull(adventure.getRoomConfirmation());
+
+		new Verifications() {{
+			HotelInterface.reserveRoom(Room.Type.SINGLE, adventure.getBegin(), adventure.getEnd());
+			times = 2;
+		}};
+	}
+
+	private int processUntilStateChanges(Adventure adventure) {
 		Adventure.State initialState = adventure.getState();
 		int count = 0;
 
