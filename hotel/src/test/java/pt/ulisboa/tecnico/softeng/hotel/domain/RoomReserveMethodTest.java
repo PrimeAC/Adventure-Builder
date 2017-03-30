@@ -64,6 +64,11 @@ public class RoomReserveMethodTest {
 		}
 	}
 
+	@Test(expected = HotelException.class)
+	public void arrivalSameAsDeparture() {
+		this.room.reserve(Type.SINGLE, this.arrival, this.arrival);
+	}
+
 	@After
 	public void tearDown() {
 		Hotel.hotels.clear();

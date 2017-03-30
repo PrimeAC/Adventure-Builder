@@ -72,6 +72,10 @@ public class Room {
 			throw new HotelException();
 		}
 
+		if (arrival.equals(departure)) {
+			throw new HotelException("Reservations must be for at least 1 day (i.e. 24 hours)");
+		}
+
 		if (!isFree(type, arrival, departure)) {
 			throw new HotelException();
 		}
