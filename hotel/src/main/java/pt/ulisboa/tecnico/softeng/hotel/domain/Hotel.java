@@ -108,6 +108,61 @@ public class Hotel {
 		// references for 'number' new bookings, it does not matter if they are
 		// single of double. If there aren't enough rooms available it throws a
 		// hotel exception
+		if(number <= 0) {
+			throw new HotelException("Invalid number");
+		}
+
+		if(arrival == null || departure == null) {
+			throw new HotelException("Arrival/departure dates can't be NULL");
+		}
+
+		if(departure.isBefore(arrival)) {
+			throw new HotelException("Departure date must be after arrival date");
+		}
+
+		int check = 0;
+		Hotel hotel = null;
+
+		for(Hotel i : hotels) {
+			while(check < number) {
+				try {
+					if (i.hasVacancy(Room.Type.SINGLE, arrival, departure) != null) {
+						check++;
+					}
+				} catch (HotelException he1) {
+					try {
+						if (i.hasVacancy(Room.Type.DOUBLE, arrival, departure) != null) {
+							check++;
+						}
+					} catch (HotelException he2) {
+						break;
+					}
+				}
+			}
+			if(check == number) {
+				hotel = i;
+				break;
+			}
+			else {
+				check = 0;
+			}
+		}
+
+		if(check == number) {
+			Set<String> result = null;
+			for (int i = 0; i < number; i++) {
+				try {
+					result.add(hotel.reserveRoom(Room.Type.SINGLE, arrival, departure));
+				} catch (HotelException he1) {
+					try {
+						result.add(hotel.reserveRoom(Room.Type.DOUBLE, arrival, departure));
+					} catch (HotelException he2){
+						throw new HotelException();
+					}
+				}
+			}
+			return result;
+		}
 		throw new HotelException();
 	}
 
