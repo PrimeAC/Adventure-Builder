@@ -72,8 +72,8 @@ public class ActivityOffer {
 		return this.capacity > getNumberOfBookings();
 	}
 
-	List<Booking> seeBookings() {
-		List<Booking> result = new ArrayList<>();
+	Set<Booking> seeBookings() {
+		Set<Booking> result = new HashSet<>();
 		for (Booking booking : this.bookings) {
 			result.add(booking);
 		}
