@@ -101,4 +101,45 @@ public class ProcessPaymentStateTest {
         }};
     }
 
+    @Test
+    public void successAfterRemoteException(@Mocked BankInterface bankInterface) {
+        new Expectations() {{
+            bankInterface.processPayment(IBAN, AMOUNT);
+            result = new RemoteAccessException();
+            result = new RemoteAccessException();
+            result = PAYMENT_CONFIRMATION;
+        }};
+
+        for (int i = 0; i < 3; i++)
+            adventure.process();
+
+        assertEquals(PAYMENT_CONFIRMATION, adventure.getPaymentConfirmation());
+        assertEquals(Adventure.State.RESERVE_ACTIVITY, adventure.getState());
+
+        new Verifications() {{
+            bankInterface.processPayment(IBAN, AMOUNT);
+            times = 3;
+        }};
+    }
+
+    @Test
+    public void bankExceptionAfterRemoteException (@Mocked BankInterface bankInterface) {
+        new Expectations() {{
+            bankInterface.processPayment(IBAN, AMOUNT);
+            result = new RemoteAccessException();
+            result = new BankException();
+        }};
+
+        for (int i = 0; i < 2; i++)
+            adventure.process();
+
+        assertNull(adventure.getPaymentConfirmation());
+        assertEquals(Adventure.State.CANCELLED, adventure.getState());
+
+        new Verifications() {{
+            bankInterface.processPayment(IBAN, AMOUNT);
+            times = 2;
+        }};
+    }
+
 }
