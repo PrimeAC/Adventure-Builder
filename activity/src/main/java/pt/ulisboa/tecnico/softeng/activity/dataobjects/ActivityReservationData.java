@@ -1,6 +1,7 @@
 package pt.ulisboa.tecnico.softeng.activity.dataobjects;
 
 import org.joda.time.LocalDate;
+import pt.ulisboa.tecnico.softeng.activity.exception.ActivityException;
 
 public class ActivityReservationData {
 	private String reference;
@@ -10,6 +11,27 @@ public class ActivityReservationData {
 	private LocalDate begin;
 	private LocalDate end;
 	private LocalDate cancellationDate;
+
+	public ActivityReservationData(String reference, String code, String name, LocalDate begin,
+	                               LocalDate end) {
+		checkArguments(reference, code, name, begin, end);
+		this.reference = reference;
+		this.cancellation = null;
+		this.code = code;
+		this.name = name;
+		this.begin = begin;
+		this.end = end;
+		this.cancellationDate = null;
+
+	}
+
+	public void checkArguments(String reference, String code, String name, LocalDate begin,
+	                           LocalDate end) {
+		if(reference == null || reference.trim().equals("") || code == null || code.trim().equals("") ||
+				name == null || name.trim().equals("") || begin == null || end == null){
+			throw new ActivityException();
+		}
+	}
 
 	public String getReference() {
 		return this.reference;

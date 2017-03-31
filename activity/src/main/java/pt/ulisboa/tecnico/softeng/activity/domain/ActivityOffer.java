@@ -1,6 +1,8 @@
 package pt.ulisboa.tecnico.softeng.activity.domain;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.joda.time.LocalDate;
@@ -70,4 +72,13 @@ public class ActivityOffer {
 		return this.capacity > getNumberOfBookings();
 	}
 
+	//////////////////////////////////////////////////////////////////////
+	List<Booking> seeBookings() {
+		List<Booking> result = new ArrayList<>();
+		for (Booking booking : this.bookings) {
+			result.add(booking);
+		}
+		return result;
+	}
+	//////////////////////////////////////////////////////////////////////
 }
