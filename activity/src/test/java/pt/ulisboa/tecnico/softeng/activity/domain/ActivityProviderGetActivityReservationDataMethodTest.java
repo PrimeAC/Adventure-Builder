@@ -51,6 +51,11 @@ public class ActivityProviderGetActivityReservationDataMethodTest {
 		this.provider.getActivityReservationData("");
 	}
 
+	@Test(expected = ActivityException.class)
+	public void invalidReference() {
+		this.provider.getActivityReservationData("123ASDC");
+	}
+
 	@After
 	public void tearDown() {
 		ActivityProvider.providers.clear();
