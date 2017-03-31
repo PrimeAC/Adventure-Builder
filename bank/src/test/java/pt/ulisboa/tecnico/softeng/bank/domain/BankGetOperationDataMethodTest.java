@@ -66,6 +66,45 @@ public class BankGetOperationDataMethodTest {
 	}
 
 	@Test
+	public void typeOperationToBankOperationData() {
+		BankOperationData bankOpData = Bank.getOperationData(this.operation.getReference());
+		Assert.assertEquals(bankOpData.getType(), this.operation.getType().toString());
+	}
+
+	@Test
+	public void typeOperationToBankOperationData2() {
+		Account account2 = new Account(bank, client);
+		Operation operation2 = new Operation(Operation.Type.WITHDRAW, account2, 10);
+		BankOperationData bankOpData = Bank.getOperationData(operation2.getReference());
+		Assert.assertEquals(bankOpData.getType(), operation2.getType().toString());
+	}
+
+	@Test
+	public void referenceOperationToBankOperationData() {
+		BankOperationData bankOpData = Bank.getOperationData(this.operation.getReference());
+		Assert.assertEquals(bankOpData.getReference(), this.operation.getReference());
+	}
+
+	@Test
+	public void ibanOperationToBankOperationData() {
+		BankOperationData bankOpData = Bank.getOperationData(this.operation.getReference());
+		Assert.assertEquals(bankOpData.getIban(), this.operation.getAccount().getIBAN());
+	}
+
+	@Test
+	public void valueOperationToBankOperationData() {
+		BankOperationData bankOpData = Bank.getOperationData(this.operation.getReference());
+		Assert.assertEquals(bankOpData.getValue(), this.operation.getValue());
+	}
+
+	@Test
+	public void timeOperationToBankOperationData() {
+		BankOperationData bankOpData = Bank.getOperationData(this.operation.getReference());
+		int daysBetween = Days.daysBetween(bankOpData.getTime(), this.operation.getTime()).getDays();
+		Assert.assertEquals(0, daysBetween);
+	}
+
+	@Test
 	public void multipleBanks() {
 		Bank bank2 = new Bank("Moneyz", "BK02");
 		Client client2 = new Client(bank2, "António");
@@ -80,28 +119,17 @@ public class BankGetOperationDataMethodTest {
 	}
 
 	@Test
-	public void TypeOperationToBankOperationData() {
-		BankOperationData bankOpData = Bank.getOperationData(this.operation.getReference());
-		Assert.assertEquals(bankOpData.getType(), this.operation.getType().toString());
-	}
+	public void multipleAccounts() {
+		Account account2 = new Account(bank, client);
+		Operation operation2 = new Operation(Operation.Type.DEPOSIT, account2, 1);
 
-	@Test
-	public void ReferenceOperationToBankOperationData() {
-		BankOperationData bankOpData = Bank.getOperationData(this.operation.getReference());
-		Assert.assertEquals(bankOpData.getIban(), this.operation.getReference());
-	}
+		BankOperationData bankOpData2 = Bank.getOperationData(operation2.getReference());
+		Assert.assertEquals(operation2.getReference(), bankOpData2.getReference());
+		Assert.assertEquals(operation2.getAccount().getIBAN(), bankOpData2.getIban());
 
-	@Test
-	public void ValueOperationToBankOperationData() {
 		BankOperationData bankOpData = Bank.getOperationData(this.operation.getReference());
-		Assert.assertEquals(bankOpData.getValue(), this.operation.getValue());
-	}
-
-	@Test
-	public void TimeOperationToBankOperationData() {
-		BankOperationData bankOpData = Bank.getOperationData(this.operation.getReference());
-		int daysBetween = Days.daysBetween(bankOpData.getTime(), this.operation.getTime()).getDays();
-		Assert.assertEquals(0, daysBetween);
+		Assert.assertEquals(this.operation.getReference(), bankOpData.getReference());
+		Assert.assertEquals(this.operation.getAccount().getIBAN(), bankOpData.getIban());
 	}
 
 	@After
