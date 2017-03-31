@@ -31,7 +31,7 @@ public class ActivityProviderGetActivityReservationDataMethodTest {
 	}
 	@Test
 	public void success() {
-		this.ard = this.provider.getActivityReservationData(this.booking.getReference());
+		this.ard = ActivityProvider.getActivityReservationData(this.booking.getReference());
 
 		Assert.assertEquals(this.begin, this.ard.getBegin());
 		Assert.assertEquals(this.end, this.ard.getEnd());
@@ -43,17 +43,17 @@ public class ActivityProviderGetActivityReservationDataMethodTest {
 
 	@Test(expected = ActivityException.class)
 	public void nullReference() {
-		this.provider.getActivityReservationData(null);
+		ActivityProvider.getActivityReservationData(null);
 	}
 
 	@Test(expected = ActivityException.class)
 	public void emptyReference() {
-		this.provider.getActivityReservationData("");
+		ActivityProvider.getActivityReservationData("");
 	}
 
 	@Test(expected = ActivityException.class)
 	public void invalidReference() {
-		this.provider.getActivityReservationData("123ASDC");
+		ActivityProvider.getActivityReservationData("123ASDC");
 	}
 
 	@After
