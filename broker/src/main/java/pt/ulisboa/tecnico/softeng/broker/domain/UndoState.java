@@ -1,7 +1,5 @@
 package pt.ulisboa.tecnico.softeng.broker.domain;
 
-import pt.ulisboa.tecnico.softeng.activity.exception.ActivityException;
-import pt.ulisboa.tecnico.softeng.bank.exception.BankException;
 import pt.ulisboa.tecnico.softeng.broker.domain.Adventure.State;
 import pt.ulisboa.tecnico.softeng.broker.exception.RemoteAccessException;
 import pt.ulisboa.tecnico.softeng.broker.interfaces.ActivityInterface;
@@ -23,7 +21,7 @@ public class UndoState extends AdventureState {
 			try {
 				String paymentCancellation = BankInterface.cancelPayment(adventure.getPaymentConfirmation());
 				adventure.setPaymentCancellation(paymentCancellation);
-			} catch (BankException | RemoteAccessException ex) {
+			} catch (HotelException | RemoteAccessException ex) {
 			}
 		}
 
@@ -31,7 +29,7 @@ public class UndoState extends AdventureState {
 			try {
 				String activityCancellation = ActivityInterface.cancelReservation(adventure.getActivityConfirmation());
 				adventure.setActivityCancellation(activityCancellation);
-			} catch (ActivityException | RemoteAccessException ex) {
+			} catch (HotelException | RemoteAccessException ex) {
 			}
 		}
 
