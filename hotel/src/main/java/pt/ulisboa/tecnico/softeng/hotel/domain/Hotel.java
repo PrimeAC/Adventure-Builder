@@ -104,10 +104,7 @@ public class Hotel {
 	}
 
 	public static Set<String> bulkBooking(int number, LocalDate arrival, LocalDate departure) {
-		// TODO: verify consistency of arguments, return the
-		// references for 'number' new bookings, it does not matter if they are
-		// single of double. If there aren't enough rooms available it throws a
-		// hotel exception
+
 		if(number <= 0) {
 			throw new HotelException("Invalid number");
 		}
@@ -116,7 +113,7 @@ public class Hotel {
 			throw new HotelException("Arrival/departure dates can't be NULL");
 		}
 
-		if(departure.isBefore(arrival)) {
+		if(departure.isBefore(arrival) || arrival.isEqual(departure)) {
 			throw new HotelException("Departure date must be after arrival date");
 		}
 
@@ -148,8 +145,8 @@ public class Hotel {
 			}
 		}
 
-		if(check == number) {
-			Set<String> result = null;
+		if(hotel != null) {
+			Set<String> result = new HashSet<>();
 			for (int i = 0; i < number; i++) {
 				try {
 					result.add(hotel.reserveRoom(Room.Type.SINGLE, arrival, departure));
