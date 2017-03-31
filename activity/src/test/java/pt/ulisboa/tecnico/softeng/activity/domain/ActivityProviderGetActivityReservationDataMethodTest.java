@@ -1,6 +1,7 @@
 package pt.ulisboa.tecnico.softeng.activity.domain;
 
 import org.joda.time.LocalDate;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -50,4 +51,13 @@ public class ActivityProviderGetActivityReservationDataMethodTest {
 		this.provider.getActivityReservationData("");
 	}
 
+	@Test(expected = ActivityException.class)
+	public void invalidReference() {
+		this.provider.getActivityReservationData("123ASDC");
+	}
+
+	@After
+	public void tearDown() {
+		ActivityProvider.providers.clear();
+	}
 }
