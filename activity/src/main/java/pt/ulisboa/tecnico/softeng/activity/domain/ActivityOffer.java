@@ -72,7 +72,6 @@ public class ActivityOffer {
 		return this.capacity > getNumberOfBookings();
 	}
 
-	//////////////////////////////////////////////////////////////////////
 	List<Booking> seeBookings() {
 		List<Booking> result = new ArrayList<>();
 		for (Booking booking : this.bookings) {
@@ -80,5 +79,4 @@ public class ActivityOffer {
 		}
 		return result;
 	}
-	//////////////////////////////////////////////////////////////////////
 }
