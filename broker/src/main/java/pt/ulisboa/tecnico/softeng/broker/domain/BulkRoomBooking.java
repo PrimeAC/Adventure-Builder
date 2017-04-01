@@ -44,6 +44,18 @@ public class BulkRoomBooking {
 		return this.departure;
 	}
 
+	public int getNumberOfHotelExceptions() {
+		return this.numberOfHotelExceptions;
+	}
+
+	public int getNumberOfRemoteErrors() {
+		return this.numberOfRemoteErrors;
+	}
+
+	public boolean getCancelled(){
+		return this.cancelled;
+	}
+
 	public void processBooking() {
 		if (this.cancelled) {
 			return;
@@ -53,21 +65,18 @@ public class BulkRoomBooking {
 			this.references.addAll(HotelInterface.bulkBooking(this.number, this.arrival, this.departure));
 			this.numberOfHotelExceptions = 0;
 			this.numberOfRemoteErrors = 0;
-			return;
 		} catch (HotelException he) {
 			this.numberOfHotelExceptions++;
 			if (this.numberOfHotelExceptions == MAX_HOTEL_EXCEPTIONS) {
-			this.cancelled = true;
+				this.cancelled = true;
 			}
 			this.numberOfRemoteErrors = 0;
-			return;
 		} catch (RemoteAccessException rae) {
 			this.numberOfRemoteErrors++;
 			if (this.numberOfRemoteErrors == MAX_REMOTE_ERRORS) {
-			this.cancelled = true;
+				this.cancelled = true;
 			}
 			this.numberOfHotelExceptions = 0;
-			return;
 		}
 	}
 
