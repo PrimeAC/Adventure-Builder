@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
-import java.util.HashSet;
 import java.util.Set;
 
 public class HotelBulkBookingMethodTest {
@@ -16,18 +15,17 @@ public class HotelBulkBookingMethodTest {
 	private final LocalDate departure = new LocalDate(2016, 12, 21);
 
 	private Hotel hotel1, hotel2;
-	private Room room1, room2, room3, room4, room5;
 
 	@Before
-	public void setUp(){
-		this.hotel1 = new Hotel("XPTO123", "Hilton");
-		this.hotel2 = new Hotel("XPT4567", "Sheraton");
+	public void setUp() {
+		hotel1 = new Hotel("XPTO123", "Hilton");
+		hotel2 = new Hotel("XPT4567", "Sheraton");
 
-		this.room1 = new Room(hotel1, "01", Room.Type.SINGLE);
-		this.room2 = new Room(hotel1, "02", Room.Type.DOUBLE);
-		this.room3 = new Room(hotel2, "01", Room.Type.SINGLE);
-		this.room4 = new Room(hotel2, "02", Room.Type.SINGLE);
-		this.room5 = new Room(hotel2, "03", Room.Type.DOUBLE);
+		new Room(this.hotel1, "01", Room.Type.SINGLE);
+		new Room(this.hotel1, "02", Room.Type.DOUBLE);
+		new Room(this.hotel2, "01", Room.Type.SINGLE);
+		new Room(this.hotel2, "02", Room.Type.SINGLE);
+		new Room(this.hotel2, "03", Room.Type.DOUBLE);
 	}
 
 	@Test(expected = HotelException.class)
@@ -74,7 +72,16 @@ public class HotelBulkBookingMethodTest {
 
 		array = Hotel.bulkBooking(2, arrival, departure);
 
-		Assert.assertEquals(2,array.size());
+		Assert.assertEquals(2, array.size());
+	}
+
+	@Test(expected = HotelException.class)
+	public void checkNotEnoughVacancy() {
+
+		Hotel.reserveRoom(Room.Type.SINGLE, arrival, departure);
+		Hotel.reserveRoom(Room.Type.SINGLE, arrival, departure);
+		Hotel.bulkBooking(3, arrival, departure);
+
 	}
 
 	@Test(expected = HotelException.class)
@@ -90,14 +97,14 @@ public class HotelBulkBookingMethodTest {
 		array1 = Hotel.bulkBooking(2, arrival, departure);
 		array2 = Hotel.bulkBooking(3, arrival, departure);
 
-		Assert.assertEquals(2,array1.size());
-		Assert.assertEquals(3,array2.size());
-
+		Assert.assertEquals(2, array1.size());
+		Assert.assertEquals(3, array2.size());
 	}
 
 	@After
 	public void tearDown() {
 		Hotel.hotels.clear();
+
 	}
 
 }
