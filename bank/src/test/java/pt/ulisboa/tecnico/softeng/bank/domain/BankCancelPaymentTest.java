@@ -8,6 +8,7 @@ import pt.ulisboa.tecnico.softeng.bank.exception.BankException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 public class BankCancelPaymentTest {
 
@@ -60,6 +61,18 @@ public class BankCancelPaymentTest {
 		} catch (BankException e) {
 			assertEquals(BALANCE_AFTER_PAYMENT, account.getBalance());
 			throw e;
+		}
+	}
+
+	@Test
+	public void failureCancelPaymentTwice() {
+		Bank.cancelPayment(paymentID);
+		assertEquals(INITIAL_ACCOUNT_BALANCE, account.getBalance());
+		try {
+			Bank.cancelPayment(paymentID);
+			fail();
+		} catch (BankException e) {
+			assertEquals(INITIAL_ACCOUNT_BALANCE, account.getBalance());
 		}
 	}
 
