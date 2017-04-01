@@ -21,125 +21,125 @@ import static org.junit.Assert.assertNull;
 @RunWith(JMockit.class)
 public class ProcessPaymentStateTest {
 
-    private static final String IBAN = "BK01987654321";
-    private static final int AMOUNT = 300;
-    private static final int AGE = 20;
-    private static final String PAYMENT_CONFIRMATION = "PaymentConfirmation";
+	private static final String IBAN = "BK01987654321";
+	private static final int AMOUNT = 300;
+	private static final int AGE = 20;
+	private static final String PAYMENT_CONFIRMATION = "PaymentConfirmation";
 
-    private final LocalDate begin = LocalDate.now();
-    private final LocalDate end = begin.plusDays(5);
-    private Adventure adventure;
+	private final LocalDate begin = LocalDate.now();
+	private final LocalDate end = begin.plusDays(5);
+	private Adventure adventure;
 
 
-    @Injectable
-    private Broker broker;
+	@Injectable
+	private Broker broker;
 
-    @Before
-    public void setUp() {
-        this.adventure = new Adventure(this.broker, this.begin, this.end, AGE, IBAN, AMOUNT);
-        this.adventure.setState(Adventure.State.PROCESS_PAYMENT);
-    }
+	@Before
+	public void setUp() {
+		this.adventure = new Adventure(this.broker, this.begin, this.end, AGE, IBAN, AMOUNT);
+		this.adventure.setState(Adventure.State.PROCESS_PAYMENT);
+	}
 
-    @Test
-    public void paymentSuccess(@Mocked BankInterface bankInterface) {
+	@Test
+	public void paymentSuccess(@Mocked BankInterface bankInterface) {
 
-        new Expectations() {{
-            bankInterface.processPayment(IBAN, AMOUNT);
-            result = PAYMENT_CONFIRMATION;
-        }};
+		new Expectations() {{
+			bankInterface.processPayment(IBAN, AMOUNT);
+			result = PAYMENT_CONFIRMATION;
+		}};
 
-        adventure.process();
+		adventure.process();
 
-        assertEquals(PAYMENT_CONFIRMATION, adventure.getPaymentConfirmation());
-        assertEquals(Adventure.State.RESERVE_ACTIVITY, adventure.getState());
+		assertEquals(PAYMENT_CONFIRMATION, adventure.getPaymentConfirmation());
+		assertEquals(Adventure.State.RESERVE_ACTIVITY, adventure.getState());
 
-        new Verifications() {{
-            bankInterface.processPayment(IBAN, AMOUNT);
-            times = 1;
-        }};
-    }
+		new Verifications() {{
+			bankInterface.processPayment(IBAN, AMOUNT);
+			times = 1;
+		}};
+	}
 
-    @Test
-    public void bankException(@Mocked BankInterface bankInterface) {
+	@Test
+	public void bankException(@Mocked BankInterface bankInterface) {
 
-        new Expectations() {{
-            bankInterface.processPayment(IBAN, AMOUNT);
-            result = new BankException();
-        }};
+		new Expectations() {{
+			bankInterface.processPayment(IBAN, AMOUNT);
+			result = new BankException();
+		}};
 
-        adventure.process();
+		adventure.process();
 
-        assertNull(adventure.getPaymentConfirmation());
-        assertEquals(Adventure.State.CANCELLED, adventure.getState());
+		assertNull(adventure.getPaymentConfirmation());
+		assertEquals(Adventure.State.CANCELLED, adventure.getState());
 
-        new Verifications() {{
-            bankInterface.processPayment(IBAN, AMOUNT);
-            times = 1;
-        }};
-    }
+		new Verifications() {{
+			bankInterface.processPayment(IBAN, AMOUNT);
+			times = 1;
+		}};
+	}
 
-    @Test
-    public void remoteAccessException(@Mocked BankInterface bankInterface) {
-        new Expectations() {{
-            bankInterface.processPayment(IBAN, AMOUNT);
-            result = new RemoteAccessException();
-        }};
+	@Test
+	public void remoteAccessException(@Mocked BankInterface bankInterface) {
+		new Expectations() {{
+			bankInterface.processPayment(IBAN, AMOUNT);
+			result = new RemoteAccessException();
+		}};
 
-        int i = 0;
-        while (adventure.getState().equals(Adventure.State.PROCESS_PAYMENT)) {
-            adventure.process();
-            i++;
-        }
+		int i = 0;
+		while (adventure.getState().equals(Adventure.State.PROCESS_PAYMENT)) {
+			adventure.process();
+			i++;
+		}
 
-        assertNull(adventure.getPaymentConfirmation());
-        assertEquals(Adventure.State.CANCELLED, adventure.getState());
-        assertEquals(3, i);
+		assertNull(adventure.getPaymentConfirmation());
+		assertEquals(Adventure.State.CANCELLED, adventure.getState());
+		assertEquals(3, i);
 
-        new Verifications() {{
-            bankInterface.processPayment(IBAN, AMOUNT);
-            times = 3;
-        }};
-    }
+		new Verifications() {{
+			bankInterface.processPayment(IBAN, AMOUNT);
+			times = 3;
+		}};
+	}
 
-    @Test
-    public void successAfterRemoteException(@Mocked BankInterface bankInterface) {
-        new Expectations() {{
-            bankInterface.processPayment(IBAN, AMOUNT);
-            result = new RemoteAccessException();
-            result = new RemoteAccessException();
-            result = PAYMENT_CONFIRMATION;
-        }};
+	@Test
+	public void successAfterRemoteException(@Mocked BankInterface bankInterface) {
+		new Expectations() {{
+			bankInterface.processPayment(IBAN, AMOUNT);
+			result = new RemoteAccessException();
+			result = new RemoteAccessException();
+			result = PAYMENT_CONFIRMATION;
+		}};
 
-        for (int i = 0; i < 3; i++)
-            adventure.process();
+		for (int i = 0; i < 3; i++)
+			adventure.process();
 
-        assertEquals(PAYMENT_CONFIRMATION, adventure.getPaymentConfirmation());
-        assertEquals(Adventure.State.RESERVE_ACTIVITY, adventure.getState());
+		assertEquals(PAYMENT_CONFIRMATION, adventure.getPaymentConfirmation());
+		assertEquals(Adventure.State.RESERVE_ACTIVITY, adventure.getState());
 
-        new Verifications() {{
-            bankInterface.processPayment(IBAN, AMOUNT);
-            times = 3;
-        }};
-    }
+		new Verifications() {{
+			bankInterface.processPayment(IBAN, AMOUNT);
+			times = 3;
+		}};
+	}
 
-    @Test
-    public void bankExceptionAfterRemoteException (@Mocked BankInterface bankInterface) {
-        new Expectations() {{
-            bankInterface.processPayment(IBAN, AMOUNT);
-            result = new RemoteAccessException();
-            result = new BankException();
-        }};
+	@Test
+	public void bankExceptionAfterRemoteException (@Mocked BankInterface bankInterface) {
+		new Expectations() {{
+			bankInterface.processPayment(IBAN, AMOUNT);
+			result = new RemoteAccessException();
+			result = new BankException();
+		}};
 
-        for (int i = 0; i < 2; i++)
-            adventure.process();
+		for (int i = 0; i < 2; i++)
+			adventure.process();
 
-        assertNull(adventure.getPaymentConfirmation());
-        assertEquals(Adventure.State.CANCELLED, adventure.getState());
+		assertNull(adventure.getPaymentConfirmation());
+		assertEquals(Adventure.State.CANCELLED, adventure.getState());
 
-        new Verifications() {{
-            bankInterface.processPayment(IBAN, AMOUNT);
-            times = 2;
-        }};
-    }
+		new Verifications() {{
+			bankInterface.processPayment(IBAN, AMOUNT);
+			times = 2;
+		}};
+	}
 
 }
