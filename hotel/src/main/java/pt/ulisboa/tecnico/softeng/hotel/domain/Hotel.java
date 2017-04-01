@@ -1,12 +1,11 @@
 package pt.ulisboa.tecnico.softeng.hotel.domain;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.joda.time.LocalDate;
-
 import pt.ulisboa.tecnico.softeng.hotel.dataobjects.RoomBookingData;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class Hotel {
 	public static Set<Hotel> hotels = new HashSet<>();
@@ -105,56 +104,58 @@ public class Hotel {
 
 	public static Set<String> bulkBooking(int number, LocalDate arrival, LocalDate departure) {
 
-		if(number <= 0) {
+		if (number <= 0) {
 			throw new HotelException("Invalid number");
 		}
 
-		if(arrival == null || departure == null) {
+		if (arrival == null || departure == null) {
 			throw new HotelException("Arrival/departure dates can't be NULL");
 		}
 
-		if(departure.isBefore(arrival) || arrival.isEqual(departure)) {
+		if (departure.isBefore(arrival) || arrival.isEqual(departure)) {
 			throw new HotelException("Departure date must be after arrival date");
 		}
 
 		int check = 0;
 		Hotel hotel = null;
 
-		for(Hotel i : hotels) {
-			while(check < number) {
-				try {
-					if (i.hasVacancy(Room.Type.SINGLE, arrival, departure) != null) {
+		for (Hotel i : hotels) {
+			for (Room j : i.rooms) {
+				if (j.isFree(Room.Type.SINGLE, arrival, departure)) {
+					check++;
+				} else {
+					if (j.isFree(Room.Type.DOUBLE, arrival, departure)) {
 						check++;
-					}
-				} catch (HotelException he1) {
-					try {
-						if (i.hasVacancy(Room.Type.DOUBLE, arrival, departure) != null) {
-							check++;
-						}
-					} catch (HotelException he2) {
+					} else {
 						break;
 					}
 				}
+				if (check == number) {
+					hotel = i;
+					break;
+				}
 			}
-			if(check == number) {
-				hotel = i;
+			if (check == number) {
 				break;
-			}
-			else {
+			} else {
 				check = 0;
 			}
-		}
 
-		if(hotel != null) {
+		}
+		if (hotel != null) {
 			Set<String> result = new HashSet<>();
 			for (int i = 0; i < number; i++) {
-				try {
-					result.add(hotel.reserveRoom(Room.Type.SINGLE, arrival, departure));
-				} catch (HotelException he1) {
-					try {
-						result.add(hotel.reserveRoom(Room.Type.DOUBLE, arrival, departure));
-					} catch (HotelException he2){
-						throw new HotelException();
+				Room room = hotel.hasVacancy(Room.Type.SINGLE, arrival, departure);
+				if (room != null) {
+					Booking reserve = room.reserve(Room.Type.SINGLE, arrival, departure);
+					result.add(reserve.getReference());
+				} else {
+					room = hotel.hasVacancy(Room.Type.DOUBLE, arrival, departure);
+					if (room != null) {
+						Booking reserve = room.reserve(Room.Type.DOUBLE, arrival, departure);
+						result.add(reserve.getReference());
+					} else {
+						throw new HotelException("Unexpected error while reserving!");
 					}
 				}
 			}
