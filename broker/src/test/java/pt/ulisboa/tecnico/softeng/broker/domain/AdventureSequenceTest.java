@@ -121,7 +121,9 @@ public class AdventureSequenceTest {
 	}
 
 	@Test
-	public void testPaymentActivityRoomConfirmed(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+	public void testPaymentActivityRoomConfirmed(@Mocked final BankInterface bankInterface,
+												 @Mocked final ActivityInterface activityInterface,
+												 @Mocked final HotelInterface hotelInterface) {
 
 		new StrictExpectations() {
 			{
@@ -146,7 +148,9 @@ public class AdventureSequenceTest {
 	}
 
 	@Test
-	public void testPaymentActivityRoomConfirmedRemoteExceptionPayment(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+	public void testPaymentActivityRoomConfirmedRemoteExceptionPayment(@Mocked final BankInterface bankInterface,
+																	   @Mocked final ActivityInterface activityInterface,
+																	   @Mocked final HotelInterface hotelInterface) {
 
 		new StrictExpectations() {
 			{
@@ -178,7 +182,9 @@ public class AdventureSequenceTest {
 	}
 
 	@Test
-	public void testPaymentActivityRoomConfirmedRemoteExceptionActivity(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+	public void testPaymentActivityRoomConfirmedRemoteExceptionActivity(@Mocked final BankInterface bankInterface,
+																		@Mocked final ActivityInterface activityInterface,
+																		@Mocked final HotelInterface hotelInterface) {
 
 		new StrictExpectations() {
 			{
@@ -210,7 +216,9 @@ public class AdventureSequenceTest {
 	}
 
 	@Test
-	public void testPaymentActivityRoomConfirmedRemoteExceptionRoom(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+	public void testPaymentActivityRoomConfirmedRemoteExceptionRoom(@Mocked final BankInterface bankInterface,
+																	@Mocked final ActivityInterface activityInterface,
+																	@Mocked final HotelInterface hotelInterface) {
 
 		new StrictExpectations() {
 			{
@@ -398,7 +406,8 @@ public class AdventureSequenceTest {
 	}
 
 	@Test
-	public void testPaymentActivityUndoCancelledActivityException(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface) {
+	public void testPaymentActivityUndoCancelledActivityException(@Mocked final BankInterface bankInterface,
+																  @Mocked final ActivityInterface activityInterface) {
 
 		new StrictExpectations() {
 			{
@@ -420,7 +429,8 @@ public class AdventureSequenceTest {
 	}
 
 	@Test
-	public void testPaymentActivityUndoCancelledRemoteAccessException(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface) {
+	public void testPaymentActivityUndoCancelledRemoteAccessException(@Mocked final BankInterface bankInterface,
+																	  @Mocked final ActivityInterface activityInterface) {
 
 		new StrictExpectations() {
 			{
@@ -443,7 +453,9 @@ public class AdventureSequenceTest {
 	}
 
 	@Test
-	public void testPaymentActivityRoomUndoCancelledHotelException(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+	public void testPaymentActivityRoomUndoCancelledHotelException(@Mocked final BankInterface bankInterface,
+																   @Mocked final ActivityInterface activityInterface,
+																   @Mocked final HotelInterface hotelInterface) {
 
 		new StrictExpectations() {
 			{
@@ -466,7 +478,9 @@ public class AdventureSequenceTest {
 	}
 
 	@Test
-	public void testPaymentActivityRoomUndoCancelledRemoteAccessException(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+	public void testPaymentActivityRoomUndoCancelledRemoteAccessException(@Mocked final BankInterface bankInterface,
+																		  @Mocked final ActivityInterface activityInterface,
+																		  @Mocked final HotelInterface hotelInterface) {
 
 		new StrictExpectations() {
 			{
@@ -490,7 +504,9 @@ public class AdventureSequenceTest {
 	}
 
 	@Test
-	public void testPaymentActivityRoomConfirmedUndoCancelledBankException(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+	public void testPaymentActivityRoomConfirmedUndoCancelledBankException(@Mocked final BankInterface bankInterface,
+																		   @Mocked final ActivityInterface activityInterface,
+																		   @Mocked final HotelInterface hotelInterface) {
 
 		new StrictExpectations() {
 			{
@@ -515,7 +531,9 @@ public class AdventureSequenceTest {
 	}
 
 	@Test
-	public void testPaymentActivityRoomConfirmedUndoCancelledRemoteAccessExceptionPayment(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+	public void testPaymentActivityRoomConfirmedUndoCancelledRemoteAccessExceptionPayment(@Mocked final BankInterface bankInterface,
+																						  @Mocked final ActivityInterface activityInterface,
+																						  @Mocked final HotelInterface hotelInterface) {
 
 		new StrictExpectations() {
 			{
@@ -540,7 +558,9 @@ public class AdventureSequenceTest {
 	}
 
 	@Test
-	public void testPaymentActivityRoomConfirmedUndoCancelledActivityException(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+	public void testPaymentActivityRoomConfirmedUndoCancelledActivityException(@Mocked final BankInterface bankInterface,
+																			   @Mocked final ActivityInterface activityInterface,
+																			   @Mocked final HotelInterface hotelInterface) {
 
 		new StrictExpectations() {
 			{
@@ -565,7 +585,9 @@ public class AdventureSequenceTest {
 	}
 
 	@Test
-	public void testPaymentActivityRoomConfirmedUndoCancelledRemoteAccessExceptionActivity(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+	public void testPaymentActivityRoomConfirmedUndoCancelledRemoteAccessExceptionActivity(@Mocked final BankInterface bankInterface,
+																						   @Mocked final ActivityInterface activityInterface,
+																						   @Mocked final HotelInterface hotelInterface) {
 
 		new StrictExpectations() {
 			{
@@ -593,7 +615,9 @@ public class AdventureSequenceTest {
 	}
 
 	@Test
-	public void testPaymentActivityRoomConfirmedUndoCancelledHotelException(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+	public void testPaymentActivityRoomConfirmedUndoCancelledHotelException(@Mocked final BankInterface bankInterface,
+																			@Mocked final ActivityInterface activityInterface,
+																			@Mocked final HotelInterface hotelInterface) {
 
 		new StrictExpectations() {
 			{
@@ -622,7 +646,9 @@ public class AdventureSequenceTest {
 	}
 
 	@Test
-	public void testPaymentActivityRoomConfirmedUndoCancelledRemoteAccessExceptionHotel(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+	public void testPaymentActivityRoomConfirmedUndoCancelledRemoteAccessExceptionHotel(@Mocked final BankInterface bankInterface,
+																						@Mocked final ActivityInterface activityInterface,
+																						@Mocked final HotelInterface hotelInterface) {
 
 		new StrictExpectations() {
 			{
