@@ -39,8 +39,7 @@ public class AdventureSequenceTest {
 	}
 
 	@Test
-	public void testPaymentActivityConfirmed(@Mocked final BankInterface bankInterface,
-											 @Mocked final ActivityInterface activityInterface) {
+	public void testPaymentActivityConfirmed(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface) {
 
 		new StrictExpectations() {
 			{
@@ -51,7 +50,7 @@ public class AdventureSequenceTest {
 
 		Assert.assertEquals(Adventure.State.PROCESS_PAYMENT, this.adventureSameDay.getState());
 
-		while (numberProcess++ != 2) {
+		while (numberProcess++ < 2) {
 			this.adventureSameDay.process();
 
 			if (numberProcess == 1) {
@@ -63,8 +62,7 @@ public class AdventureSequenceTest {
 	}
 
 	@Test
-	public void testPaymentActivityConfirmedRemoteExceptionPayment(@Mocked final BankInterface bankInterface,
-																   @Mocked final ActivityInterface activityInterface) {
+	public void testPaymentActivityConfirmedRemoteExceptionPayment(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface) {
 
 		new StrictExpectations() {
 			{
@@ -80,7 +78,7 @@ public class AdventureSequenceTest {
 
 		Assert.assertEquals(Adventure.State.PROCESS_PAYMENT, this.adventureSameDay.getState());
 
-		while (numberProcess++ != 4) {
+		while (numberProcess++ < 4) {
 			this.adventureSameDay.process();
 
 			if (numberProcess < 3)
@@ -93,8 +91,7 @@ public class AdventureSequenceTest {
 	}
 
 	@Test
-	public void testPaymentActivityConfirmedRemoteExceptionActivity(@Mocked final BankInterface bankInterface,
-																	@Mocked final ActivityInterface activityInterface) {
+	public void testPaymentActivityConfirmedRemoteExceptionActivity(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface) {
 
 		new StrictExpectations() {
 			{
@@ -110,7 +107,7 @@ public class AdventureSequenceTest {
 
 		Assert.assertEquals(Adventure.State.PROCESS_PAYMENT, this.adventureSameDay.getState());
 
-		while (numberProcess++ != 6) {
+		while (numberProcess++ < 6) {
 			this.adventureSameDay.process();
 
 			if (numberProcess < 6)
@@ -133,7 +130,7 @@ public class AdventureSequenceTest {
 
 		Assert.assertEquals(Adventure.State.PROCESS_PAYMENT, this.adventureSameDay.getState());
 
-		while (numberProcess++ != 3) {
+		while (numberProcess++ < 3) {
 			this.adventureDifferentDays.process();
 
 			if (numberProcess == 1)
@@ -163,7 +160,7 @@ public class AdventureSequenceTest {
 
 		Assert.assertEquals(Adventure.State.PROCESS_PAYMENT, this.adventureSameDay.getState());
 
-		while (numberProcess++ != 5) {
+		while (numberProcess++ < 5) {
 			this.adventureDifferentDays.process();
 
 			if (numberProcess < 3)
@@ -196,7 +193,7 @@ public class AdventureSequenceTest {
 
 		Assert.assertEquals(Adventure.State.PROCESS_PAYMENT, this.adventureDifferentDays.getState());
 
-		while (numberProcess++ != 7) {
+		while (numberProcess++ < 7) {
 			this.adventureDifferentDays.process();
 
 			if (numberProcess < 6)
@@ -227,7 +224,7 @@ public class AdventureSequenceTest {
 
 		Assert.assertEquals(Adventure.State.PROCESS_PAYMENT, this.adventureDifferentDays.getState());
 
-		while (numberProcess++ != 12) {
+		while (numberProcess++ < 12) {
 			this.adventureDifferentDays.process();
 
 			if (numberProcess == 1)
@@ -240,8 +237,7 @@ public class AdventureSequenceTest {
 	}
 
 	@Test
-	public void testPaymentActivityConfirmedBankException(@Mocked final BankInterface bankInterface,
-														  @Mocked final ActivityInterface activityInterface) {
+	public void testPaymentActivityConfirmedBankException(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface) {
 
 		new StrictExpectations() {
 			{
@@ -256,7 +252,7 @@ public class AdventureSequenceTest {
 
 		Assert.assertEquals(Adventure.State.PROCESS_PAYMENT, this.adventureSameDay.getState());
 
-		while (numberProcess++ != 6) {
+		while (numberProcess++ < 6) {
 			this.adventureSameDay.process();
 
 			if (numberProcess == 1)
@@ -268,8 +264,7 @@ public class AdventureSequenceTest {
 	}
 
 	@Test
-	public void testPaymentActivityConfirmedRemoteAccessExceptionPayment(@Mocked final BankInterface bankInterface,
-																		 @Mocked final ActivityInterface activityInterface) {
+	public void testPaymentActivityConfirmedRemoteAccessExceptionPayment(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface) {
 
 		new StrictExpectations() {
 			{
@@ -284,7 +279,7 @@ public class AdventureSequenceTest {
 
 		Assert.assertEquals(Adventure.State.PROCESS_PAYMENT, this.adventureSameDay.getState());
 
-		while (numberProcess++ != 21) {
+		while (numberProcess++ < 21) {
 			this.adventureSameDay.process();
 
 			if (numberProcess == 1)
@@ -295,15 +290,14 @@ public class AdventureSequenceTest {
 	}
 
 	@Test
-	public void testPaymentActivityConfirmedRemoteAccessExceptionActivity(@Mocked final BankInterface bankInterface,
-																		  @Mocked final ActivityInterface activityInterface) {
+	public void testPaymentActivityConfirmedRemoteAccessExceptionActivity(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface) {
 
 		new StrictExpectations() {
 			{
 				BankInterface.processPayment(IBAN, AMOUNT);
 				ActivityInterface.reserveActivity(begin, end, AGE);
 
-				while (numberProcess++ != 19) {
+				while (numberProcess++ < 19) {
 					BankInterface.getOperationData(this.anyString);
 					ActivityInterface.getActivityReservationData(this.anyString);
 					this.result = new RemoteAccessException();
@@ -314,7 +308,7 @@ public class AdventureSequenceTest {
 		Assert.assertEquals(Adventure.State.PROCESS_PAYMENT, this.adventureSameDay.getState());
 
 		numberProcess = 0;
-		while (numberProcess++ != 21) {
+		while (numberProcess++ < 21) {
 			this.adventureSameDay.process();
 
 			if (numberProcess == 1)
@@ -325,9 +319,7 @@ public class AdventureSequenceTest {
 	}
 
 	@Test
-	public void testPaymentActivityConfirmedRemoteAccessExceptionRoom(@Mocked final BankInterface bankInterface,
-																	  @Mocked final ActivityInterface activityInterface,
-																	  @Mocked final HotelInterface hotelInterface) {
+	public void testPaymentActivityConfirmedRemoteAccessExceptionRoom(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
 
 		new StrictExpectations() {
 			{
@@ -336,7 +328,7 @@ public class AdventureSequenceTest {
 				HotelInterface.reserveRoom(Room.Type.SINGLE, begin, end.plusDays(1));
 				this.result = this.anyString;
 
-				while (numberProcess++ != 19) {
+				while (numberProcess++ < 19) {
 					BankInterface.getOperationData(this.anyString);
 					ActivityInterface.getActivityReservationData(this.anyString);
 					HotelInterface.getRoomBookingData(this.anyString);
@@ -348,7 +340,7 @@ public class AdventureSequenceTest {
 		Assert.assertEquals(Adventure.State.PROCESS_PAYMENT, this.adventureDifferentDays.getState());
 
 		numberProcess = 0;
-		while (numberProcess++ != 22) {
+		while (numberProcess++ < 22) {
 			this.adventureDifferentDays.process();
 
 			if (numberProcess == 1)
@@ -388,7 +380,7 @@ public class AdventureSequenceTest {
 			}
 		};
 
-		while (numberProcess++ != 3) {
+		while (numberProcess++ < 3) {
 			Assert.assertEquals(Adventure.State.PROCESS_PAYMENT, this.adventureDifferentDays.getState());
 			this.adventureDifferentDays.process();
 		}
@@ -397,7 +389,8 @@ public class AdventureSequenceTest {
 	}
 
 	@Test
-	public void testPaymentActivityUndoCancelledActivityException(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface) {
+	public void testPaymentActivityUndoCancelledActivityException(@Mocked final BankInterface bankInterface,
+																  @Mocked final ActivityInterface activityInterface) {
 
 		new StrictExpectations() {
 			{
@@ -409,7 +402,7 @@ public class AdventureSequenceTest {
 
 		Assert.assertEquals(Adventure.State.PROCESS_PAYMENT, this.adventureDifferentDays.getState());
 
-		while (numberProcess++ != 3) {
+		while (numberProcess++ < 3) {
 			this.adventureDifferentDays.process();
 			if (numberProcess == 1) {
 				Assert.assertEquals(Adventure.State.RESERVE_ACTIVITY, this.adventureDifferentDays.getState());
@@ -421,7 +414,8 @@ public class AdventureSequenceTest {
 	}
 
 	@Test
-	public void testPaymentActivityUndoCancelledRemoteAccessException(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface) {
+	public void testPaymentActivityUndoCancelledRemoteAccessException(@Mocked final BankInterface bankInterface,
+																	  @Mocked final ActivityInterface activityInterface) {
 
 		new StrictExpectations() {
 			{
@@ -434,7 +428,7 @@ public class AdventureSequenceTest {
 
 		Assert.assertEquals(Adventure.State.PROCESS_PAYMENT, this.adventureDifferentDays.getState());
 
-		while (numberProcess++ != 7) {
+		while (numberProcess++ < 7) {
 			this.adventureDifferentDays.process();
 			if (numberProcess < 6) {
 				Assert.assertEquals(Adventure.State.RESERVE_ACTIVITY, this.adventureDifferentDays.getState());
@@ -446,7 +440,9 @@ public class AdventureSequenceTest {
 	}
 
 	@Test
-	public void testPaymentActivityRoomUndoCancelledHotelException(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+	public void testPaymentActivityRoomUndoCancelledHotelException(@Mocked final BankInterface bankInterface,
+																   @Mocked final ActivityInterface activityInterface,
+																   @Mocked final HotelInterface hotelInterface) {
 
 		new StrictExpectations() {
 			{
@@ -459,7 +455,7 @@ public class AdventureSequenceTest {
 
 		Assert.assertEquals(Adventure.State.PROCESS_PAYMENT, this.adventureDifferentDays.getState());
 
-		while (numberProcess++ != 4) {
+		while (numberProcess++ < 4) {
 			this.adventureDifferentDays.process();
 			if (numberProcess == 1) {
 				Assert.assertEquals(Adventure.State.RESERVE_ACTIVITY, this.adventureDifferentDays.getState());
@@ -473,7 +469,9 @@ public class AdventureSequenceTest {
 	}
 
 	@Test
-	public void testPaymentActivityRoomUndoCancelledRemoteAccessException(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+	public void testPaymentActivityRoomUndoCancelledRemoteAccessException(@Mocked final BankInterface bankInterface,
+																		  @Mocked final ActivityInterface activityInterface,
+																		  @Mocked final HotelInterface hotelInterface) {
 
 		new StrictExpectations() {
 			{
@@ -487,7 +485,7 @@ public class AdventureSequenceTest {
 
 		Assert.assertEquals(Adventure.State.PROCESS_PAYMENT, this.adventureDifferentDays.getState());
 
-		while (numberProcess++ != 13) {
+		while (numberProcess++ < 13) {
 			this.adventureDifferentDays.process();
 			if (numberProcess == 1) {
 				Assert.assertEquals(Adventure.State.RESERVE_ACTIVITY, this.adventureDifferentDays.getState());
@@ -501,7 +499,9 @@ public class AdventureSequenceTest {
 	}
 
 	@Test
-	public void testPaymentActivityRoomConfirmedUndoCancelledBankException(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+	public void testPaymentActivityRoomConfirmedUndoCancelledBankException(@Mocked final BankInterface bankInterface,
+																		   @Mocked final ActivityInterface activityInterface,
+																		   @Mocked final HotelInterface hotelInterface) {
 
 		new StrictExpectations() {
 			{
@@ -516,7 +516,7 @@ public class AdventureSequenceTest {
 
 		Assert.assertEquals(Adventure.State.PROCESS_PAYMENT, this.adventureDifferentDays.getState());
 
-		while (numberProcess++ != 9) {
+		while (numberProcess++ < 9) {
 			this.adventureDifferentDays.process();
 			if (numberProcess == 1) {
 				Assert.assertEquals(Adventure.State.RESERVE_ACTIVITY, this.adventureDifferentDays.getState());
@@ -532,7 +532,9 @@ public class AdventureSequenceTest {
 	}
 
 	@Test
-	public void testPaymentActivityRoomConfirmedUndoCancelledRemoteAccessExceptionPayment(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+	public void testPaymentActivityRoomConfirmedUndoCancelledRemoteAccessExceptionPayment(@Mocked final BankInterface bankInterface,
+																						  @Mocked final ActivityInterface activityInterface,
+																						  @Mocked final HotelInterface hotelInterface) {
 
 		new StrictExpectations() {
 			{
@@ -547,7 +549,7 @@ public class AdventureSequenceTest {
 
 		Assert.assertEquals(Adventure.State.PROCESS_PAYMENT, this.adventureDifferentDays.getState());
 
-		while (numberProcess++ != 24) {
+		while (numberProcess++ < 24) {
 			this.adventureDifferentDays.process();
 			if (numberProcess == 1) {
 				Assert.assertEquals(Adventure.State.RESERVE_ACTIVITY, this.adventureDifferentDays.getState());
@@ -563,7 +565,9 @@ public class AdventureSequenceTest {
 	}
 
 	@Test
-	public void testPaymentActivityRoomConfirmedUndoCancelledActivityException(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+	public void testPaymentActivityRoomConfirmedUndoCancelledActivityException(@Mocked final BankInterface bankInterface,
+																			   @Mocked final ActivityInterface activityInterface,
+																			   @Mocked final HotelInterface hotelInterface) {
 
 		new StrictExpectations() {
 			{
@@ -578,7 +582,7 @@ public class AdventureSequenceTest {
 
 		Assert.assertEquals(Adventure.State.PROCESS_PAYMENT, this.adventureDifferentDays.getState());
 
-		while (numberProcess++ != 5) {
+		while (numberProcess++ < 5) {
 			this.adventureDifferentDays.process();
 			if (numberProcess == 1) {
 				Assert.assertEquals(Adventure.State.RESERVE_ACTIVITY, this.adventureDifferentDays.getState());
@@ -594,14 +598,16 @@ public class AdventureSequenceTest {
 	}
 
 	@Test
-	public void testPaymentActivityRoomConfirmedUndoCancelledRemoteAccessExceptionActivity(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+	public void testPaymentActivityRoomConfirmedUndoCancelledRemoteAccessExceptionActivity(@Mocked final BankInterface bankInterface,
+																						   @Mocked final ActivityInterface activityInterface,
+																						   @Mocked final HotelInterface hotelInterface) {
 
 		new StrictExpectations() {
 			{
 				BankInterface.processPayment(IBAN, AMOUNT);
 				ActivityInterface.reserveActivity(adventureDifferentDays.getBegin(), adventureDifferentDays.getEnd(), AGE);
 				HotelInterface.reserveRoom(Room.Type.SINGLE, adventureDifferentDays.getBegin(), adventureDifferentDays.getEnd());
-				while (numberProcess++ != 20) {
+				while (numberProcess++ < 20) {
 					BankInterface.getOperationData(this.anyString);
 					ActivityInterface.getActivityReservationData(this.anyString);
 					this.result = new RemoteAccessException();
@@ -612,7 +618,7 @@ public class AdventureSequenceTest {
 		Assert.assertEquals(Adventure.State.PROCESS_PAYMENT, this.adventureDifferentDays.getState());
 
 		numberProcess = 0;
-		while (numberProcess++ != 24) {
+		while (numberProcess++ < 24) {
 			this.adventureDifferentDays.process();
 			if (numberProcess == 1) {
 				Assert.assertEquals(Adventure.State.RESERVE_ACTIVITY, this.adventureDifferentDays.getState());
@@ -628,7 +634,9 @@ public class AdventureSequenceTest {
 	}
 
 	@Test
-	public void testPaymentActivityRoomConfirmedUndoCancelledHotelException(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+	public void testPaymentActivityRoomConfirmedUndoCancelledHotelException(@Mocked final BankInterface bankInterface,
+																			@Mocked final ActivityInterface activityInterface,
+																			@Mocked final HotelInterface hotelInterface) {
 
 		new StrictExpectations() {
 			{
@@ -647,7 +655,7 @@ public class AdventureSequenceTest {
 
 		Assert.assertEquals(Adventure.State.PROCESS_PAYMENT, this.adventureDifferentDays.getState());
 
-		while (numberProcess++ != 5) {
+		while (numberProcess++ < 5) {
 			this.adventureDifferentDays.process();
 			if (numberProcess == 1) {
 				Assert.assertEquals(Adventure.State.RESERVE_ACTIVITY, this.adventureDifferentDays.getState());
@@ -663,7 +671,9 @@ public class AdventureSequenceTest {
 	}
 
 	@Test
-	public void testPaymentActivityRoomConfirmedUndoCancelledRemoteAccessExceptionHotel(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+	public void testPaymentActivityRoomConfirmedUndoCancelledRemoteAccessExceptionHotel(@Mocked final BankInterface bankInterface,
+																						@Mocked final ActivityInterface activityInterface,
+																						@Mocked final HotelInterface hotelInterface) {
 
 		new StrictExpectations() {
 			{
@@ -671,7 +681,7 @@ public class AdventureSequenceTest {
 				ActivityInterface.reserveActivity(adventureDifferentDays.getBegin(), adventureDifferentDays.getEnd(), AGE);
 				HotelInterface.reserveRoom(Room.Type.SINGLE, adventureDifferentDays.getBegin(), adventureDifferentDays.getEnd());
 				this.result = this.anyString;
-				while (numberProcess++ != 20) {
+				while (numberProcess++ < 20) {
 					BankInterface.getOperationData(this.anyString);
 					ActivityInterface.getActivityReservationData(this.anyString);
 					HotelInterface.getRoomBookingData(this.anyString);
@@ -685,7 +695,7 @@ public class AdventureSequenceTest {
 		Assert.assertEquals(Adventure.State.PROCESS_PAYMENT, this.adventureDifferentDays.getState());
 
 		numberProcess = 0;
-		while (numberProcess++ != 24) {
+		while (numberProcess++ < 24) {
 			this.adventureDifferentDays.process();
 			if (numberProcess == 1) {
 				Assert.assertEquals(Adventure.State.RESERVE_ACTIVITY, this.adventureDifferentDays.getState());
@@ -699,5 +709,4 @@ public class AdventureSequenceTest {
 		}
 		Assert.assertEquals(Adventure.State.CANCELLED, this.adventureDifferentDays.getState());
 	}
-
 }
