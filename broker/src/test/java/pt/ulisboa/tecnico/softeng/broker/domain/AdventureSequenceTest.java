@@ -388,9 +388,8 @@ public class AdventureSequenceTest {
 			}
 		};
 
-		Assert.assertEquals(Adventure.State.PROCESS_PAYMENT, this.adventureDifferentDays.getState());
-
 		while (numberProcess++ != 3) {
+			Assert.assertEquals(Adventure.State.PROCESS_PAYMENT, this.adventureDifferentDays.getState());
 			this.adventureDifferentDays.process();
 		}
 
@@ -412,7 +411,9 @@ public class AdventureSequenceTest {
 
 		while (numberProcess++ != 3) {
 			this.adventureDifferentDays.process();
-			if (numberProcess == 2) {
+			if (numberProcess == 1) {
+				Assert.assertEquals(Adventure.State.RESERVE_ACTIVITY, this.adventureDifferentDays.getState());
+			} else if (numberProcess == 2) {
 				Assert.assertEquals(Adventure.State.UNDO, this.adventureDifferentDays.getState());
 			}
 		}
@@ -435,7 +436,9 @@ public class AdventureSequenceTest {
 
 		while (numberProcess++ != 7) {
 			this.adventureDifferentDays.process();
-			if (numberProcess == 6) {
+			if (numberProcess < 6) {
+				Assert.assertEquals(Adventure.State.RESERVE_ACTIVITY, this.adventureDifferentDays.getState());
+			} else if (numberProcess == 6) {
 				Assert.assertEquals(Adventure.State.UNDO, this.adventureDifferentDays.getState());
 			}
 		}
@@ -458,7 +461,11 @@ public class AdventureSequenceTest {
 
 		while (numberProcess++ != 4) {
 			this.adventureDifferentDays.process();
-			if (numberProcess == 3) {
+			if (numberProcess == 1) {
+				Assert.assertEquals(Adventure.State.RESERVE_ACTIVITY, this.adventureDifferentDays.getState());
+			} else if (numberProcess == 2) {
+				Assert.assertEquals(Adventure.State.BOOK_ROOM, this.adventureDifferentDays.getState());
+			} else if (numberProcess == 3) {
 				Assert.assertEquals(Adventure.State.UNDO, this.adventureDifferentDays.getState());
 			}
 		}
@@ -482,7 +489,11 @@ public class AdventureSequenceTest {
 
 		while (numberProcess++ != 13) {
 			this.adventureDifferentDays.process();
-			if (numberProcess == 12) {
+			if (numberProcess == 1) {
+				Assert.assertEquals(Adventure.State.RESERVE_ACTIVITY, this.adventureDifferentDays.getState());
+			} else if (numberProcess < 12) {
+				Assert.assertEquals(Adventure.State.BOOK_ROOM, this.adventureDifferentDays.getState());
+			} else if (numberProcess == 12) {
 				Assert.assertEquals(Adventure.State.UNDO, this.adventureDifferentDays.getState());
 			}
 		}
@@ -507,7 +518,13 @@ public class AdventureSequenceTest {
 
 		while (numberProcess++ != 9) {
 			this.adventureDifferentDays.process();
-			if (numberProcess == 8) {
+			if (numberProcess == 1) {
+				Assert.assertEquals(Adventure.State.RESERVE_ACTIVITY, this.adventureDifferentDays.getState());
+			} else if (numberProcess == 2) {
+				Assert.assertEquals(Adventure.State.BOOK_ROOM, this.adventureDifferentDays.getState());
+			} else if (numberProcess < 8) {
+				Assert.assertEquals(Adventure.State.CONFIRMED, this.adventureDifferentDays.getState());
+			} else if (numberProcess == 8) {
 				Assert.assertEquals(Adventure.State.UNDO, this.adventureDifferentDays.getState());
 			}
 		}
@@ -532,7 +549,13 @@ public class AdventureSequenceTest {
 
 		while (numberProcess++ != 24) {
 			this.adventureDifferentDays.process();
-			if (numberProcess == 23) {
+			if (numberProcess == 1) {
+				Assert.assertEquals(Adventure.State.RESERVE_ACTIVITY, this.adventureDifferentDays.getState());
+			} else if (numberProcess == 2) {
+				Assert.assertEquals(Adventure.State.BOOK_ROOM, this.adventureDifferentDays.getState());
+			} else if (numberProcess < 23) {
+				Assert.assertEquals(Adventure.State.CONFIRMED, this.adventureDifferentDays.getState());
+			} else if (numberProcess == 23) {
 				Assert.assertEquals(Adventure.State.UNDO, this.adventureDifferentDays.getState());
 			}
 		}
@@ -557,7 +580,13 @@ public class AdventureSequenceTest {
 
 		while (numberProcess++ != 5) {
 			this.adventureDifferentDays.process();
-			if (numberProcess == 4) {
+			if (numberProcess == 1) {
+				Assert.assertEquals(Adventure.State.RESERVE_ACTIVITY, this.adventureDifferentDays.getState());
+			} else if (numberProcess == 2) {
+				Assert.assertEquals(Adventure.State.BOOK_ROOM, this.adventureDifferentDays.getState());
+			} else if (numberProcess == 3) {
+				Assert.assertEquals(Adventure.State.CONFIRMED, this.adventureDifferentDays.getState());
+			} else if (numberProcess == 4) {
 				Assert.assertEquals(Adventure.State.UNDO, this.adventureDifferentDays.getState());
 			}
 		}
@@ -585,7 +614,13 @@ public class AdventureSequenceTest {
 		numberProcess = 0;
 		while (numberProcess++ != 24) {
 			this.adventureDifferentDays.process();
-			if (numberProcess == 23) {
+			if (numberProcess == 1) {
+				Assert.assertEquals(Adventure.State.RESERVE_ACTIVITY, this.adventureDifferentDays.getState());
+			} else if (numberProcess == 2) {
+				Assert.assertEquals(Adventure.State.BOOK_ROOM, this.adventureDifferentDays.getState());
+			} else if (numberProcess < 23) {
+				Assert.assertEquals(Adventure.State.CONFIRMED, this.adventureDifferentDays.getState());
+			} else if (numberProcess == 23) {
 				Assert.assertEquals(Adventure.State.UNDO, this.adventureDifferentDays.getState());
 			}
 		}
@@ -614,7 +649,13 @@ public class AdventureSequenceTest {
 
 		while (numberProcess++ != 5) {
 			this.adventureDifferentDays.process();
-			if (numberProcess == 4) {
+			if (numberProcess == 1) {
+				Assert.assertEquals(Adventure.State.RESERVE_ACTIVITY, this.adventureDifferentDays.getState());
+			} else if (numberProcess == 2) {
+				Assert.assertEquals(Adventure.State.BOOK_ROOM, this.adventureDifferentDays.getState());
+			} else if (numberProcess == 3) {
+				Assert.assertEquals(Adventure.State.CONFIRMED, this.adventureDifferentDays.getState());
+			} else if (numberProcess == 4) {
 				Assert.assertEquals(Adventure.State.UNDO, this.adventureDifferentDays.getState());
 			}
 		}
@@ -646,7 +687,13 @@ public class AdventureSequenceTest {
 		numberProcess = 0;
 		while (numberProcess++ != 24) {
 			this.adventureDifferentDays.process();
-			if (numberProcess == 23) {
+			if (numberProcess == 1) {
+				Assert.assertEquals(Adventure.State.RESERVE_ACTIVITY, this.adventureDifferentDays.getState());
+			} else if (numberProcess == 2) {
+				Assert.assertEquals(Adventure.State.BOOK_ROOM, this.adventureDifferentDays.getState());
+			} else if (numberProcess < 23) {
+				Assert.assertEquals(Adventure.State.CONFIRMED, this.adventureDifferentDays.getState());
+			} else if (numberProcess == 23) {
 				Assert.assertEquals(Adventure.State.UNDO, this.adventureDifferentDays.getState());
 			}
 		}
