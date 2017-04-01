@@ -13,92 +13,92 @@ import static org.junit.Assert.assertNull;
 
 
 public class GetRoomBookingDataMethodTest {
-    private Hotel hotel;
-    private Room room;
-    private Booking booking;
-    private String reference;
+	private Hotel hotel;
+	private Room room;
+	private Booking booking;
+	private String reference;
 
-    private static final String CODE = "Hotel12";
-    private static final String NAME = "HotelXPTO";
-    private static final String NUMBER = "123";
-    private static final Room.Type ROOMTYPE = Room.Type.DOUBLE;
-    private static final LocalDate ARRIVAL = LocalDate.now().plusDays(3);
-    private static final LocalDate DEPARTURE = LocalDate.now().plusDays(5);
+	private static final String CODE = "Hotel12";
+	private static final String NAME = "HotelXPTO";
+	private static final String NUMBER = "123";
+	private static final Room.Type ROOMTYPE = Room.Type.DOUBLE;
+	private static final LocalDate ARRIVAL = LocalDate.now().plusDays(3);
+	private static final LocalDate DEPARTURE = LocalDate.now().plusDays(5);
 
-    @Before
-    public void setup() {
-        this.hotel = new Hotel(CODE, NAME);
-        this.room = new Room(hotel, NUMBER, ROOMTYPE);
-        this.booking = room.reserve(ROOMTYPE, ARRIVAL, DEPARTURE);
-        this.reference = booking.getReference();
-    }
+	@Before
+	public void setup() {
+		this.hotel = new Hotel(CODE, NAME);
+		this.room = new Room(hotel, NUMBER, ROOMTYPE);
+		this.booking = room.reserve(ROOMTYPE, ARRIVAL, DEPARTURE);
+		this.reference = booking.getReference();
+	}
 
-    @Test
-    public void success() {
-        RoomBookingData roomBookingData = Hotel.getRoomBookingData(reference);
+	@Test
+	public void success() {
+		RoomBookingData roomBookingData = Hotel.getRoomBookingData(reference);
 
-        assertEquals(reference, roomBookingData.getReference());
-        assertEquals(CODE, roomBookingData.getHotelCode());
-        assertEquals(NAME, roomBookingData.getHotelName());
-        assertEquals(NUMBER, roomBookingData.getRoomNumber());
-        assertEquals(ROOMTYPE, roomBookingData.getRoomType());
-        assertEquals(ARRIVAL, roomBookingData.getArrival());
-        assertEquals(DEPARTURE, roomBookingData.getDeparture());
+		assertEquals(reference, roomBookingData.getReference());
+		assertEquals(CODE, roomBookingData.getHotelCode());
+		assertEquals(NAME, roomBookingData.getHotelName());
+		assertEquals(NUMBER, roomBookingData.getRoomNumber());
+		assertEquals(ROOMTYPE, roomBookingData.getRoomType());
+		assertEquals(ARRIVAL, roomBookingData.getArrival());
+		assertEquals(DEPARTURE, roomBookingData.getDeparture());
 
-        assertNull(roomBookingData.getCancellation());
-        assertNull(roomBookingData.getCancellationDate());
-    }
+		assertNull(roomBookingData.getCancellation());
+		assertNull(roomBookingData.getCancellationDate());
+	}
 
-    @Test
-    public void successWithCancellation() {
-        booking.setCancellation(LocalDate.now());
+	@Test
+	public void successWithCancellation() {
+		booking.setCancellation(LocalDate.now());
 
-        RoomBookingData roomBookingData = Hotel.getRoomBookingData(reference);
+		RoomBookingData roomBookingData = Hotel.getRoomBookingData(reference);
 
-        assertEquals(reference, roomBookingData.getReference());
+		assertEquals(reference, roomBookingData.getReference());
 
-        assertEquals(booking.getCancellation(), roomBookingData.getCancellation());
-        assertEquals(booking.getCancellationDate(), roomBookingData.getCancellationDate());
-    }
+		assertEquals(booking.getCancellation(), roomBookingData.getCancellation());
+		assertEquals(booking.getCancellationDate(), roomBookingData.getCancellationDate());
+	}
 
-    @Test (expected = HotelException.class)
-    public void invalidReference() {
-        Hotel.getRoomBookingData("Hotel12x");
-    }
+	@Test (expected = HotelException.class)
+	public void invalidReference() {
+		Hotel.getRoomBookingData("Hotel12x");
+	}
 
-    @Test (expected = HotelException.class)
-    public void nullReference() {
-        Hotel.getRoomBookingData(null);
-    }
+	@Test (expected = HotelException.class)
+	public void nullReference() {
+		Hotel.getRoomBookingData(null);
+	}
 
-    @Test (expected = HotelException.class)
-    public void blankReference() {
-        Hotel.getRoomBookingData("     ");
-    }
+	@Test (expected = HotelException.class)
+	public void blankReference() {
+		Hotel.getRoomBookingData("     ");
+	}
 
-    @Test (expected = HotelException.class)
-    public void emptyReference() {
-        Hotel.getRoomBookingData("");
-    }
+	@Test (expected = HotelException.class)
+	public void emptyReference() {
+		Hotel.getRoomBookingData("");
+	}
 
-    @Test (expected = HotelException.class)
-    public void noRoomsInHotel() {
-        tearDown();
-        this.hotel = new Hotel(CODE, NAME);
-        Hotel.getRoomBookingData("Hotel121");
-    }
+	@Test (expected = HotelException.class)
+	public void noRoomsInHotel() {
+		tearDown();
+		this.hotel = new Hotel(CODE, NAME);
+		Hotel.getRoomBookingData("Hotel121");
+	}
 
-    @Test (expected = HotelException.class)
-    public void noBookingsInRoom() {
-        tearDown();
-        this.hotel = new Hotel(CODE, NAME);
-        this.room = new Room(hotel, NUMBER, ROOMTYPE);
-        Hotel.getRoomBookingData("Hotel121");
-    }
+	@Test (expected = HotelException.class)
+	public void noBookingsInRoom() {
+		tearDown();
+		this.hotel = new Hotel(CODE, NAME);
+		this.room = new Room(hotel, NUMBER, ROOMTYPE);
+		Hotel.getRoomBookingData("Hotel121");
+	}
 
-    @After
-    public void tearDown() {
-        Hotel.hotels.clear();
-    }
+	@After
+	public void tearDown() {
+		Hotel.hotels.clear();
+	}
 
 }
