@@ -3,6 +3,7 @@ package pt.ulisboa.tecnico.softeng.bank.domain;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import pt.ulisboa.tecnico.softeng.bank.dataobjects.BankOperationData;
 import pt.ulisboa.tecnico.softeng.bank.exception.BankException;
 
 import static org.junit.Assert.assertEquals;
@@ -31,6 +32,12 @@ public class BankCancelPaymentTest {
 	@Test
 	public void success() {
 		String opReference = Bank.cancelPayment(paymentID);
+
+		Operation operation = bank.getOperation(opReference);
+
+		assertEquals(Operation.Type.DEPOSIT, operation.getType());
+		assertEquals(account.getIBAN(), operation.getAccount().getIBAN());
+		assertEquals(PAYMENT_AMOUNT, operation.getValue());
 
 		assertEquals("Unexpected account amount", INITIAL_ACCOUNT_BALANCE, account.getBalance());
 		assertNotNull("Operation not created", bank.getOperation(opReference));
