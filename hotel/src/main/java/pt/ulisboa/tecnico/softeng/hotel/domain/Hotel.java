@@ -1,12 +1,11 @@
 package pt.ulisboa.tecnico.softeng.hotel.domain;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.joda.time.LocalDate;
-
 import pt.ulisboa.tecnico.softeng.hotel.dataobjects.RoomBookingData;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class Hotel {
 	public static Set<Hotel> hotels = new HashSet<>();
@@ -99,7 +98,25 @@ public class Hotel {
 	}
 
 	public static RoomBookingData getRoomBookingData(String reference) {
-		// TODO implement
+		if (reference != null) {
+			RoomBookingData roomBookingData = new RoomBookingData();
+
+			for (Hotel hotel : Hotel.hotels) {
+				for (Room room : hotel.rooms) {
+					roomBookingData.setReference(reference);
+					roomBookingData.setHotelCode(hotel.getCode());
+					roomBookingData.setHotelName(hotel.getName());
+					roomBookingData.setRoomNumber(room.getNumber());
+					roomBookingData.setRoomType(room.getType());
+					roomBookingData.setArrival(room.getBooking(reference).getArrival());
+					roomBookingData.setDeparture(room.getBooking(reference).getDeparture());
+					roomBookingData.setCancellation(room.getBooking(reference).getCancellation());
+					roomBookingData.setCancellationDate(room.getBooking(reference).getCancellationDate());
+
+					return roomBookingData;
+				}
+			}
+		}
 		throw new HotelException();
 	}
 

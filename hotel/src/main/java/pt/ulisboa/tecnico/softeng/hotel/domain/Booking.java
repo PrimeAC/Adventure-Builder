@@ -1,7 +1,6 @@
 package pt.ulisboa.tecnico.softeng.hotel.domain;
 
 import org.joda.time.LocalDate;
-
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
 public class Booking {
@@ -10,6 +9,8 @@ public class Booking {
 	private final String reference;
 	private final LocalDate arrival;
 	private final LocalDate departure;
+	private String cancellation;
+	private LocalDate cancellationDate;
 
 	Booking(Hotel hotel, LocalDate arrival, LocalDate departure) {
 		checkArguments(hotel, arrival, departure);
@@ -60,6 +61,19 @@ public class Booking {
 		}
 
 		return false;
+	}
+
+	public void setCancellation(LocalDate cancelDate) {
+		this.cancellation = "cancelled";
+		this.cancellationDate = cancelDate;
+	}
+
+	public String getCancellation() {
+		return cancellation;
+	}
+
+	public LocalDate getCancellationDate() {
+		return cancellationDate;
 	}
 
 }
