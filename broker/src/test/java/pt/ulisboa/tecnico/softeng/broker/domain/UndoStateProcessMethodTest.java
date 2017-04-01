@@ -42,8 +42,7 @@ public class UndoStateProcessMethodTest {
 	}
 
 	@Test
-	public void undoPaymentHotelException(@Mocked final BankInterface bankInterface,
-			@Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+	public void undoPaymentHotelException(@Mocked final BankInterface bankInterface) {
 
 		new StrictExpectations() {
 			{
@@ -58,8 +57,7 @@ public class UndoStateProcessMethodTest {
 	}
 
 	@Test
-	public void undoPaymentRemoteAccessException(@Mocked final BankInterface bankInterface,
-			@Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+	public void undoPaymentRemoteAccessException(@Mocked final BankInterface bankInterface) {
 
 		new StrictExpectations() {
 			{
@@ -74,8 +72,7 @@ public class UndoStateProcessMethodTest {
 	}
 
 	@Test
-	public void undoPayment(@Mocked final BankInterface bankInterface,
-			@Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+	public void undoPayment(@Mocked final BankInterface bankInterface) {
 
 		new StrictExpectations() {
 			{
@@ -89,8 +86,7 @@ public class UndoStateProcessMethodTest {
 	}
 
 	@Test
-	public void undoActivityHotelException(@Mocked final BankInterface bankInterface,
-			@Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+	public void undoActivityHotelException(@Mocked final ActivityInterface activityInterface) {
 		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
 
 		new StrictExpectations() {
@@ -106,8 +102,7 @@ public class UndoStateProcessMethodTest {
 	}
 
 	@Test
-	public void undoActivityRemoteAccessException(@Mocked final BankInterface bankInterface,
-			@Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+	public void undoActivityRemoteAccessException(@Mocked final ActivityInterface activityInterface) {
 		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
 
 		new StrictExpectations() {
@@ -123,8 +118,7 @@ public class UndoStateProcessMethodTest {
 	}
 
 	@Test
-	public void undoActivity(@Mocked final BankInterface bankInterface,
-			@Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+	public void undoActivity(@Mocked final ActivityInterface activityInterface) {
 		this.adventure.setPaymentCancellation(PAYMENT_CANCELLATION);
 		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
 
@@ -140,8 +134,7 @@ public class UndoStateProcessMethodTest {
 	}
 
 	@Test
-	public void undoRoomHotelException(@Mocked final BankInterface bankInterface,
-			@Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+	public void undoRoomHotelException(@Mocked final HotelInterface hotelInterface) {
 		this.adventure.setRoomConfirmation(ROOM_CONFIRMATION);
 
 		new StrictExpectations() {
@@ -157,8 +150,7 @@ public class UndoStateProcessMethodTest {
 	}
 
 	@Test
-	public void undoRoomRemoteAccessException(@Mocked final BankInterface bankInterface,
-			@Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+	public void undoRoomRemoteAccessException(@Mocked final HotelInterface hotelInterface) {
 		this.adventure.setRoomConfirmation(ROOM_CONFIRMATION);
 
 		new StrictExpectations() {
@@ -174,8 +166,7 @@ public class UndoStateProcessMethodTest {
 	}
 
 	@Test
-	public void undoRoom(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface,
-			@Mocked final HotelInterface hotelInterface) {
+	public void undoRoom(@Mocked final HotelInterface hotelInterface) {
 		this.adventure.setPaymentCancellation(PAYMENT_CANCELLATION);
 		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
 		this.adventure.setActivityCancellation(ACTIVITY_CANCELLATION);
@@ -192,28 +183,4 @@ public class UndoStateProcessMethodTest {
 
 		Assert.assertEquals(Adventure.State.CANCELLED, this.adventure.getState());
 	}
-
-	@Test
-	public void undoToCancelled(@Mocked final BankInterface bankInterface,
-			@Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
-		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
-		this.adventure.setRoomConfirmation(ROOM_CONFIRMATION);
-
-		new StrictExpectations() {
-			{
-				BankInterface.cancelPayment(PAYMENT_CONFIRMATION);
-				this.result = "This payment was cancelled";
-
-				ActivityInterface.cancelReservation(ACTIVITY_CONFIRMATION);
-				this.result = "This activity was cancelled";
-
-				HotelInterface.cancelBooking(ROOM_CONFIRMATION);
-				this.result = "This room was cancelled";
-			}
-		};
-		this.adventure.process();
-
-		Assert.assertEquals(Adventure.State.CANCELLED, this.adventure.getState());
-	}
-
 }
