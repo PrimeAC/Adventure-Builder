@@ -9,12 +9,14 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import pt.ulisboa.tecnico.softeng.activity.exception.ActivityException;
 import pt.ulisboa.tecnico.softeng.bank.exception.BankException;
 import pt.ulisboa.tecnico.softeng.broker.exception.RemoteAccessException;
 import pt.ulisboa.tecnico.softeng.broker.interfaces.ActivityInterface;
 import pt.ulisboa.tecnico.softeng.broker.interfaces.BankInterface;
 import pt.ulisboa.tecnico.softeng.broker.interfaces.HotelInterface;
 import pt.ulisboa.tecnico.softeng.hotel.domain.Room;
+import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
 @RunWith(JMockit.class)
 public class AdventureSequenceTest {
@@ -357,4 +359,298 @@ public class AdventureSequenceTest {
 				Assert.assertEquals(Adventure.State.CONFIRMED, this.adventureDifferentDays.getState());
 		}
 	}
+
+	@Test
+	public void testPaymentCancelledBankException(@Mocked final BankInterface bankInterface) {
+
+		new StrictExpectations() {
+			{
+				BankInterface.processPayment(IBAN, AMOUNT);
+				this.result = new BankException();
+			}
+		};
+
+		Assert.assertEquals(Adventure.State.PROCESS_PAYMENT, this.adventureSameDay.getState());
+
+		this.adventureDifferentDays.process();
+
+		Assert.assertEquals(Adventure.State.CANCELLED, this.adventureDifferentDays.getState());
+	}
+
+	@Test
+	public void testPaymentCancelledRemoteAccessException(@Mocked final BankInterface bankInterface) {
+
+		new StrictExpectations() {
+			{
+				BankInterface.processPayment(IBAN, AMOUNT);
+				this.result = new RemoteAccessException();
+				this.times = 3;
+			}
+		};
+
+		Assert.assertEquals(Adventure.State.PROCESS_PAYMENT, this.adventureDifferentDays.getState());
+
+		while (numberProcess++ != 3) {
+			this.adventureDifferentDays.process();
+		}
+
+		Assert.assertEquals(Adventure.State.CANCELLED, this.adventureDifferentDays.getState());
+	}
+
+	@Test
+	public void testPaymentActivityUndoCancelledActivityException(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface) {
+
+		new StrictExpectations() {
+			{
+				BankInterface.processPayment(IBAN, AMOUNT);
+				ActivityInterface.reserveActivity(adventureDifferentDays.getBegin(), adventureDifferentDays.getEnd(), AGE);
+				this.result = new ActivityException();
+			}
+		};
+
+		Assert.assertEquals(Adventure.State.PROCESS_PAYMENT, this.adventureDifferentDays.getState());
+
+		while (numberProcess++ != 3) {
+			this.adventureDifferentDays.process();
+			if (numberProcess == 2) {
+				Assert.assertEquals(Adventure.State.UNDO, this.adventureDifferentDays.getState());
+			}
+		}
+		Assert.assertEquals(Adventure.State.CANCELLED, this.adventureDifferentDays.getState());
+	}
+
+	@Test
+	public void testPaymentActivityUndoCancelledRemoteAccessException(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface) {
+
+		new StrictExpectations() {
+			{
+				BankInterface.processPayment(IBAN, AMOUNT);
+				ActivityInterface.reserveActivity(adventureDifferentDays.getBegin(), adventureDifferentDays.getEnd(), AGE);
+				this.result = new RemoteAccessException();
+				this.times = 5;
+			}
+		};
+
+		Assert.assertEquals(Adventure.State.PROCESS_PAYMENT, this.adventureDifferentDays.getState());
+
+		while (numberProcess++ != 7) {
+			this.adventureDifferentDays.process();
+			if (numberProcess == 6) {
+				Assert.assertEquals(Adventure.State.UNDO, this.adventureDifferentDays.getState());
+			}
+		}
+		Assert.assertEquals(Adventure.State.CANCELLED, this.adventureDifferentDays.getState());
+	}
+
+	@Test
+	public void testPaymentActivityRoomUndoCancelledHotelException(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+
+		new StrictExpectations() {
+			{
+				BankInterface.processPayment(IBAN, AMOUNT);
+				ActivityInterface.reserveActivity(adventureDifferentDays.getBegin(), adventureDifferentDays.getEnd(), AGE);
+				HotelInterface.reserveRoom(Room.Type.SINGLE, adventureDifferentDays.getBegin(), adventureDifferentDays.getEnd());
+				this.result = new HotelException();
+			}
+		};
+
+		Assert.assertEquals(Adventure.State.PROCESS_PAYMENT, this.adventureDifferentDays.getState());
+
+		while (numberProcess++ != 4) {
+			this.adventureDifferentDays.process();
+			if (numberProcess == 3) {
+				Assert.assertEquals(Adventure.State.UNDO, this.adventureDifferentDays.getState());
+			}
+		}
+		Assert.assertEquals(Adventure.State.CANCELLED, this.adventureDifferentDays.getState());
+	}
+
+	@Test
+	public void testPaymentActivityRoomUndoCancelledRemoteAccessException(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+
+		new StrictExpectations() {
+			{
+				BankInterface.processPayment(IBAN, AMOUNT);
+				ActivityInterface.reserveActivity(adventureDifferentDays.getBegin(), adventureDifferentDays.getEnd(), AGE);
+				HotelInterface.reserveRoom(Room.Type.SINGLE, adventureDifferentDays.getBegin(), adventureDifferentDays.getEnd());
+				this.result = new RemoteAccessException();
+				this.times = 10;
+			}
+		};
+
+		Assert.assertEquals(Adventure.State.PROCESS_PAYMENT, this.adventureDifferentDays.getState());
+
+		while (numberProcess++ != 13) {
+			this.adventureDifferentDays.process();
+			if (numberProcess == 12) {
+				Assert.assertEquals(Adventure.State.UNDO, this.adventureDifferentDays.getState());
+			}
+		}
+		Assert.assertEquals(Adventure.State.CANCELLED, this.adventureDifferentDays.getState());
+	}
+
+	@Test
+	public void testPaymentActivityRoomConfirmedUndoCancelledBankException(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+
+		new StrictExpectations() {
+			{
+				BankInterface.processPayment(IBAN, AMOUNT);
+				ActivityInterface.reserveActivity(adventureDifferentDays.getBegin(), adventureDifferentDays.getEnd(), AGE);
+				HotelInterface.reserveRoom(Room.Type.SINGLE, adventureDifferentDays.getBegin(), adventureDifferentDays.getEnd());
+				BankInterface.getOperationData(this.anyString);
+				this.result = new BankException();
+				this.times = 5;
+			}
+		};
+
+		Assert.assertEquals(Adventure.State.PROCESS_PAYMENT, this.adventureDifferentDays.getState());
+
+		while (numberProcess++ != 9) {
+			this.adventureDifferentDays.process();
+			if (numberProcess == 8) {
+				Assert.assertEquals(Adventure.State.UNDO, this.adventureDifferentDays.getState());
+			}
+		}
+		Assert.assertEquals(Adventure.State.CANCELLED, this.adventureDifferentDays.getState());
+	}
+
+	@Test
+	public void testPaymentActivityRoomConfirmedUndoCancelledRemoteAccessExceptionPayment(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+
+		new StrictExpectations() {
+			{
+				BankInterface.processPayment(IBAN, AMOUNT);
+				ActivityInterface.reserveActivity(adventureDifferentDays.getBegin(), adventureDifferentDays.getEnd(), AGE);
+				HotelInterface.reserveRoom(Room.Type.SINGLE, adventureDifferentDays.getBegin(), adventureDifferentDays.getEnd());
+				BankInterface.getOperationData(this.anyString);
+				this.result = new RemoteAccessException();
+				this.times = 20;
+			}
+		};
+
+		Assert.assertEquals(Adventure.State.PROCESS_PAYMENT, this.adventureDifferentDays.getState());
+
+		while (numberProcess++ != 24) {
+			this.adventureDifferentDays.process();
+			if (numberProcess == 23) {
+				Assert.assertEquals(Adventure.State.UNDO, this.adventureDifferentDays.getState());
+			}
+		}
+		Assert.assertEquals(Adventure.State.CANCELLED, this.adventureDifferentDays.getState());
+	}
+
+	@Test
+	public void testPaymentActivityRoomConfirmedUndoCancelledActivityException(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+
+		new StrictExpectations() {
+			{
+				BankInterface.processPayment(IBAN, AMOUNT);
+				ActivityInterface.reserveActivity(adventureDifferentDays.getBegin(), adventureDifferentDays.getEnd(), AGE);
+				HotelInterface.reserveRoom(Room.Type.SINGLE, adventureDifferentDays.getBegin(), adventureDifferentDays.getEnd());
+				BankInterface.getOperationData(this.anyString);
+				ActivityInterface.getActivityReservationData(this.anyString);
+				this.result = new ActivityException();
+			}
+		};
+
+		Assert.assertEquals(Adventure.State.PROCESS_PAYMENT, this.adventureDifferentDays.getState());
+
+		while (numberProcess++ != 5) {
+			this.adventureDifferentDays.process();
+			if (numberProcess == 4) {
+				Assert.assertEquals(Adventure.State.UNDO, this.adventureDifferentDays.getState());
+			}
+		}
+		Assert.assertEquals(Adventure.State.CANCELLED, this.adventureDifferentDays.getState());
+	}
+
+	@Test
+	public void testPaymentActivityRoomConfirmedUndoCancelledRemoteAccessExceptionActivity(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+
+		new StrictExpectations() {
+			{
+				BankInterface.processPayment(IBAN, AMOUNT);
+				ActivityInterface.reserveActivity(adventureDifferentDays.getBegin(), adventureDifferentDays.getEnd(), AGE);
+				HotelInterface.reserveRoom(Room.Type.SINGLE, adventureDifferentDays.getBegin(), adventureDifferentDays.getEnd());
+				while (numberProcess++ != 20) {
+					BankInterface.getOperationData(this.anyString);
+					ActivityInterface.getActivityReservationData(this.anyString);
+					this.result = new RemoteAccessException();
+				}
+			}
+		};
+
+		Assert.assertEquals(Adventure.State.PROCESS_PAYMENT, this.adventureDifferentDays.getState());
+
+		numberProcess = 0;
+		while (numberProcess++ != 24) {
+			this.adventureDifferentDays.process();
+			if (numberProcess == 23) {
+				Assert.assertEquals(Adventure.State.UNDO, this.adventureDifferentDays.getState());
+			}
+		}
+		Assert.assertEquals(Adventure.State.CANCELLED, this.adventureDifferentDays.getState());
+	}
+
+	@Test
+	public void testPaymentActivityRoomConfirmedUndoCancelledHotelException(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+
+		new StrictExpectations() {
+			{
+				BankInterface.processPayment(IBAN, AMOUNT);
+				ActivityInterface.reserveActivity(adventureDifferentDays.getBegin(), adventureDifferentDays.getEnd(), AGE);
+				HotelInterface.reserveRoom(Room.Type.SINGLE, adventureDifferentDays.getBegin(), adventureDifferentDays.getEnd());
+				this.result = this.anyString;
+				BankInterface.getOperationData(this.anyString);
+				ActivityInterface.getActivityReservationData(this.anyString);
+				HotelInterface.getRoomBookingData(this.anyString);
+				this.result = new HotelException();
+				HotelInterface.cancelBooking(this.anyString);
+				this.result = this.anyString;
+			}
+		};
+
+		Assert.assertEquals(Adventure.State.PROCESS_PAYMENT, this.adventureDifferentDays.getState());
+
+		while (numberProcess++ != 5) {
+			this.adventureDifferentDays.process();
+			if (numberProcess == 4) {
+				Assert.assertEquals(Adventure.State.UNDO, this.adventureDifferentDays.getState());
+			}
+		}
+		Assert.assertEquals(Adventure.State.CANCELLED, this.adventureDifferentDays.getState());
+	}
+
+	@Test
+	public void testPaymentActivityRoomConfirmedUndoCancelledRemoteAccessExceptionHotel(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+
+		new StrictExpectations() {
+			{
+				BankInterface.processPayment(IBAN, AMOUNT);
+				ActivityInterface.reserveActivity(adventureDifferentDays.getBegin(), adventureDifferentDays.getEnd(), AGE);
+				HotelInterface.reserveRoom(Room.Type.SINGLE, adventureDifferentDays.getBegin(), adventureDifferentDays.getEnd());
+				this.result = this.anyString;
+				while (numberProcess++ != 20) {
+					BankInterface.getOperationData(this.anyString);
+					ActivityInterface.getActivityReservationData(this.anyString);
+					HotelInterface.getRoomBookingData(this.anyString);
+					this.result = new RemoteAccessException();
+				}
+				HotelInterface.cancelBooking(this.anyString);
+				this.result = this.anyString;
+			}
+		};
+
+		Assert.assertEquals(Adventure.State.PROCESS_PAYMENT, this.adventureDifferentDays.getState());
+
+		numberProcess = 0;
+		while (numberProcess++ != 24) {
+			this.adventureDifferentDays.process();
+			if (numberProcess == 23) {
+				Assert.assertEquals(Adventure.State.UNDO, this.adventureDifferentDays.getState());
+			}
+		}
+		Assert.assertEquals(Adventure.State.CANCELLED, this.adventureDifferentDays.getState());
+	}
+
 }
