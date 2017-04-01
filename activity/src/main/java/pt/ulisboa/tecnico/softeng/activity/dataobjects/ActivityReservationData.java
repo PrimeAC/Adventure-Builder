@@ -25,10 +25,12 @@ public class ActivityReservationData {
 
 	}
 
-	public void checkArguments(String reference, String code, String name, LocalDate begin,
+	private void checkArguments(String reference, String code, String name, LocalDate begin,
 	                           LocalDate end) {
-		if(reference == null || reference.trim().equals("") || code == null || code.trim().equals("") ||
-				name == null || name.trim().equals("") || begin == null || end == null){
+		if(reference == null || reference.trim().equals("") ||
+				code == null || code.trim().equals("") ||
+				name == null || name.trim().equals("") ||
+				begin == null || end == null){
 			throw new ActivityException();
 		}
 	}

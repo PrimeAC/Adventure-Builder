@@ -48,7 +48,7 @@ public class ActivityProviderGetActivityReservationDataMethodTest {
 
 	@Test(expected = ActivityException.class)
 	public void emptyReference() {
-		ActivityProvider.getActivityReservationData("");
+		ActivityProvider.getActivityReservationData(" ");
 	}
 
 	@Test(expected = ActivityException.class)

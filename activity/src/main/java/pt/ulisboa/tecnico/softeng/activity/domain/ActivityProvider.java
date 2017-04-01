@@ -88,9 +88,9 @@ public class ActivityProvider {
 		checkArg(reference);
 		for(ActivityProvider provider : providers) {
 			for (Activity activity : provider.activities) {
-				for (ActivityOffer offer : activity.seeOffers()) {
+				for (ActivityOffer offer : activity.getOffers()) {
 					if (offer.getNumberOfBookings() > 0) {
-						for (Booking booking : offer.seeBookings()) {
+						for (Booking booking : offer.getBookings()) {
 							if (booking.getReference().equals(reference)) {
 								return new ActivityReservationData(reference, activity.getCode(),
 										activity.getName(), offer.getBegin(), offer.getEnd());

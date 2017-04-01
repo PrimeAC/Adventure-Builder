@@ -72,11 +72,8 @@ public class ActivityOffer {
 		return this.capacity > getNumberOfBookings();
 	}
 
-	Set<Booking> seeBookings() {
-		Set<Booking> result = new HashSet<>();
-		for (Booking booking : this.bookings) {
-			result.add(booking);
-		}
+	Set<Booking> getBookings() {
+		Set<Booking> result = new HashSet<>(this.bookings);
 		return result;
 	}
 }
