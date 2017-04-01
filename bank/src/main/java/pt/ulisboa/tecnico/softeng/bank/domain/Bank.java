@@ -109,8 +109,22 @@ public class Bank {
 	}
 
 	public static BankOperationData getOperationData(String reference) {
-		// TODO implement
-		throw new BankException();
+		if (reference == null ) throw new BankException("Null ref");
+		if (reference.trim().length() < 5) throw new BankException("invalid ref");
+		if (banks.isEmpty()) throw new BankException("No banks");
+		
+		for (Bank bank : Bank.banks) {
+			for (Operation op : bank.log) {
+				if(op.getReference().equals(reference)) {
+					Integer numOperations = bank.log.size(); // estas linhas servem para a nova ref
+					String bankCode = bank.getCode();
+					String newRef = bankCode + numOperations.toString();
+					
+					return new BankOperationData(newRef, op.getType().toString(), op.getAccount().getIBAN(), op.getValue(), op.getTime());
+				}	
+			}
+		}
+		throw new BankException("No bank with this operation reference found");
 	}
 
 }
