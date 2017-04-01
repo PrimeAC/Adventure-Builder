@@ -10,6 +10,7 @@ public class Booking {
 	private final String reference;
 	private final LocalDate arrival;
 	private final LocalDate departure;
+	private String referenceCancelled;
 
 	Booking(Hotel hotel, LocalDate arrival, LocalDate departure) {
 		checkArguments(hotel, arrival, departure);
@@ -40,6 +41,10 @@ public class Booking {
 	LocalDate getDeparture() {
 		return this.departure;
 	}
+
+	public void setReferenceCancelled() { this.referenceCancelled = this.reference + "Cancelled"; }
+
+	public String getReferenceCancelled() {	return this.referenceCancelled;	}
 
 	boolean conflict(LocalDate arrival, LocalDate departure) {
 		if (departure.isBefore(arrival)) {

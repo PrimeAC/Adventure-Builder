@@ -82,4 +82,7 @@ public class Room {
 		return booking;
 	}
 
+	public Set<Booking> getBookings() {
+		return this.bookings;
+	}
 }
