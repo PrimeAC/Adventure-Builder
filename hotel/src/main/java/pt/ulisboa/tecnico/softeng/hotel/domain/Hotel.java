@@ -127,7 +127,7 @@ public class Hotel {
 				roomBookingData.setRoomType(room.getType());
 				roomBookingData.setArrival(room.getBooking(reference).getArrival());
 				roomBookingData.setDeparture(room.getBooking(reference).getDeparture());
-				roomBookingData.setCancellation(room.getBooking(reference).getCancellation());
+				roomBookingData.setCancellation(room.getBooking(reference).getReferenceCancelled());
 				roomBookingData.setCancellationDate(room.getBooking(reference).getCancellationDate());
 
 				return roomBookingData;

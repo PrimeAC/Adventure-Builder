@@ -51,7 +51,7 @@ public class GetRoomBookingDataMethodTest {
 
 	@Test
 	public void successWithCancellation() {
-		booking.setCancellation(LocalDate.now());
+		booking.setCancellationDate(LocalDate.now());
 
 		RoomBookingData roomBookingData = Hotel.getRoomBookingData(reference);
 
