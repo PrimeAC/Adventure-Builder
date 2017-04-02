@@ -314,7 +314,6 @@ public class ConfirmedStateProcessMethodTest {
 				this.times=19;
 
 				ActivityInterface.getActivityReservationData(ACTIVITY_CONFIRMATION);
-				this.result = new ActivityReservationData();
 				this.times = 1;
 			}
 		};
