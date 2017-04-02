@@ -120,19 +120,21 @@ public class Hotel {
 		Hotel hotel = null;
 
 		for (Hotel i : hotels) {
-			for (Room j : i.rooms) {
-				if (j.isFree(Room.Type.SINGLE, arrival, departure)) {
-					check++;
-				} else {
-					if (j.isFree(Room.Type.DOUBLE, arrival, departure)) {
+			if(i.getNumberOfRooms() >= number) {
+				for (Room j : i.rooms) {
+					if (j.isFree(Room.Type.SINGLE, arrival, departure)) {
 						check++;
 					} else {
-						continue;
+						if (j.isFree(Room.Type.DOUBLE, arrival, departure)) {
+							check++;
+						} else {
+							continue;
+						}
 					}
-				}
-				if (check == number) {
-					hotel = i;
-					break;
+					if (check == number) {
+						hotel = i;
+						break;
+					}
 				}
 			}
 			if (check == number) {
@@ -140,7 +142,6 @@ public class Hotel {
 			} else {
 				check = 0;
 			}
-
 		}
 		if (hotel != null) {
 			Set<String> result = new HashSet<>();
