@@ -43,6 +43,18 @@ public class HotelCancelBookingTest {
 		this.hotel.cancelBooking("Something");
 	}
 
+	@Test(expected = HotelException.class)
+	public void testCancelTwoTimesBooking() {
+		this.hotel.cancelBooking(roomConfirmation);
+		this.hotel.cancelBooking(roomConfirmation);
+	}
+
+	@Test
+	public void testReserveCancelledBooking() {
+		this.hotel.cancelBooking(roomConfirmation);
+		hotel.reserveRoom(Room.Type.SINGLE, this.arrival, this.departure);
+	}
+
 	@After
 	public void tearDown() {
 		Hotel.hotels.clear();
