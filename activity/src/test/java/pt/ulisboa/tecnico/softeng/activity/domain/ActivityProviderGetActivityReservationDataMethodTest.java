@@ -29,6 +29,7 @@ public class ActivityProviderGetActivityReservationDataMethodTest {
 		this.offer = new ActivityOffer(this.activity, this.begin, this.end);
 		this.booking = new Booking(this.provider, this.offer);
 	}
+
 	@Test
 	public void success() {
 		this.ard = ActivityProvider.getActivityReservationData(this.booking.getReference());

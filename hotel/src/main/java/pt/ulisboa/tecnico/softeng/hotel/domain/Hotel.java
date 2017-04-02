@@ -157,7 +157,7 @@ public class Hotel {
 		Hotel hotel = null;
 
 		for (Hotel i : hotels) {
-			if(i.getNumberOfRooms() >= number) {
+			if (i.getNumberOfRooms() >= number) {
 				for (Room j : i.rooms) {
 					if (j.isFree(Room.Type.SINGLE, arrival, departure)) {
 						check++;

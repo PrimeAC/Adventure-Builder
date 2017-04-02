@@ -148,26 +148,26 @@ public class Adventure {
 
 	public void setState(State state) {
 		switch (state) {
-		case PROCESS_PAYMENT:
-			this.state = new ProcessPaymentState();
-			break;
-		case RESERVE_ACTIVITY:
-			this.state = new ReserveActivityState();
-			break;
-		case BOOK_ROOM:
-			this.state = new BookRoomState();
-			break;
-		case UNDO:
-			this.state = new UndoState();
-			break;
-		case CONFIRMED:
-			this.state = new ConfirmedState();
-			break;
-		case CANCELLED:
-			this.state = new CancelledState();
-			break;
-		default:
-			throw new BrokerException();
+			case PROCESS_PAYMENT:
+				this.state = new ProcessPaymentState();
+				break;
+			case RESERVE_ACTIVITY:
+				this.state = new ReserveActivityState();
+				break;
+			case BOOK_ROOM:
+				this.state = new BookRoomState();
+				break;
+			case UNDO:
+				this.state = new UndoState();
+				break;
+			case CONFIRMED:
+				this.state = new ConfirmedState();
+				break;
+			case CANCELLED:
+				this.state = new CancelledState();
+				break;
+			default:
+				throw new BrokerException();
 		}
 	}
 

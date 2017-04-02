@@ -50,9 +50,13 @@ public class Booking {
 		return this.departure;
 	}
 
-	public void setReferenceCancelled() { this.referenceCancelled = this.reference + "Cancelled"; }
+	public void setReferenceCancelled() {
+		this.referenceCancelled = this.reference + "Cancelled";
+	}
 
-	public String getReferenceCancelled() {	return this.referenceCancelled;	}
+	public String getReferenceCancelled() {
+		return this.referenceCancelled;
+	}
 
 	boolean conflict(LocalDate arrival, LocalDate departure) {
 		checkDates(arrival, departure);

@@ -17,8 +17,8 @@ public class BulkRoomBooking {
 	private final LocalDate arrival;
 	private final LocalDate departure;
 	private boolean cancelled = false;
-	private int numberOfHotelExceptions=0;
-	private int numberOfRemoteErrors=0;
+	private int numberOfHotelExceptions = 0;
+	private int numberOfRemoteErrors = 0;
 
 	private static final int MAX_HOTEL_EXCEPTIONS = 3;
 	private static final int MAX_REMOTE_ERRORS = 10;

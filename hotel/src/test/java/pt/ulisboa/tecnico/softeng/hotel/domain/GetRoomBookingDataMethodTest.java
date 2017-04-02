@@ -131,7 +131,6 @@ public class GetRoomBookingDataMethodTest {
 	}
 
 
-
 	@Test
 	public void successWithCancellation() {
 		booking.setCancellation(LocalDate.now());
@@ -143,33 +142,33 @@ public class GetRoomBookingDataMethodTest {
 		assertEquals(booking.getCancellationDate(), roomBookingData.getCancellationDate());
 	}
 
-	@Test (expected = HotelException.class)
+	@Test(expected = HotelException.class)
 	public void invalidReference() {
 		Hotel.getRoomBookingData("Hotel12x");
 	}
 
-	@Test (expected = HotelException.class)
+	@Test(expected = HotelException.class)
 	public void nullReference() {
 		Hotel.getRoomBookingData(null);
 	}
 
-	@Test (expected = HotelException.class)
+	@Test(expected = HotelException.class)
 	public void blankReference() {
 		Hotel.getRoomBookingData("     ");
 	}
 
-	@Test (expected = HotelException.class)
+	@Test(expected = HotelException.class)
 	public void emptyReference() {
 		Hotel.getRoomBookingData("");
 	}
 
-	@Test (expected = HotelException.class)
+	@Test(expected = HotelException.class)
 	public void noRoomsInHotel() {
 		this.hotel = new Hotel("Hotel23", "HotelYPTO");
 		Hotel.getRoomBookingData("Hotel231");
 	}
 
-	@Test (expected = HotelException.class)
+	@Test(expected = HotelException.class)
 	public void noBookingsInRoom() {
 		this.room = new Room(hotel, "234", ROOMTYPE);
 		Hotel.getRoomBookingData("Hotel122");

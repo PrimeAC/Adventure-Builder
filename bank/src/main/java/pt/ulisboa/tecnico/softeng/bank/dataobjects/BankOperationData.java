@@ -17,7 +17,7 @@ public class BankOperationData {
 
 	public BankOperationData(String reference, String type, String iban, int value, LocalDateTime time) {
 		checkArguments(reference, type, iban, value, time);
-		this.reference = reference; // nao pode haver referencias repetidas
+		this.reference = reference;
 		this.type = type;
 		this.iban = iban;
 		this.value = value;

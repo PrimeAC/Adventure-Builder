@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 public class ReserveActivityState extends AdventureState {
 	private static Logger logger = LoggerFactory.getLogger(CancelledState.class);
-	
+
 	@Override
 	public State getState() {
 		return State.RESERVE_ACTIVITY;
@@ -28,7 +28,7 @@ public class ReserveActivityState extends AdventureState {
 			return;
 		} catch (RemoteAccessException rae) {
 			incNumOfRemoteErrors();
-			if (getNumOfRemoteErrors() == 5) 
+			if (getNumOfRemoteErrors() == 5)
 				adventure.setState(Adventure.State.UNDO);
 			return;
 		}
