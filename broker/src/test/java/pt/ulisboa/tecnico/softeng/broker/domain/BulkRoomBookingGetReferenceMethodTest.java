@@ -288,4 +288,47 @@ public class BulkRoomBookingGetReferenceMethodTest {
 
 	}
 
+	@Test
+	public void nullType(@Mocked HotelInterface hotelInterface, @Mocked RoomBookingData data) {
+
+		new Expectations() {{
+			HotelInterface.getRoomBookingData(anyString);
+			result = data;
+			times = 1;
+
+			data.getRoomType();
+			result = DOUBLE;
+			times = 1;
+		}};
+		String inRef = "1";
+		Set<String> refs = new HashSet<String>(Arrays.asList(inRef));
+
+		BulkRoomBooking bulkRoomBooking = new BulkRoomBooking(1, this.arrival, this.departure);
+		BulkRoomBookingGetReferenceMethodTest.setParams(bulkRoomBooking, refs, 0, 0, false);
+		String outRef = bulkRoomBooking.getReference(null);
+
+		assertNull(outRef);
+		assertFalse(bulkRoomBooking.getReferences().isEmpty());
+
+	}
+
+	@Test
+	public void nullOutputFromGetRoomBookingData(@Mocked HotelInterface hotelInterface, @Mocked RoomBookingData data) {
+
+		new Expectations() {{
+			HotelInterface.getRoomBookingData(anyString);
+			result = null;
+			times = 1;
+		}};
+		String inRef = "1";
+		Set<String> refs = new HashSet<String>(Arrays.asList(inRef));
+
+		BulkRoomBooking bulkRoomBooking = new BulkRoomBooking(1, this.arrival, this.departure);
+		BulkRoomBookingGetReferenceMethodTest.setParams(bulkRoomBooking, refs, 0, 0, false);
+		String outRef = bulkRoomBooking.getReference(DOUBLE);
+
+		assertNull(outRef);
+		assertFalse(bulkRoomBooking.getReferences().isEmpty());
+
+	}
 }
