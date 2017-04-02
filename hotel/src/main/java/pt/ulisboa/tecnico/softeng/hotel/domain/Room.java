@@ -59,7 +59,7 @@ public class Room {
 		}
 
 		for (Booking booking : this.bookings) {
-			if (booking.conflict(arrival, departure)) {
+			if (booking.conflict(arrival, departure) && booking.getReferenceCancelled() == null) {
 				return false;
 			}
 		}

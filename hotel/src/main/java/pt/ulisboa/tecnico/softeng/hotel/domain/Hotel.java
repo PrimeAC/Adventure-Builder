@@ -16,6 +16,7 @@ public class Hotel {
 	private final String code;
 	private final String name;
 	private final Set<Room> rooms = new HashSet<>();
+	private String bookingReferenceCancelled;
 
 	public Hotel(String code, String name) {
 		checkArguments(code, name);
@@ -101,7 +102,7 @@ public class Hotel {
 		for (Hotel hotel : hotels) {
 			for (Room room : hotel.rooms) {
 				for (Booking booking : room.getBookings()) {
-					if (booking.getReference().equals(roomConfirmation)) {
+					if (booking.getReference().equals(roomConfirmation) && booking.getReferenceCancelled() == null) {
 						booking.setReferenceCancelled();
 						return booking.getReferenceCancelled();
 					}
