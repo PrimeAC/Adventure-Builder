@@ -7,6 +7,8 @@ public class Booking {
 
 	private final String reference;
 
+	private String cancelledReference = null;
+
 	public Booking(ActivityProvider provider, ActivityOffer offer) {
 		checkArguments(provider, offer);
 
@@ -24,5 +26,13 @@ public class Booking {
 
 	public String getReference() {
 		return this.reference;
+	}
+
+	public void setCancelledReference() {
+		this.cancelledReference = this.reference + "cancelled";
+	}
+
+	public String getCancelledReference() {
+		return this.cancelledReference;
 	}
 }
