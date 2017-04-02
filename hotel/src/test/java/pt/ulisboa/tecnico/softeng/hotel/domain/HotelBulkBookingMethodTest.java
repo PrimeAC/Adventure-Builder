@@ -89,6 +89,12 @@ public class HotelBulkBookingMethodTest {
 		Hotel.bulkBooking(4, arrival, departure);
 	}
 
+	@Test(expected = HotelException.class)
+	public void checkNotExistingHotels() {
+		Hotel.hotels.clear();
+		Hotel.bulkBooking(2, arrival, departure);
+	}
+
 	@Test
 	public void reserveAllRooms() {
 		Set<String> array1;
