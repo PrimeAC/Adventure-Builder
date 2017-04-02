@@ -1,18 +1,18 @@
 package pt.ulisboa.tecnico.softeng.broker.domain;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.joda.time.LocalDate;
-
-import pt.ulisboa.tecnico.softeng.broker.exception.BrokerException;
 import pt.ulisboa.tecnico.softeng.broker.exception.RemoteAccessException;
 import pt.ulisboa.tecnico.softeng.broker.interfaces.HotelInterface;
 import pt.ulisboa.tecnico.softeng.hotel.dataobjects.RoomBookingData;
+import pt.ulisboa.tecnico.softeng.hotel.domain.Room;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class BulkRoomBooking {
-	private final Set<String> references = new HashSet<>();
+
+	private Set<String> references = new HashSet<>();
 	private final int number;
 	private final LocalDate arrival;
 	private final LocalDate departure;
@@ -69,7 +69,7 @@ public class BulkRoomBooking {
 		}
 	}
 
-	public String getReference(String type) {
+	public String getReference(Room.Type type) {
 		if (this.cancelled) {
 			return null;
 		}
@@ -78,14 +78,15 @@ public class BulkRoomBooking {
 			RoomBookingData data = null;
 			try {
 				data = HotelInterface.getRoomBookingData(reference);
-				// this.numberOfRemoteErrors = 0;
+				this.numberOfRemoteErrors = 0;
 			} catch (HotelException he) {
-				// this.numberOfRemoteErrors = 0;
+				this.numberOfRemoteErrors = 0;
 			} catch (RemoteAccessException rae) {
-				// this.numberOfRemoteErrors++;
-				// if (this.numberOfRemoteErrors == MAX_REMOTE_ERRORS) {
-				// this.cancelled = true;
-				// }
+				this.numberOfRemoteErrors++;
+				if (this.numberOfRemoteErrors == MAX_REMOTE_ERRORS) {
+					this.cancelled = true;
+					break;
+				}
 			}
 
 			if (data != null && data.getRoomType().equals(type)) {
