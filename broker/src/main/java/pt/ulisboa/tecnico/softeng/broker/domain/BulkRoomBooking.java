@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.joda.time.LocalDate;
 
+import pt.ulisboa.tecnico.softeng.broker.exception.BrokerException;
 import pt.ulisboa.tecnico.softeng.broker.exception.RemoteAccessException;
 import pt.ulisboa.tecnico.softeng.broker.interfaces.HotelInterface;
 import pt.ulisboa.tecnico.softeng.hotel.dataobjects.RoomBookingData;
@@ -54,6 +55,10 @@ public class BulkRoomBooking {
 
 	public boolean getCancelled(){
 		return this.cancelled;
+	}
+
+	public void setCancelled(){
+		this.cancelled = true;
 	}
 
 	public void processBooking() {

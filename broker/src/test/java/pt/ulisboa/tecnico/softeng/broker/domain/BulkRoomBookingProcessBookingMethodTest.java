@@ -3,7 +3,6 @@ package pt.ulisboa.tecnico.softeng.broker.domain;
 import mockit.Expectations;
 import mockit.Injectable;
 import mockit.Mocked;
-import mockit.Verifications;
 import mockit.integration.junit4.JMockit;
 import org.joda.time.LocalDate;
 import org.junit.Before;
@@ -17,7 +16,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertFalse;
 
 @RunWith(JMockit.class)
 public class BulkRoomBookingProcessBookingMethodTest {
@@ -41,40 +40,55 @@ public class BulkRoomBookingProcessBookingMethodTest {
 
 	@Test
 	public void successfulBulkBooking(@Mocked HotelInterface hotelInterface) {
-		new Expectations() {{
-			HotelInterface.bulkBooking(number, begin, end);
-			result =references;
-		}};
+		new Expectations() {
+			{
+				HotelInterface.bulkBooking(number, begin, end);
+				result =references;
+				times = 1;
+			}
+		};
 
 		bulkRoomBooking.processBooking();
 
+		assertEquals(number, this.bulkRoomBooking.getNumber());
+		assertEquals(begin, this.bulkRoomBooking.getArrival());
+		assertEquals(end, this.bulkRoomBooking.getDeparture());
 		assertEquals(0, this.bulkRoomBooking.getNumberOfHotelExceptions());
 		assertEquals(0, this.bulkRoomBooking.getNumberOfRemoteErrors());
 		assertEquals(2, this.bulkRoomBooking.getReferences().size());
-
 
 	}
 
 	@Test
 	public void hotelExceptionBulkBooking(@Mocked HotelInterface hotelInterface) {
-		new Expectations() {{
-			HotelInterface.bulkBooking(number, begin, end);
-			result = new HotelException();
-		}};
+		new Expectations() {
+			{
+				HotelInterface.bulkBooking(number, begin, end);
+				result = new HotelException();
+				times = 2;
+			}
+		};
 
-		bulkRoomBooking.processBooking();
+		for(int i = 0; i <2; i++){
+			bulkRoomBooking.processBooking();
+		}
 
-		assertEquals(1, this.bulkRoomBooking.getNumberOfHotelExceptions());
+		assertEquals(2, this.bulkRoomBooking.getNumberOfHotelExceptions());
 		assertEquals(0, this.bulkRoomBooking.getNumberOfRemoteErrors());
+		assertFalse(this.bulkRoomBooking.getCancelled());
 
 	}
 
 	@Test
 	public void hotelExceptionCancelBulkBooking(@Mocked HotelInterface hotelInterface) {
-		new Expectations() {{
-			HotelInterface.bulkBooking(number, begin, end);
-			result = new HotelException();
-		}};
+		new Expectations() {
+			{
+				HotelInterface.bulkBooking(number, begin, end);
+				result = new HotelException();
+				times = 3;
+			}
+		};
+
 		for(int i = 0; i <3; i++){
 			bulkRoomBooking.processBooking();
 		}
@@ -83,37 +97,36 @@ public class BulkRoomBookingProcessBookingMethodTest {
 		assertEquals(0, this.bulkRoomBooking.getNumberOfRemoteErrors());
 		assertEquals(true, this.bulkRoomBooking.getCancelled());
 
-		new Verifications() {
-			{
-				HotelInterface.bulkBooking(number, begin, end);
-				times = 3;
-			}
-		};
-
 	}
 
 	@Test
-	public void RemoteAccessExceptionBulkBooking(@Mocked HotelInterface hotelInterface) {
+	public void remoteAccessExceptionBulkBooking(@Mocked HotelInterface hotelInterface) {
 		new Expectations() {{
 			HotelInterface.bulkBooking(number, begin, end);
 			result = new RemoteAccessException();
+			times = 19;
 		}};
 
-		bulkRoomBooking.processBooking();
+		for(int i = 0; i <19; i++){
+			bulkRoomBooking.processBooking();
+		}
 
 		assertEquals(0, this.bulkRoomBooking.getNumberOfHotelExceptions());
-		assertEquals(1, this.bulkRoomBooking.getNumberOfRemoteErrors());
+		assertEquals(19, this.bulkRoomBooking.getNumberOfRemoteErrors());
+		assertFalse(this.bulkRoomBooking.getCancelled());
 
 	}
 
 	@Test
-	public void RemoteAccessExceptionCancelBulkBooking(@Mocked HotelInterface hotelInterface) {
+	public void remoteAccessExceptionCancelBulkBooking(@Mocked HotelInterface hotelInterface) {
 		new Expectations() {
 			{
 			HotelInterface.bulkBooking(number, begin, end);
 			result = new RemoteAccessException();
+			times = 20;
 			}
 		};
+
 		for(int i = 0; i <20; i++){
 			bulkRoomBooking.processBooking();
 		}
@@ -122,14 +135,14 @@ public class BulkRoomBookingProcessBookingMethodTest {
 		assertEquals(20, this.bulkRoomBooking.getNumberOfRemoteErrors());
 		assertEquals(true, this.bulkRoomBooking.getCancelled());
 
-		new Verifications() {
-			{
-				HotelInterface.bulkBooking(number, begin, end);
-				times = 20;
-			}
-		};
-
 	}
 
+	@Test
+	public void cancelledTrue() {
+
+		bulkRoomBooking.setCancelled();
+
+		bulkRoomBooking.processBooking();
+	}
 
 }
