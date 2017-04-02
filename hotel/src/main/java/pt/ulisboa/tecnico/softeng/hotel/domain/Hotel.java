@@ -127,7 +127,7 @@ public class Hotel {
 					if (j.isFree(Room.Type.DOUBLE, arrival, departure)) {
 						check++;
 					} else {
-						break;
+						continue;
 					}
 				}
 				if (check == number) {
