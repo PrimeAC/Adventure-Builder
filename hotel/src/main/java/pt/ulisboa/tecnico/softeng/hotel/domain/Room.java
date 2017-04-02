@@ -71,7 +71,7 @@ public class Room {
 		}
 
 		for (Booking booking : this.bookings) {
-			if (booking.conflict(arrival, departure)) {
+			if (booking.conflict(arrival, departure) && booking.getReferenceCancelled() == null) {
 				return false;
 			}
 		}
@@ -94,4 +94,7 @@ public class Room {
 		return booking;
 	}
 
+	public Set<Booking> getBookings() {
+		return this.bookings;
+	}
 }
