@@ -100,11 +100,11 @@ public class HotelBulkBookingMethodTest {
 		Set<String> array1;
 		Set<String> array2;
 
-		array1 = Hotel.bulkBooking(2, arrival, departure);
-		array2 = Hotel.bulkBooking(3, arrival, departure);
+		array1 = Hotel.bulkBooking(3, arrival, departure);
+		array2 = Hotel.bulkBooking(2, arrival, departure);
 
-		Assert.assertEquals(2, array1.size());
-		Assert.assertEquals(3, array2.size());
+		Assert.assertEquals(3, array1.size());
+		Assert.assertEquals(2, array2.size());
 	}
 
 	@After
