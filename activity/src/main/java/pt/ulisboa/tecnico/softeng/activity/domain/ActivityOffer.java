@@ -44,7 +44,13 @@ public class ActivityOffer {
 	}
 
 	int getNumberOfBookings() {
-		return this.bookings.size();
+		int i = 0;
+		for (Booking booking : this.bookings){
+			if (booking.getCancelledReference() == null){
+				i++;
+			}
+		}
+		return i;
 	}
 
 	void addBooking(Booking booking) {

@@ -93,6 +93,10 @@ public class Room {
 		return booking;
 	}
 
+	public Set<Booking> getBookings() {
+		return this.bookings;
+	}
+
 	public Booking getBooking(String reference) {
 		if (reference == null || reference.trim().length() == 0) {
 			throw new HotelException();
@@ -105,7 +109,4 @@ public class Room {
 		throw new HotelException();
 	}
 
-	public Set<Booking> getBookings() {
-		return this.bookings;
-	}
 }

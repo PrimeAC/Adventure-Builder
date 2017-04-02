@@ -112,39 +112,94 @@ public class Hotel {
 	}
 
 	public static RoomBookingData getRoomBookingData(String reference) {
-		if (reference == null || reference.trim().length() == 0) {
-			throw new HotelException();
-		}
+		if (reference != null && reference.trim().length() > 0) {
+			RoomBookingData roomBookingData = new RoomBookingData();
 
-		RoomBookingData roomBookingData = new RoomBookingData();
+			for (Hotel hotel : Hotel.hotels) {
+				for (Room room : hotel.rooms) {
+					try {
+						room.getBooking(reference);
+					} catch (HotelException he) {
+						continue;
+					}
+					Booking booking = room.getBooking(reference);
+					roomBookingData.setReference(reference);
+					roomBookingData.setHotelCode(hotel.getCode());
+					roomBookingData.setHotelName(hotel.getName());
+					roomBookingData.setRoomNumber(room.getNumber());
+					roomBookingData.setRoomType(room.getType());
+					roomBookingData.setArrival(booking.getArrival());
+					roomBookingData.setDeparture(booking.getDeparture());
+					roomBookingData.setCancellation(booking.getCancellation());
+					roomBookingData.setCancellationDate(booking.getCancellationDate());
 
-		for (Hotel hotel : Hotel.hotels) {
-			for (Room room : hotel.rooms) {
-				try {
-					room.getBooking(reference);
-				} catch (HotelException he) {
-					continue;
+					return roomBookingData;
 				}
-				roomBookingData.setReference(reference);
-				roomBookingData.setHotelCode(hotel.getCode());
-				roomBookingData.setHotelName(hotel.getName());
-				roomBookingData.setRoomNumber(room.getNumber());
-				roomBookingData.setRoomType(room.getType());
-				roomBookingData.setArrival(room.getBooking(reference).getArrival());
-				roomBookingData.setDeparture(room.getBooking(reference).getDeparture());
-				roomBookingData.setCancellation(room.getBooking(reference).getReferenceCancelled());
-				roomBookingData.setCancellationDate(room.getBooking(reference).getCancellationDate());
-				return roomBookingData;
 			}
 		}
 		throw new HotelException();
 	}
 
 	public static Set<String> bulkBooking(int number, LocalDate arrival, LocalDate departure) {
-		// TODO: verify consistency of arguments, return the
-		// references for 'number' new bookings, it does not matter if they are
-		// single of double. If there aren't enough rooms available it throws a
-		// hotel exception
+
+		if (number <= 0) {
+			throw new HotelException("Invalid number");
+		}
+
+		if (arrival == null || departure == null) {
+			throw new HotelException("Arrival/departure dates can't be NULL");
+		}
+
+		if (departure.isBefore(arrival) || arrival.isEqual(departure)) {
+			throw new HotelException("Departure date must be after arrival date");
+		}
+
+		int check = 0;
+		Hotel hotel = null;
+
+		for (Hotel i : hotels) {
+			if(i.getNumberOfRooms() >= number) {
+				for (Room j : i.rooms) {
+					if (j.isFree(Room.Type.SINGLE, arrival, departure)) {
+						check++;
+					} else {
+						if (j.isFree(Room.Type.DOUBLE, arrival, departure)) {
+							check++;
+						} else {
+							continue;
+						}
+					}
+					if (check == number) {
+						hotel = i;
+						break;
+					}
+				}
+			}
+			if (check == number) {
+				break;
+			} else {
+				check = 0;
+			}
+		}
+		if (hotel != null) {
+			Set<String> result = new HashSet<>();
+			for (int i = 0; i < number; i++) {
+				Room room = hotel.hasVacancy(Room.Type.SINGLE, arrival, departure);
+				if (room != null) {
+					Booking reserve = room.reserve(Room.Type.SINGLE, arrival, departure);
+					result.add(reserve.getReference());
+				} else {
+					room = hotel.hasVacancy(Room.Type.DOUBLE, arrival, departure);
+					if (room != null) {
+						Booking reserve = room.reserve(Room.Type.DOUBLE, arrival, departure);
+						result.add(reserve.getReference());
+					} else {
+						throw new HotelException("Unexpected error while reserving!");
+					}
+				}
+			}
+			return result;
+		}
 		throw new HotelException();
 	}
 

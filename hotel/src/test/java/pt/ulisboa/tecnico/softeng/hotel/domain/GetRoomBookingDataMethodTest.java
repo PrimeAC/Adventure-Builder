@@ -134,12 +134,12 @@ public class GetRoomBookingDataMethodTest {
 
 	@Test
 	public void successWithCancellation() {
-		booking.setCancellationDate(LocalDate.now());
+		booking.setCancellation(LocalDate.now());
 
 		RoomBookingData roomBookingData = Hotel.getRoomBookingData(reference);
 
 		assertEquals(reference, roomBookingData.getReference());
-		assertEquals(booking.getReferenceCancelled(), roomBookingData.getCancellation());
+		assertEquals(booking.getCancellation(), roomBookingData.getCancellation());
 		assertEquals(booking.getCancellationDate(), roomBookingData.getCancellationDate());
 	}
 
