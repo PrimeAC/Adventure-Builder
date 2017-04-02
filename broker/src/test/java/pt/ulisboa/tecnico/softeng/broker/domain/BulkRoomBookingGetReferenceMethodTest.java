@@ -20,9 +20,6 @@ import java.util.Set;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by diogomesquita on 01/04/17.
- */
 @RunWith(JMockit.class)
 public class BulkRoomBookingGetReferenceMethodTest {
 
