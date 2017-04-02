@@ -77,6 +77,14 @@ public class GetRoomBookingDataMethodTest {
 		Booking booking2 = room2.reserve(ROOMTYPE, ARRIVAL, DEPARTURE);
 		String reference2 = booking2.getReference();
 
+		RoomBookingData roomBookingData = Hotel.getRoomBookingData(this.reference);
+
+		assertEquals(this.reference, roomBookingData.getReference());
+		assertEquals(NUMBER, roomBookingData.getRoomNumber());
+		assertEquals(ROOMTYPE, roomBookingData.getRoomType());
+		assertEquals(ARRIVAL, roomBookingData.getArrival());
+		assertEquals(DEPARTURE, roomBookingData.getDeparture());
+
 		RoomBookingData roomBookingData2 = Hotel.getRoomBookingData(reference2);
 
 		assertEquals(reference2, roomBookingData2.getReference());
@@ -97,6 +105,16 @@ public class GetRoomBookingDataMethodTest {
 		Room room2 = new Room(hotel2, "234", ROOMTYPE);
 		Booking booking2 = room2.reserve(ROOMTYPE, ARRIVAL, DEPARTURE);
 		String reference2 = booking2.getReference();
+
+		RoomBookingData roomBookingData = Hotel.getRoomBookingData(this.reference);
+
+		assertEquals(this.reference, roomBookingData.getReference());
+		assertEquals(CODE, roomBookingData.getHotelCode());
+		assertEquals(NAME, roomBookingData.getHotelName());
+		assertEquals(NUMBER, roomBookingData.getRoomNumber());
+		assertEquals(ROOMTYPE, roomBookingData.getRoomType());
+		assertEquals(ARRIVAL, roomBookingData.getArrival());
+		assertEquals(DEPARTURE, roomBookingData.getDeparture());
 
 		RoomBookingData roomBookingData2 = Hotel.getRoomBookingData(reference2);
 
