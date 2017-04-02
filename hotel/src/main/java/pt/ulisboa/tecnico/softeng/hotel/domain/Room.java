@@ -82,6 +82,9 @@ public class Room {
 	}
 
 	public Booking getBooking(String reference) {
+		if (reference == null || reference.trim().length() == 0) {
+			throw new HotelException();
+		}
 
 		for (Booking booking : bookings) {
 			if (reference.equals(booking.getReference()))
@@ -89,4 +92,5 @@ public class Room {
 		}
 		throw new HotelException();
 	}
+
 }

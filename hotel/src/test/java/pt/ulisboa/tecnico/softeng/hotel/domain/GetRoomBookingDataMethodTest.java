@@ -56,7 +56,6 @@ public class GetRoomBookingDataMethodTest {
 		RoomBookingData roomBookingData = Hotel.getRoomBookingData(reference);
 
 		assertEquals(reference, roomBookingData.getReference());
-
 		assertEquals(booking.getCancellation(), roomBookingData.getCancellation());
 		assertEquals(booking.getCancellationDate(), roomBookingData.getCancellationDate());
 	}
@@ -83,17 +82,14 @@ public class GetRoomBookingDataMethodTest {
 
 	@Test (expected = HotelException.class)
 	public void noRoomsInHotel() {
-		tearDown();
-		this.hotel = new Hotel(CODE, NAME);
-		Hotel.getRoomBookingData("Hotel121");
+		this.hotel = new Hotel("Hotel23", "HotelYPTO");
+		Hotel.getRoomBookingData("Hotel231");
 	}
 
 	@Test (expected = HotelException.class)
 	public void noBookingsInRoom() {
-		tearDown();
-		this.hotel = new Hotel(CODE, NAME);
-		this.room = new Room(hotel, NUMBER, ROOMTYPE);
-		Hotel.getRoomBookingData("Hotel121");
+		this.room = new Room(hotel, "234", ROOMTYPE);
+		Hotel.getRoomBookingData("Hotel122");
 	}
 
 	@After
