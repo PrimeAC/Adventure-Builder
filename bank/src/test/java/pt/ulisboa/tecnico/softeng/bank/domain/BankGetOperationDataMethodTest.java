@@ -131,14 +131,6 @@ public class BankGetOperationDataMethodTest {
 		Assert.assertEquals(this.operation.getReference(), bankOpData.getReference());
 		Assert.assertEquals(this.operation.getAccount().getIBAN(), bankOpData.getIban());
 	}
-	
-	@Test
-	public void duplicateBankOpDataReference() {
-		BankOperationData bankOpData = Bank.getOperationData(this.operation.getReference());
-		BankOperationData bankOpData2 = Bank.getOperationData(this.operation.getReference());
-		Assert.assertNotEquals(bankOpData.getReference(), bankOpData2.getReference());
-
-	}
 
 	@After
 	public void tearDown() {
