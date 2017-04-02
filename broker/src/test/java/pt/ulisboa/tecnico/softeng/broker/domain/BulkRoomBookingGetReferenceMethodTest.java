@@ -10,6 +10,7 @@ import pt.ulisboa.tecnico.softeng.broker.exception.RemoteAccessException;
 import pt.ulisboa.tecnico.softeng.broker.interfaces.HotelInterface;
 import pt.ulisboa.tecnico.softeng.hotel.dataobjects.RoomBookingData;
 import pt.ulisboa.tecnico.softeng.hotel.domain.Hotel;
+import pt.ulisboa.tecnico.softeng.hotel.domain.Room;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
 import java.rmi.RemoteException;
@@ -27,6 +28,8 @@ public class BulkRoomBookingGetReferenceMethodTest {
 
 	private final LocalDate arrival = LocalDate.now();
 	private final LocalDate departure= arrival.plusDays(3);
+
+	private final Room.Type DOUBLE = Room.Type.DOUBLE;
 
 	private Set<String> oneRef;
 	private Set<String> twoRefs;
@@ -54,7 +57,7 @@ public class BulkRoomBookingGetReferenceMethodTest {
 			times = 1;
 
 			data.getRoomType();
-			result = "DOUBLE";
+			result = DOUBLE;
 			times = 1;
 		}};
 		String inRef = "1";
@@ -62,7 +65,7 @@ public class BulkRoomBookingGetReferenceMethodTest {
 
 		BulkRoomBooking bulkRoomBooking = new BulkRoomBooking(1, this.arrival, this.departure);
 		BulkRoomBookingGetReferenceMethodTest.setParams(bulkRoomBooking, refs, 0, 0, false);
-		String outRef = bulkRoomBooking.getReference("DOUBLE");
+		String outRef = bulkRoomBooking.getReference(DOUBLE);
 
 		assertEquals("1", outRef);
 		assertTrue(bulkRoomBooking.getReferences().isEmpty());
@@ -86,13 +89,13 @@ public class BulkRoomBookingGetReferenceMethodTest {
 			minTimes = 0;
 
 			data.getRoomType();
-			result = "DOUBLE";
+			result = DOUBLE;
 			times = 1;
 		}};
 
 		BulkRoomBooking bulkRoomBooking = new BulkRoomBooking(2, this.arrival, this.departure);
 		BulkRoomBookingGetReferenceMethodTest.setParams(bulkRoomBooking, inRefs, 0, 0, false);
-		String outRef = bulkRoomBooking.getReference("DOUBLE");
+		String outRef = bulkRoomBooking.getReference(DOUBLE);
 
 		Set<String> outRefs = bulkRoomBooking.getReferences();
 		assertEquals(inRef1, outRef);
@@ -117,7 +120,7 @@ public class BulkRoomBookingGetReferenceMethodTest {
 
 		BulkRoomBooking bulkRoomBooking = new BulkRoomBooking(1, this.arrival, this.departure);
 		BulkRoomBookingGetReferenceMethodTest.setParams(bulkRoomBooking, refs, 0, 0, false);
-		String outRef = bulkRoomBooking.getReference("DOUBLE");
+		String outRef = bulkRoomBooking.getReference(DOUBLE);
 
 		assertEquals(null, outRef);
 		assertTrue(bulkRoomBooking.getReferences().isEmpty());
@@ -139,7 +142,7 @@ public class BulkRoomBookingGetReferenceMethodTest {
 
 		BulkRoomBooking bulkRoomBooking = new BulkRoomBooking(1, this.arrival, this.departure);
 		BulkRoomBookingGetReferenceMethodTest.setParams(bulkRoomBooking, refs, 0, 0, true);
-		String outRef = bulkRoomBooking.getReference("DOUBLE");
+		String outRef = bulkRoomBooking.getReference(DOUBLE);
 
 		assertEquals(null, outRef);
 		assertTrue(bulkRoomBooking.getReferences().contains(inRef));
@@ -164,13 +167,13 @@ public class BulkRoomBookingGetReferenceMethodTest {
 			times = 1;
 
 			data.getRoomType();
-			result = "DOUBLE";
+			result = DOUBLE;
 			times = 1;
 		}};
 
 		BulkRoomBookingGetReferenceMethodTest.setParams(bulkRoomBooking, refs, 0, maxErrors-1, false);
 
-		String outRef = bulkRoomBooking.getReference("DOUBLE");
+		String outRef = bulkRoomBooking.getReference(DOUBLE);
 
 		assertNotNull(outRef);
 		int errors = Deencapsulation.getField(bulkRoomBooking, "numberOfRemoteErrors");
@@ -198,13 +201,13 @@ public class BulkRoomBookingGetReferenceMethodTest {
 			result = new RemoteAccessException();
 
 			data.getRoomType();
-			result = "DOUBLE";
+			result = DOUBLE;
 			times = 0;
 		}};
 
 		BulkRoomBookingGetReferenceMethodTest.setParams(bulkRoomBooking, refs, 0, maxErrors-1, false);
 
-		String outRef = bulkRoomBooking.getReference("DOUBLE");
+		String outRef = bulkRoomBooking.getReference(DOUBLE);
 
 		assertTrue(bulkRoomBooking.getReferences().contains("1"));
 		assertNull(outRef);
@@ -226,7 +229,7 @@ public class BulkRoomBookingGetReferenceMethodTest {
 			result = data;
 
 			data.getRoomType();
-			result = "DOUBLE";
+			result = DOUBLE;
 			times = 1;
 		}};
 		String inRef1 = "1";
@@ -236,7 +239,7 @@ public class BulkRoomBookingGetReferenceMethodTest {
 		BulkRoomBooking bulkRoomBooking = new BulkRoomBooking(2, this.arrival, this.departure);
 		BulkRoomBookingGetReferenceMethodTest.setParams(bulkRoomBooking, refs, 0, 0, false);
 
-		String outRef = bulkRoomBooking.getReference("DOUBLE");
+		String outRef = bulkRoomBooking.getReference(DOUBLE);
 
 		assertFalse(bulkRoomBooking.getReferences().contains(outRef));
 		assertTrue(bulkRoomBooking.getReferences().contains(outRef == inRef1 ? inRef2 : inRef1));
@@ -258,7 +261,7 @@ public class BulkRoomBookingGetReferenceMethodTest {
 			times = 3;
 
 			data.getRoomType();
-			result = "DOUBLE";
+			result = DOUBLE;
 			times = 1;
 		}};
 
@@ -271,7 +274,7 @@ public class BulkRoomBookingGetReferenceMethodTest {
 		BulkRoomBooking bulkRoomBooking = new BulkRoomBooking(1, this.arrival, this.departure);
 		BulkRoomBookingGetReferenceMethodTest.setParams(bulkRoomBooking, refs, 0, 0, false);
 
-		String outRef = bulkRoomBooking.getReference("DOUBLE");
+		String outRef = bulkRoomBooking.getReference(DOUBLE);
 
 		assertNotNull(outRef);
 		assertTrue(bulkRoomBooking.getReferences().size() == 3);

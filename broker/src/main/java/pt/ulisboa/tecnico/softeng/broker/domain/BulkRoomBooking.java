@@ -1,19 +1,16 @@
 package pt.ulisboa.tecnico.softeng.broker.domain;
 
 import org.joda.time.LocalDate;
-
-import pt.ulisboa.tecnico.softeng.broker.exception.BrokerException;
 import pt.ulisboa.tecnico.softeng.broker.exception.RemoteAccessException;
 import pt.ulisboa.tecnico.softeng.broker.interfaces.HotelInterface;
 import pt.ulisboa.tecnico.softeng.hotel.dataobjects.RoomBookingData;
+import pt.ulisboa.tecnico.softeng.hotel.domain.Room;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class BulkRoomBooking {
-	private static final int MAX_REMOTE_ERRORS = 20;
-	private static final int MAX_HOTEL_EXCEPTIONS = 3;
 
 	private Set<String> references = new HashSet<>();
 	private final int number;
@@ -72,7 +69,7 @@ public class BulkRoomBooking {
 		}
 	}
 
-	public String getReference(String type) {
+	public String getReference(Room.Type type) {
 		if (this.cancelled) {
 			return null;
 		}
