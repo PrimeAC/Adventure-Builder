@@ -50,6 +50,71 @@ public class GetRoomBookingDataMethodTest {
 	}
 
 	@Test
+	public void multipleBookingsSameRoom() {
+		Booking booking2 = room.reserve(ROOMTYPE, ARRIVAL.plusDays(10), ARRIVAL.plusDays(15));
+		String reference2 = booking2.getReference();
+
+		RoomBookingData roomBookingData = Hotel.getRoomBookingData(reference);
+		RoomBookingData roomBookingData2 = Hotel.getRoomBookingData(reference2);
+
+		assertEquals(reference, roomBookingData.getReference());
+
+		assertEquals(reference2, roomBookingData2.getReference());
+		assertEquals(CODE, roomBookingData2.getHotelCode());
+		assertEquals(NAME, roomBookingData2.getHotelName());
+		assertEquals(NUMBER, roomBookingData2.getRoomNumber());
+		assertEquals(ROOMTYPE, roomBookingData2.getRoomType());
+		assertEquals(ARRIVAL.plusDays(10), roomBookingData2.getArrival());
+		assertEquals(ARRIVAL.plusDays(15), roomBookingData2.getDeparture());
+
+		assertNull(roomBookingData2.getCancellation());
+		assertNull(roomBookingData2.getCancellationDate());
+	}
+
+	@Test
+	public void multipleBookingsDifferentRooms() {
+		Room room2 = new Room(hotel, "234", ROOMTYPE);
+		Booking booking2 = room2.reserve(ROOMTYPE, ARRIVAL, DEPARTURE);
+		String reference2 = booking2.getReference();
+
+		RoomBookingData roomBookingData2 = Hotel.getRoomBookingData(reference2);
+
+		assertEquals(reference2, roomBookingData2.getReference());
+		assertEquals(CODE, roomBookingData2.getHotelCode());
+		assertEquals(NAME, roomBookingData2.getHotelName());
+		assertEquals("234", roomBookingData2.getRoomNumber());
+		assertEquals(ROOMTYPE, roomBookingData2.getRoomType());
+		assertEquals(ARRIVAL, roomBookingData2.getArrival());
+		assertEquals(DEPARTURE, roomBookingData2.getDeparture());
+
+		assertNull(roomBookingData2.getCancellation());
+		assertNull(roomBookingData2.getCancellationDate());
+	}
+
+	@Test
+	public void multipleBookingsDifferentHotels() {
+		Hotel hotel2 = new Hotel("Hotel23", "HotelYPTO");
+		Room room2 = new Room(hotel2, "234", ROOMTYPE);
+		Booking booking2 = room2.reserve(ROOMTYPE, ARRIVAL, DEPARTURE);
+		String reference2 = booking2.getReference();
+
+		RoomBookingData roomBookingData2 = Hotel.getRoomBookingData(reference2);
+
+		assertEquals(reference2, roomBookingData2.getReference());
+		assertEquals("Hotel23", roomBookingData2.getHotelCode());
+		assertEquals("HotelYPTO", roomBookingData2.getHotelName());
+		assertEquals("234", roomBookingData2.getRoomNumber());
+		assertEquals(ROOMTYPE, roomBookingData2.getRoomType());
+		assertEquals(ARRIVAL, roomBookingData2.getArrival());
+		assertEquals(DEPARTURE, roomBookingData2.getDeparture());
+
+		assertNull(roomBookingData2.getCancellation());
+		assertNull(roomBookingData2.getCancellationDate());
+	}
+
+
+
+	@Test
 	public void successWithCancellation() {
 		booking.setCancellationDate(LocalDate.now());
 

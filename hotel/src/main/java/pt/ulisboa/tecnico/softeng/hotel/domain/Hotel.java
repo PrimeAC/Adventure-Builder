@@ -120,17 +120,19 @@ public class Hotel {
 
 		for (Hotel hotel : Hotel.hotels) {
 			for (Room room : hotel.rooms) {
-				roomBookingData.setReference(reference);
-				roomBookingData.setHotelCode(hotel.getCode());
-				roomBookingData.setHotelName(hotel.getName());
-				roomBookingData.setRoomNumber(room.getNumber());
-				roomBookingData.setRoomType(room.getType());
-				roomBookingData.setArrival(room.getBooking(reference).getArrival());
-				roomBookingData.setDeparture(room.getBooking(reference).getDeparture());
-				roomBookingData.setCancellation(room.getBooking(reference).getReferenceCancelled());
-				roomBookingData.setCancellationDate(room.getBooking(reference).getCancellationDate());
+				if (room.getBooking(reference).getReference().equals(reference)) {
+					roomBookingData.setReference(reference);
+					roomBookingData.setHotelCode(hotel.getCode());
+					roomBookingData.setHotelName(hotel.getName());
+					roomBookingData.setRoomNumber(room.getNumber());
+					roomBookingData.setRoomType(room.getType());
+					roomBookingData.setArrival(room.getBooking(reference).getArrival());
+					roomBookingData.setDeparture(room.getBooking(reference).getDeparture());
+					roomBookingData.setCancellation(room.getBooking(reference).getReferenceCancelled());
+					roomBookingData.setCancellationDate(room.getBooking(reference).getCancellationDate());
 
-				return roomBookingData;
+					return roomBookingData;
+				}
 			}
 		}
 		throw new HotelException();
