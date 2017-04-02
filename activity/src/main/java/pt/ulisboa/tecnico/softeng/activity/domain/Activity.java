@@ -89,4 +89,8 @@ public class Activity {
 		return age >= this.minAge && age <= this.maxAge;
 	}
 
+	Set<ActivityOffer> getOffers() {
+		Set<ActivityOffer> result = new HashSet<>(this.offers);
+		return result;
+	}
 }
