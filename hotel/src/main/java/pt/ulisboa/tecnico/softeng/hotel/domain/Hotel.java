@@ -15,7 +15,6 @@ public class Hotel {
 	private final String code;
 	private final String name;
 	private final Set<Room> rooms = new HashSet<>();
-	private String bookingReferenceCancelled;
 
 	public Hotel(String code, String name) {
 		checkArguments(code, name);
@@ -112,7 +111,31 @@ public class Hotel {
 	}
 
 	public static RoomBookingData getRoomBookingData(String reference) {
-		// TODO implement
+		if (reference != null && reference.trim().length() > 0) {
+			RoomBookingData roomBookingData = new RoomBookingData();
+
+			for (Hotel hotel : Hotel.hotels) {
+				for (Room room : hotel.rooms) {
+					try {
+						room.getBooking(reference);
+					} catch (HotelException he) {
+						continue;
+					}
+					Booking booking = room.getBooking(reference);
+					roomBookingData.setReference(reference);
+					roomBookingData.setHotelCode(hotel.getCode());
+					roomBookingData.setHotelName(hotel.getName());
+					roomBookingData.setRoomNumber(room.getNumber());
+					roomBookingData.setRoomType(room.getType());
+					roomBookingData.setArrival(booking.getArrival());
+					roomBookingData.setDeparture(booking.getDeparture());
+					roomBookingData.setCancellation(booking.getReferenceCancelled());
+					roomBookingData.setCancellationDate(booking.getCancellationDate());
+
+					return roomBookingData;
+				}
+			}
+		}
 		throw new HotelException();
 	}
 

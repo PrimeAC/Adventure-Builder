@@ -1,6 +1,7 @@
 package pt.ulisboa.tecnico.softeng.hotel.dataobjects;
 
 import org.joda.time.LocalDate;
+import pt.ulisboa.tecnico.softeng.hotel.domain.Room;
 
 public class RoomBookingData {
 	private String reference;
@@ -8,7 +9,7 @@ public class RoomBookingData {
 	private String hotelName;
 	private String hotelCode;
 	private String roomNumber;
-	private String roomType;
+	private Room.Type roomType;
 	private LocalDate arrival;
 	private LocalDate departure;
 	private LocalDate cancellationDate;
@@ -53,11 +54,11 @@ public class RoomBookingData {
 		this.roomNumber = roomNumber;
 	}
 
-	public String getRoomType() {
+	public Room.Type getRoomType() {
 		return this.roomType;
 	}
 
-	public void setRoomType(String roomType) {
+	public void setRoomType(Room.Type roomType) {
 		this.roomType = roomType;
 	}
 

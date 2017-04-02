@@ -1,11 +1,10 @@
 package pt.ulisboa.tecnico.softeng.hotel.domain;
 
+import org.joda.time.LocalDate;
+import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
+
 import java.util.HashSet;
 import java.util.Set;
-
-import org.joda.time.LocalDate;
-
-import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
 public class Room {
 	public static enum Type {
@@ -97,4 +96,17 @@ public class Room {
 	public Set<Booking> getBookings() {
 		return this.bookings;
 	}
+
+	public Booking getBooking(String reference) {
+		if (reference == null || reference.trim().length() == 0) {
+			throw new HotelException();
+		}
+
+		for (Booking booking : bookings) {
+			if (reference.equals(booking.getReference()))
+				return booking;
+		}
+		throw new HotelException();
+	}
+
 }
