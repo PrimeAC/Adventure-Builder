@@ -1,5 +1,6 @@
 package pt.ulisboa.tecnico.softeng.broker.domain;
 
+import mockit.Deencapsulation;
 import mockit.Expectations;
 import mockit.Injectable;
 import mockit.Mocked;
@@ -17,6 +18,7 @@ import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(JMockit.class)
 public class BulkRoomBookingProcessBookingMethodTest {
@@ -50,12 +52,17 @@ public class BulkRoomBookingProcessBookingMethodTest {
 
 		bulkRoomBooking.processBooking();
 
+		int remote_errors = Deencapsulation.getField(bulkRoomBooking, "numberOfRemoteErrors");
+		int hotel_errors = Deencapsulation.getField(bulkRoomBooking, "numberOfHotelExceptions");
+		boolean cancelled = Deencapsulation.getField(bulkRoomBooking, "cancelled");
+
 		assertEquals(number, this.bulkRoomBooking.getNumber());
 		assertEquals(begin, this.bulkRoomBooking.getArrival());
 		assertEquals(end, this.bulkRoomBooking.getDeparture());
-		assertEquals(0, this.bulkRoomBooking.getNumberOfHotelExceptions());
-		assertEquals(0, this.bulkRoomBooking.getNumberOfRemoteErrors());
+		assertEquals(0, hotel_errors);
+		assertEquals(0, remote_errors);
 		assertEquals(2, this.bulkRoomBooking.getReferences().size());
+		assertFalse(cancelled);
 
 	}
 
@@ -73,9 +80,13 @@ public class BulkRoomBookingProcessBookingMethodTest {
 			bulkRoomBooking.processBooking();
 		}
 
-		assertEquals(2, this.bulkRoomBooking.getNumberOfHotelExceptions());
-		assertEquals(0, this.bulkRoomBooking.getNumberOfRemoteErrors());
-		assertFalse(this.bulkRoomBooking.getCancelled());
+		int remote_errors = Deencapsulation.getField(bulkRoomBooking, "numberOfRemoteErrors");
+		int hotel_errors = Deencapsulation.getField(bulkRoomBooking, "numberOfHotelExceptions");
+		boolean cancelled = Deencapsulation.getField(bulkRoomBooking, "cancelled");
+
+		assertEquals(2, hotel_errors);
+		assertEquals(0, remote_errors);
+		assertFalse(cancelled);
 
 	}
 
@@ -93,9 +104,14 @@ public class BulkRoomBookingProcessBookingMethodTest {
 			bulkRoomBooking.processBooking();
 		}
 
-		assertEquals(3, this.bulkRoomBooking.getNumberOfHotelExceptions());
-		assertEquals(0, this.bulkRoomBooking.getNumberOfRemoteErrors());
-		assertEquals(true, this.bulkRoomBooking.getCancelled());
+
+		int remote_errors = Deencapsulation.getField(bulkRoomBooking, "numberOfRemoteErrors");
+		int hotel_errors = Deencapsulation.getField(bulkRoomBooking, "numberOfHotelExceptions");
+		boolean cancelled = Deencapsulation.getField(bulkRoomBooking, "cancelled");
+
+		assertEquals(3, hotel_errors);
+		assertEquals(0, remote_errors);
+		assertTrue(cancelled);
 
 	}
 
@@ -111,9 +127,14 @@ public class BulkRoomBookingProcessBookingMethodTest {
 			bulkRoomBooking.processBooking();
 		}
 
-		assertEquals(0, this.bulkRoomBooking.getNumberOfHotelExceptions());
-		assertEquals(19, this.bulkRoomBooking.getNumberOfRemoteErrors());
-		assertFalse(this.bulkRoomBooking.getCancelled());
+
+		int remote_errors = Deencapsulation.getField(bulkRoomBooking, "numberOfRemoteErrors");
+		int hotel_errors = Deencapsulation.getField(bulkRoomBooking, "numberOfHotelExceptions");
+		boolean cancelled = Deencapsulation.getField(bulkRoomBooking, "cancelled");
+
+		assertEquals(0, hotel_errors);
+		assertEquals(19, remote_errors);
+		assertFalse(cancelled);
 
 	}
 
@@ -131,18 +152,33 @@ public class BulkRoomBookingProcessBookingMethodTest {
 			bulkRoomBooking.processBooking();
 		}
 
-		assertEquals(0, this.bulkRoomBooking.getNumberOfHotelExceptions());
-		assertEquals(20, this.bulkRoomBooking.getNumberOfRemoteErrors());
-		assertEquals(true, this.bulkRoomBooking.getCancelled());
+
+		int remote_errors = Deencapsulation.getField(bulkRoomBooking, "numberOfRemoteErrors");
+		int hotel_errors = Deencapsulation.getField(bulkRoomBooking, "numberOfHotelExceptions");
+		boolean cancelled = Deencapsulation.getField(bulkRoomBooking, "cancelled");
+
+		assertEquals(0, hotel_errors);
+		assertEquals(20, remote_errors);
+		assertTrue(cancelled);
 
 	}
 
 	@Test
 	public void cancelledTrue() {
 
-		bulkRoomBooking.setCancelled();
+		Deencapsulation.setField( bulkRoomBooking, "cancelled", true);
+		Deencapsulation.setField( bulkRoomBooking, "numberOfHotelExceptions", 2);
+		int hotel_errors = Deencapsulation.getField(bulkRoomBooking, "numberOfHotelExceptions");
+		int remote_errors = Deencapsulation.getField(bulkRoomBooking, "numberOfRemoteErrors");
+
+		assertEquals(2,hotel_errors);
+		assertEquals(0, remote_errors);
 
 		bulkRoomBooking.processBooking();
+
+
+		assertEquals(2,hotel_errors);
+		assertEquals(0, remote_errors);
 	}
 
 }

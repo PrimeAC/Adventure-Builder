@@ -45,22 +45,6 @@ public class BulkRoomBooking {
 		return this.departure;
 	}
 
-	public int getNumberOfHotelExceptions() {
-		return this.numberOfHotelExceptions;
-	}
-
-	public int getNumberOfRemoteErrors() {
-		return this.numberOfRemoteErrors;
-	}
-
-	public boolean getCancelled(){
-		return this.cancelled;
-	}
-
-	public void setCancelled(){
-		this.cancelled = true;
-	}
-
 	public void processBooking() {
 		if (this.cancelled) {
 			return;
