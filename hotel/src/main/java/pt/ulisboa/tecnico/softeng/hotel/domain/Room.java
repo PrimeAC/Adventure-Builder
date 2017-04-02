@@ -37,6 +37,16 @@ public class Room {
 		}
 	}
 
+	private void checkDates(LocalDate arrival, LocalDate departure) {
+		if (arrival.equals(departure)) {
+			throw new HotelException("Reservations must be for at least 1 day (i.e. 24 hours)");
+		}
+
+		if (departure.isBefore(arrival)) {
+			throw new HotelException();
+		}
+	}
+
 	Hotel getHotel() {
 		return this.hotel;
 	}
@@ -54,6 +64,8 @@ public class Room {
 	}
 
 	boolean isFree(Type type, LocalDate arrival, LocalDate departure) {
+		checkDates(arrival, departure);
+
 		if (!type.equals(this.type)) {
 			return false;
 		}
