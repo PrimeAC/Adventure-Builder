@@ -10,7 +10,6 @@ public class Booking {
 	private final LocalDate arrival;
 	private final LocalDate departure;
 	private String referenceCancelled;
-	private String cancellation;
 	private LocalDate cancellationDate;
 
 	Booking(Hotel hotel, LocalDate arrival, LocalDate departure) {
@@ -75,12 +74,8 @@ public class Booking {
 	}
 
 	public void setCancellation(LocalDate cancelDate) {
-		this.cancellation = "cancelled";
+		setReferenceCancelled();
 		this.cancellationDate = cancelDate;
-	}
-
-	public String getCancellation() {
-		return this.cancellation;
 	}
 
 	public LocalDate getCancellationDate() {

@@ -139,7 +139,7 @@ public class GetRoomBookingDataMethodTest {
 		RoomBookingData roomBookingData = Hotel.getRoomBookingData(reference);
 
 		assertEquals(reference, roomBookingData.getReference());
-		assertEquals(booking.getCancellation(), roomBookingData.getCancellation());
+		assertEquals(booking.getReferenceCancelled(), roomBookingData.getCancellation());
 		assertEquals(booking.getCancellationDate(), roomBookingData.getCancellationDate());
 	}
 
