@@ -104,13 +104,37 @@ public class Bank {
 	}
 
 	public static String cancelPayment(String reference) {
-		// TODO implement
-		throw new BankException();
+		for (Bank bank : banks) {
+			Operation op = bank.getOperation(reference);
+			if (op != null) {
+				if (op.isCancelled()) {
+					throw new BankException("Payment already cancelled");
+				} else {
+					op.cancel();
+					return op.getAccount().deposit(op.getValue());
+				}
+			}
+		}
+		throw new BankException("Operation with given reference not found");
 	}
 
 	public static BankOperationData getOperationData(String reference) {
-		// TODO implement
-		throw new BankException();
+		if (reference == null)
+			throw new BankException("Null ref");
+		if (reference.trim().length() < 5)
+			throw new BankException("invalid ref");
+		if (banks.isEmpty())
+			throw new BankException("No banks");
+
+		for (Bank bank : Bank.banks) {
+			for (Operation op : bank.log) {
+				if (op.getReference().equals(reference)) {
+					return new BankOperationData(reference, op.getType().toString(), op.getAccount().getIBAN(),
+							op.getValue(), op.getTime());
+				}
+			}
+		}
+		throw new BankException("No bank with this operation reference found");
 	}
 
 }

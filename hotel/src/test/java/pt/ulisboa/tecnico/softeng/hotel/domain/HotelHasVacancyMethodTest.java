@@ -1,5 +1,6 @@
 package pt.ulisboa.tecnico.softeng.hotel.domain;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 import org.joda.time.LocalDate;
@@ -43,6 +44,11 @@ public class HotelHasVacancyMethodTest {
 		Hotel otherHotel = new Hotel("XPTO124", "Paris Germain");
 
 		assertNull(otherHotel.hasVacancy(Type.DOUBLE, this.arrival, this.departure));
+	}
+
+	@Test(expected = HotelException.class)
+	public void arrivalEqualsDeparture() {
+		this.hotel.hasVacancy(Type.DOUBLE, this.arrival, this.arrival);
 	}
 
 	@Test(expected = HotelException.class)

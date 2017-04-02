@@ -7,7 +7,7 @@ import pt.ulisboa.tecnico.softeng.bank.exception.BankException;
 public class Operation {
 	public static enum Type {
 		DEPOSIT, WITHDRAW
-	};
+	}
 
 	private static int counter = 0;
 
@@ -17,6 +17,8 @@ public class Operation {
 	private final int value;
 	private final LocalDateTime time;
 
+	private boolean isCancelled;
+
 	public Operation(Type type, Account account, int value) {
 		checkArguments(type, account, value);
 
@@ -25,6 +27,7 @@ public class Operation {
 		this.account = account;
 		this.value = value;
 		this.time = LocalDateTime.now();
+		this.isCancelled = false;
 
 		account.getBank().addLog(this);
 	}
@@ -53,6 +56,14 @@ public class Operation {
 
 	public LocalDateTime getTime() {
 		return this.time;
+	}
+
+	public boolean isCancelled() {
+		return isCancelled;
+	}
+
+	public void cancel() {
+		isCancelled = true;
 	}
 
 }

@@ -9,7 +9,7 @@ public class Booking {
 	private final String reference;
 	private final LocalDate arrival;
 	private final LocalDate departure;
-	private String cancellation;
+	private String referenceCancelled;
 	private LocalDate cancellationDate;
 
 	Booking(Hotel hotel, LocalDate arrival, LocalDate departure) {
@@ -23,6 +23,14 @@ public class Booking {
 	private void checkArguments(Hotel hotel, LocalDate arrival, LocalDate departure) {
 		if (hotel == null || arrival == null || departure == null) {
 			throw new HotelException();
+		}
+
+		checkDates(arrival, departure);
+	}
+
+	private void checkDates(LocalDate arrival, LocalDate departure) {
+		if (arrival.equals(departure)) {
+			throw new HotelException("Reservations must be for at least 1 day (i.e. 24 hours)");
 		}
 
 		if (departure.isBefore(arrival)) {
@@ -42,10 +50,12 @@ public class Booking {
 		return this.departure;
 	}
 
+	public void setReferenceCancelled() { this.referenceCancelled = this.reference + "Cancelled"; }
+
+	public String getReferenceCancelled() {	return this.referenceCancelled;	}
+
 	boolean conflict(LocalDate arrival, LocalDate departure) {
-		if (departure.isBefore(arrival)) {
-			throw new HotelException();
-		}
+		checkDates(arrival, departure);
 
 		if ((arrival.equals(this.arrival) || arrival.isAfter(this.arrival)) && arrival.isBefore(this.departure)) {
 			return true;
@@ -63,13 +73,8 @@ public class Booking {
 		return false;
 	}
 
-	public void setCancellation(LocalDate cancelDate) {
-		this.cancellation = "cancelled";
+	public void setCancellationDate(LocalDate cancelDate) {
 		this.cancellationDate = cancelDate;
-	}
-
-	public String getCancellation() {
-		return cancellation;
 	}
 
 	public LocalDate getCancellationDate() {

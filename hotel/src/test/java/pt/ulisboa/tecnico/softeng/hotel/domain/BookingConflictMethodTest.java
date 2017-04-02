@@ -26,12 +26,13 @@ public class BookingConflictMethodTest {
 	}
 
 	@Test(expected = HotelException.class)
-	public void argumentsAreInconsistent() {
+	public void departureBeforeArrival() {
 		this.booking.conflict(new LocalDate(2016, 12, 15), new LocalDate(2016, 12, 9));
 	}
 
-	public void argumentsSameDay() {
-		Assert.assertFalse(this.booking.conflict(new LocalDate(2016, 12, 9), new LocalDate(2016, 12, 9)));
+	@Test(expected = HotelException.class)
+	public void arrivalEqualsDeparture() {
+		this.booking.conflict(this.departure.plusDays(1), this.departure.plusDays(1));
 	}
 
 	@Test

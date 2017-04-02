@@ -43,9 +43,9 @@ public class ConfirmedState extends AdventureState {
 			}
 			return;
 		}
-		System.out.println("Payment confirmation: " + operation.getReference());
-		System.out.println("Type: " + operation.getType());
-		System.out.println("Value: " + operation.getValue());
+		logger.debug("Payment confirmation: " + operation.getReference());
+		logger.debug("Type: " + operation.getType());
+		logger.debug("Value: " + operation.getValue());
 
 		ActivityReservationData reservation;
 		try {
@@ -60,11 +60,11 @@ public class ConfirmedState extends AdventureState {
 			}
 			return;
 		}
-		System.out.println("Activity confirmation: " + reservation.getReference());
-		System.out.println("Activity name: " + reservation.getName());
-		System.out.println("Activity code: " + reservation.getCode());
-		System.out.println("Begin: " + reservation.getBegin());
-		System.out.println("End: " + reservation.getEnd());
+		logger.debug("Activity confirmation: " + reservation.getReference());
+		logger.debug("Activity name: " + reservation.getName());
+		logger.debug("Activity code: " + reservation.getCode());
+		logger.debug("Begin: " + reservation.getBegin());
+		logger.debug("End: " + reservation.getEnd());
 
 
 		if (adventure.getRoomConfirmation() != null) {
@@ -81,13 +81,13 @@ public class ConfirmedState extends AdventureState {
 				}
 				return;
 			}
-			System.out.println("Room confirmation: " + booking.getReference());
-			System.out.println("Hotel name: " + booking.getHotelName());
-			System.out.println("Hotel code: " + booking.getHotelCode());
-			System.out.println("Room number: " + booking.getRoomNumber());
-			System.out.println("Room type: " + booking.getRoomType());
-			System.out.println("Arrival: " + booking.getArrival());
-			System.out.println("Departure: " + booking.getDeparture());
+			logger.debug("Room confirmation: " + booking.getReference());
+			logger.debug("Hotel name: " + booking.getHotelName());
+			logger.debug("Hotel code: " + booking.getHotelCode());
+			logger.debug("Room number: " + booking.getRoomNumber());
+			logger.debug("Room type: " + booking.getRoomType());
+			logger.debug("Arrival: " + booking.getArrival());
+			logger.debug("Departure: " + booking.getDeparture());
 
 		}
 		resetNumOfRemoteErrors();

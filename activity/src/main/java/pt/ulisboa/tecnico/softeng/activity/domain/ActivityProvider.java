@@ -85,8 +85,27 @@ public class ActivityProvider {
 	}
 
 	public static ActivityReservationData getActivityReservationData(String reference) {
-		// TODO implement
+		checkArg(reference);
+		for(ActivityProvider provider : providers) {
+			for (Activity activity : provider.activities) {
+				for (ActivityOffer offer : activity.getOffers()) {
+					if (offer.getNumberOfBookings() > 0) {
+						for (Booking booking : offer.getBookings()) {
+							if (booking.getReference().equals(reference)) {
+								return new ActivityReservationData(reference, activity.getCode(),
+										activity.getName(), offer.getBegin(), offer.getEnd());
+							}
+						}
+					}
+				}
+			}
+		}
 		throw new ActivityException();
 	}
 
+	public static void checkArg(String reference) {
+		if(reference == null || reference.trim().equals("")){
+			throw new ActivityException();
+		}
+	}
 }
