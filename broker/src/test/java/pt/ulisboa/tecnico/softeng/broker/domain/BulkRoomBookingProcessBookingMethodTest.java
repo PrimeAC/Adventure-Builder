@@ -120,10 +120,10 @@ public class BulkRoomBookingProcessBookingMethodTest {
 		new Expectations() {{
 			HotelInterface.bulkBooking(number, begin, end);
 			result = new RemoteAccessException();
-			times = 19;
+			times = 9;
 		}};
 
-		for(int i = 0; i <19; i++){
+		for(int i = 0; i <9; i++){
 			bulkRoomBooking.processBooking();
 		}
 
@@ -133,7 +133,7 @@ public class BulkRoomBookingProcessBookingMethodTest {
 		boolean cancelled = Deencapsulation.getField(bulkRoomBooking, "cancelled");
 
 		assertEquals(0, hotel_errors);
-		assertEquals(19, remote_errors);
+		assertEquals(9, remote_errors);
 		assertFalse(cancelled);
 
 	}
@@ -144,11 +144,11 @@ public class BulkRoomBookingProcessBookingMethodTest {
 			{
 			HotelInterface.bulkBooking(number, begin, end);
 			result = new RemoteAccessException();
-			times = 20;
+			times = 10;
 			}
 		};
 
-		for(int i = 0; i <20; i++){
+		for(int i = 0; i <10; i++){
 			bulkRoomBooking.processBooking();
 		}
 
@@ -158,7 +158,7 @@ public class BulkRoomBookingProcessBookingMethodTest {
 		boolean cancelled = Deencapsulation.getField(bulkRoomBooking, "cancelled");
 
 		assertEquals(0, hotel_errors);
-		assertEquals(20, remote_errors);
+		assertEquals(10, remote_errors);
 		assertTrue(cancelled);
 
 	}
