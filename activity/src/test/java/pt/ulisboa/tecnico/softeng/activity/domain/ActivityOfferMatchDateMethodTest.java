@@ -57,9 +57,4 @@ public class ActivityOfferMatchDateMethodTest {
 		Assert.assertFalse(this.offer.matchDate(this.begin, this.end.minusDays(1)));
 	}
 
-	@After
-	public void tearDown() {
-		ActivityProvider.providers.clear();
-	}
-
 }

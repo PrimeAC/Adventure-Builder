@@ -45,9 +45,5 @@ public class ActivityOfferGetBookingMethodTest {
 		assertNull(this.offer.getBooking("XPTO"));
 	}
 
-	@After
-	public void tearDown() {
-		ActivityProvider.providers.clear();
-	}
 
 }

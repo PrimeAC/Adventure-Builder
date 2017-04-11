@@ -67,9 +67,5 @@ public class BookingContructorMethodTest {
 		Assert.assertEquals(3, this.offer.getNumberOfBookings());
 	}
 
-	@After
-	public void tearDown() {
-		ActivityProvider.providers.clear();
-	}
 
 }

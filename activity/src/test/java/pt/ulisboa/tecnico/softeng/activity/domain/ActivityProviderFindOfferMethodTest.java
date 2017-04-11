@@ -22,7 +22,7 @@ public class ActivityProviderFindOfferMethodTest extends RollbackTestAbstractCla
 	private Activity activity;
 	private ActivityOffer offer;
 
-	@Before
+	@Override
 	public void populate4Test() {
 		this.provider = new ActivityProvider("XtremX", "ExtremeAdventure");
 		this.activity = new Activity(this.provider, "Bush Walking", MIN_AGE, MAX_AGE, CAPACITY);

@@ -63,9 +63,4 @@ public class ActivityOfferHasVacancyMethodTest {
 		Assert.assertFalse(this.offer.hasVacancy());
 	}
 
-	@After
-	public void tearDown() {
-		ActivityProvider.providers.clear();
-	}
-
 }

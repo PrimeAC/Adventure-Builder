@@ -62,9 +62,5 @@ public class ActivityOfferConstructorMethodTest {
 		new ActivityOffer(this.activity, this.begin, this.begin.minusDays(1));
 	}
 
-	@After
-	public void tearDown() {
-		ActivityProvider.providers.clear();
-	}
 
 }

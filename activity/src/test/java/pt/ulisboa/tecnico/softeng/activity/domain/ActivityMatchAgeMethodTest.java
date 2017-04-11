@@ -39,9 +39,4 @@ public class ActivityMatchAgeMethodTest {
 		Assert.assertFalse(this.activity.matchAge(MAX_AGE + 1));
 	}
 
-	@After
-	public void tearDown() {
-		ActivityProvider.providers.clear();
-	}
-
 }

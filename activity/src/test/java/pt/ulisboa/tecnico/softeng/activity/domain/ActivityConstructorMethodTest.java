@@ -129,9 +129,5 @@ public class ActivityConstructorMethodTest {
 		new Activity(this.provider, PROVIDER_NAME, MIN_AGE, MAX_AGE, 0);
 	}
 
-	@After
-	public void tearDown() {
-		ActivityProvider.providers.clear();
-	}
 
 }

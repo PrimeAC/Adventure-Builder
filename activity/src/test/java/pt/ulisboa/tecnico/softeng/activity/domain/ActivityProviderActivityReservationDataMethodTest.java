@@ -21,7 +21,7 @@ public class ActivityProviderActivityReservationDataMethodTest extends RollbackT
 	private ActivityOffer offer;
 	private Booking booking;
 
-	@Before
+	@Override
 	public void populate4Test() {
 		this.provider = new ActivityProvider(CODE, NAME);
 		Activity activity = new Activity(this.provider, "Bush Walking", 18, 80, 3);
