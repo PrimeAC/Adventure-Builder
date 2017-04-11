@@ -10,12 +10,12 @@ import org.junit.Test;
 
 import pt.ulisboa.tecnico.softeng.activity.exception.ActivityException;
 
-public class BookingContructorMethodTest {
+public class BookingContructorMethodTest extends RollbackTestAbstractClass {
 	private ActivityProvider provider;
 	private ActivityOffer offer;
 
-	@Before
-	public void setUp() {
+	@Override
+	public void populate4Test() {
 		this.provider = new ActivityProvider("XtremX", "ExtremeAdventure");
 		Activity activity = new Activity(this.provider, "Bush Walking", 18, 80, 3);
 

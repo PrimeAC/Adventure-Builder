@@ -5,14 +5,14 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ActivityMatchAgeMethodTest {
+public class ActivityMatchAgeMethodTest extends RollbackTestAbstractClass {
 	private static final int MIN_AGE = 25;
 	private static final int MAX_AGE = 80;
 	private static final int CAPACITY = 30;
 	private Activity activity;
 
-	@Before
-	public void setUp() {
+	@Override
+	public void populate4Test() {
 		ActivityProvider provider = new ActivityProvider("XtremX", "ExtremeAdventure");
 		this.activity = new Activity(provider, "Bush Walking", MIN_AGE, MAX_AGE, CAPACITY);
 	}
