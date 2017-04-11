@@ -12,7 +12,7 @@ import org.junit.Test;
 import pt.ulisboa.tecnico.softeng.activity.dataobjects.ActivityReservationData;
 import pt.ulisboa.tecnico.softeng.activity.exception.ActivityException;
 
-public class ActivityProviderActivityReservationDataMethodTest {
+public class ActivityProviderActivityReservationDataMethodTest extends RollbackTestAbstractClass {
 	private static final String NAME = "ExtremeAdventure";
 	private static final String CODE = "XtremX";
 	private final LocalDate begin = new LocalDate(2016, 12, 19);
@@ -22,7 +22,7 @@ public class ActivityProviderActivityReservationDataMethodTest {
 	private Booking booking;
 
 	@Before
-	public void setUp() {
+	public void populate4Test() {
 		this.provider = new ActivityProvider(CODE, NAME);
 		Activity activity = new Activity(this.provider, "Bush Walking", 18, 80, 3);
 
@@ -70,11 +70,6 @@ public class ActivityProviderActivityReservationDataMethodTest {
 	@Test(expected = ActivityException.class)
 	public void notExistsReference() {
 		ActivityProvider.getActivityReservationData("XPTO");
-	}
-
-	@After
-	public void tearDown() {
-		ActivityProvider.providers.clear();
 	}
 
 }
