@@ -12,5 +12,5 @@ To run tests execute: mvn clean install
 |            |                         |                                    |                |              |
 |            |                         |                                    |                |              |
 | 82539      | Afonso Caetano          | afonso.caetano@tecnico.ulisboa.pt  | @PrimeAC       | Hotel/Broker |
-|            |                         |                                    |                |              |
+| 82528      | João Costa              | joaocarlos95@gmail.com             | @joaocarlos95  | Hotel/Broker |
  
