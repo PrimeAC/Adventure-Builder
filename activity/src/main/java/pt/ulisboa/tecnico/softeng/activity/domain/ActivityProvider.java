@@ -34,6 +34,15 @@ public class ActivityProvider extends ActivityProvider_Base {
 		deleteDomainObject();
 	}
 
+	public static ActivityProvider getActivityProviderByCode(String code) {
+		for (ActivityProvider provider : FenixFramework.getDomainRoot().getActivityProviderSet()) {
+			if (provider.getCode().equals(code)){
+				return provider;
+			}
+		}
+		return null;
+	}
+
 	private void checkArguments(String code, String name) {
 		if (code == null || name == null || code.trim().equals("") || name.trim().equals("")) {
 			throw new ActivityException();
