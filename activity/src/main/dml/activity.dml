@@ -1,6 +1,6 @@
 package pt.ulisboa.tecnico.softeng.activity.domain;
 
-class ActivityProvider{
+class ActivityProvider {
     String code;
     String name;
 }
@@ -12,4 +12,17 @@ relation DomainRootHasActivityProviderApplication {
 	ActivityProvider playsRole activityProvider {
 		multiplicity 0..*;
 	}
+}
+
+class Activity {
+
+}
+
+relation ActivityProviderHasActivity {
+    ActivityProvider playsRole activityProvider {
+        multiplicity 1..1;
+    }
+    Activity playsRole activity {
+        multiplicity 0..*;
+    }
 }
