@@ -2,23 +2,22 @@ package pt.ulisboa.tecnico.softeng.bank.domain;
 
 import pt.ulisboa.tecnico.softeng.bank.exception.BankException;
 
-public class Account {
+public class Account extends Account_Base {
 	private static int counter = 0;
 
-	private final Bank bank;
 	private final String IBAN;
 	private final Client client;
 	private int balance;
 
 	public Account(Bank bank, Client client) {
 		checkArguments(bank, client);
-
-		this.bank = bank;
+		
 		this.IBAN = bank.getCode() + Integer.toString(++Account.counter);
 		this.client = client;
 		this.balance = 0;
 
 		bank.addAccount(this);
+		setBank(bank);
 	}
 
 	private void checkArguments(Bank bank, Client client) {
@@ -30,10 +29,6 @@ public class Account {
 			throw new BankException();
 		}
 
-	}
-
-	Bank getBank() {
-		return this.bank;
 	}
 
 	public String getIBAN() {
@@ -69,4 +64,8 @@ public class Account {
 		return new Operation(Operation.Type.WITHDRAW, this, amount).getReference();
 	}
 
+	public void delete() {
+		setBank(null);
+		super.deleteDomainObject();
+	}
 }
