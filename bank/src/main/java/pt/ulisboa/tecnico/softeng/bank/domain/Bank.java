@@ -14,7 +14,6 @@ public class Bank extends Bank_Base {
 
 	private final String name;
 	private final String code;
-	private final Set<Client> clients = new HashSet<>();
 	private final List<Operation> log = new ArrayList<>();
 
 	public Bank(String name, String code) {
@@ -28,7 +27,7 @@ public class Bank extends Bank_Base {
 
 	public void delete() {
 		getAccountSet().forEach(Account::delete);
-
+		getClientSet().forEach(Client::delete);
 		setRoot(null);
 		deleteDomainObject();
 	}
@@ -62,15 +61,11 @@ public class Bank extends Bank_Base {
 	}
 
 	int getNumberOfClients() {
-		return this.clients.size();
+		return getClientSet().size();
 	}
 
 	boolean hasClient(Client client) {
-		return this.clients.contains(client);
-	}
-
-	void addClient(Client client) {
-		this.clients.add(client);
+		return getClientSet().contains(client);
 	}
 
 	void addLog(Operation operation) {
