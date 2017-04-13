@@ -29,6 +29,11 @@ public class Hotel extends Hotel_Base {
 		FenixFramework.getDomainRoot().addHotel(this);
 	}
 
+	public void delete() {
+		setRoot(null);
+		deleteDomainObject();
+	}
+
 	private void checkArguments(String code, String name) {
 		if (code == null || name == null || code.trim().length() == 0 || name.trim().length() == 0) {
 			throw new HotelException();
