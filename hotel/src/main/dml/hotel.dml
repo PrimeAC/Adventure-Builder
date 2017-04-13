@@ -1,6 +1,9 @@
 package pt.ulisboa.tecnico.softeng.hotel.domain;
 
-class Hotel;
+class Hotel {
+    String code;
+    String name;
+}
 
 relation DomainRootHasHotelApplication {
     .pt.ist.fenixframework.DomainRoot playsRole root {
