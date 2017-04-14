@@ -6,7 +6,10 @@ class Hotel {
     String name;
 }
 
-class Room;
+class Room {
+    String number;
+    RoomType type;
+}
 
 relation DomainRootHasHotelApplication {
     .pt.ist.fenixframework.DomainRoot playsRole root {
