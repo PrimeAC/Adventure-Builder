@@ -7,12 +7,11 @@ import org.joda.time.LocalDate;
 
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
-public class Room {
+public class Room extends pt.ulisboa.tecnico.softeng.hotel.domain.Room_Base {
 	public static enum Type {
 		SINGLE, DOUBLE
 	}
 
-	private final Hotel hotel;
 	private final String number;
 	private final Type type;
 	private final Set<Booking> bookings = new HashSet<>();
@@ -20,11 +19,19 @@ public class Room {
 	public Room(Hotel hotel, String number, Type type) {
 		checkArguments(hotel, number, type);
 
-		this.hotel = hotel;
+		setHotel(hotel);
 		this.number = number;
 		this.type = type;
 
-		this.hotel.addRoom(this);
+		if (hotel.hasRoom(number))
+			throw new HotelException();
+		else
+			hotel.addRoom(this);
+	}
+
+	public void delete() {
+		setHotel(null);
+		super.deleteDomainObject();
 	}
 
 	private void checkArguments(Hotel hotel, String number, Type type) {
@@ -35,10 +42,6 @@ public class Room {
 		if (!number.matches("\\d*")) {
 			throw new HotelException();
 		}
-	}
-
-	public Hotel getHotel() {
-		return this.hotel;
 	}
 
 	public String getNumber() {
@@ -76,7 +79,7 @@ public class Room {
 			throw new HotelException();
 		}
 
-		Booking booking = new Booking(this.hotel, arrival, departure);
+		Booking booking = new Booking(getHotel(), arrival, departure);
 		this.bookings.add(booking);
 
 		return booking;
