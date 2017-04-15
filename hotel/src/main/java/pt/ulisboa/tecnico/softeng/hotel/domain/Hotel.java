@@ -163,4 +163,13 @@ public class Hotel extends Hotel_Base {
 		return availableRooms;
 	}
 
+	public static Hotel getHotelByCode(String code) {
+		for(Hotel hotel : FenixFramework.getDomainRoot().getHotelSet()){
+			if(hotel.getCode().equals(code)){
+				return hotel;
+			}
+		}
+		return null;
+	}
+
 }
