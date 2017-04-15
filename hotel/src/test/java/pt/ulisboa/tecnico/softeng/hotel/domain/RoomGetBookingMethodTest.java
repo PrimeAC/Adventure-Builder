@@ -11,7 +11,7 @@ import org.junit.Test;
 import pt.ist.fenixframework.FenixFramework;
 import pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type;
 
-public class RoomGetBookingMethodTest {
+public class RoomGetBookingMethodTest extends RollbackTestAbstractClass{
 	private final LocalDate arrival = new LocalDate(2016, 12, 19);
 	private final LocalDate departure = new LocalDate(2016, 12, 24);
 	private Hotel hotel;
@@ -19,7 +19,7 @@ public class RoomGetBookingMethodTest {
 	private Booking booking;
 
 	@Before
-	public void setUp() {
+	public void populate4Test() {
 		this.hotel = new Hotel("XPTO123", "Lisboa");
 		this.room = new Room(this.hotel, "01", Type.SINGLE);
 		this.booking = this.room.reserve(Type.SINGLE, this.arrival, this.departure);
@@ -42,10 +42,4 @@ public class RoomGetBookingMethodTest {
 		assertNull(this.room.getBooking("XPTO"));
 	}
 
-	@After
-	public void tearDown() {
-		for(Hotel hotel : FenixFramework.getDomainRoot().getHotelSet()) {
-			hotel.delete();
-		}
-	}
 }

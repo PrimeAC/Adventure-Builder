@@ -14,13 +14,13 @@ import pt.ist.fenixframework.FenixFramework;
 import pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
-public class HotelBulkBookingMethodTest {
+public class HotelBulkBookingMethodTest extends RollbackTestAbstractClass {
 	private final LocalDate arrival = new LocalDate(2016, 12, 19);
 	private final LocalDate departure = new LocalDate(2016, 12, 21);
 	private Hotel hotel;
 
-	@Before
-	public void setUp() {
+	@Override
+	public void populate4Test() {
 		this.hotel = new Hotel("XPTO123", "Paris");
 		new Room(this.hotel, "01", Type.DOUBLE);
 		new Room(this.hotel, "02", Type.SINGLE);
@@ -87,13 +87,6 @@ public class HotelBulkBookingMethodTest {
 			fail();
 		} catch (HotelException he) {
 			assertEquals(8, Hotel.getAvailableRooms(8, this.arrival, this.departure).size());
-		}
-	}
-
-	@After
-	public void tearDown() {
-		for(Hotel hotel : FenixFramework.getDomainRoot().getHotelSet()) {
-			hotel.delete();
 		}
 	}
 

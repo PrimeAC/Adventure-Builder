@@ -9,13 +9,13 @@ import org.junit.Test;
 import pt.ist.fenixframework.FenixFramework;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
-public class BookingConflictMethodTest {
+public class BookingConflictMethodTest extends RollbackTestAbstractClass {
 	private final LocalDate arrival = new LocalDate(2016, 12, 19);
 	private final LocalDate departure = new LocalDate(2016, 12, 24);
 	private Booking booking;
 
-	@Before
-	public void setUp() {
+	@Override
+	public void populate4Test() {
 		Hotel hotel = new Hotel("XPTO123", "Londres");
 
 		this.booking = new Booking(hotel, this.arrival, this.departure);
@@ -85,13 +85,6 @@ public class BookingConflictMethodTest {
 	@Test
 	public void arrivalIsBetweenBookedAndDepartureIsAfterBookedDeparture() {
 		Assert.assertTrue(this.booking.conflict(this.arrival.plusDays(3), this.departure.plusDays(6)));
-	}
-
-	@After
-	public void tearDown() {
-		for(Hotel hotel : FenixFramework.getDomainRoot().getHotelSet()) {
-			hotel.delete();
-		}
 	}
 
 }
