@@ -5,9 +5,7 @@ import pt.ulisboa.tecnico.softeng.bank.dataobjects.BankOperationData;
 import pt.ulisboa.tecnico.softeng.bank.exception.BankException;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class Bank extends Bank_Base {
 	public static final int CODE_SIZE = 4;

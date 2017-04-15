@@ -13,6 +13,7 @@ public class Client extends Client_Base {
 		setName(name);
 
 		bank.addClient(this);
+		
 	}
 	
 	private String generateID(Bank bank) {
