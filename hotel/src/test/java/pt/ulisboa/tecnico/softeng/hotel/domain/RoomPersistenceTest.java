@@ -38,6 +38,9 @@ public class RoomPersistenceTest {
 		Room room = hotel.getRoomSet().iterator().next().getRoomByNumber(ROOM_NUMBER);
 		Assert.assertEquals(room.getNumber(), ROOM_NUMBER);
 		Assert.assertEquals(room.getType(), ROOM_TYPE);
+
+		Assert.assertEquals(room.getHotel().getCode(), HOTEL_CODE);
+		Assert.assertEquals(room.getHotel().getName(), HOTEL_NAME);
 	}
 
 	@After
