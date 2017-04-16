@@ -1,13 +1,11 @@
 package pt.ulisboa.tecnico.softeng.hotel.domain;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
-
 import pt.ist.fenixframework.FenixFramework;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
-public class HotelConstructorTest extends RollbackTestAbstractClass{
+public class HotelConstructorTest extends RollbackTestAbstractClass {
 	private static final String HOTEL_NAME = "Londres";
 	private static final String HOTEL_CODE = "XPTO123";
 

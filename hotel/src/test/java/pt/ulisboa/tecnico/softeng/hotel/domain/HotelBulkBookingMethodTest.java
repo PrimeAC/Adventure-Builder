@@ -1,18 +1,15 @@
 package pt.ulisboa.tecnico.softeng.hotel.domain;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
-import java.util.Set;
-
 import org.joda.time.LocalDate;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-
 import pt.ist.fenixframework.FenixFramework;
 import pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
+
+import java.util.Set;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class HotelBulkBookingMethodTest extends RollbackTestAbstractClass {
 	private final LocalDate arrival = new LocalDate(2016, 12, 19);
@@ -48,7 +45,7 @@ public class HotelBulkBookingMethodTest extends RollbackTestAbstractClass {
 
 	@Test(expected = HotelException.class)
 	public void noRooms() {
-		for(Hotel hotel : FenixFramework.getDomainRoot().getHotelSet()) {
+		for (Hotel hotel : FenixFramework.getDomainRoot().getHotelSet()) {
 			hotel.delete();
 		}
 		this.hotel = new Hotel("XPTO124", "Paris");
