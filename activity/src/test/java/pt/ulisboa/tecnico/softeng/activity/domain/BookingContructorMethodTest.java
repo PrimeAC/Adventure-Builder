@@ -1,14 +1,11 @@
 package pt.ulisboa.tecnico.softeng.activity.domain;
 
-import static org.junit.Assert.fail;
-
 import org.joda.time.LocalDate;
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-
 import pt.ulisboa.tecnico.softeng.activity.exception.ActivityException;
+
+import static org.junit.Assert.fail;
 
 public class BookingContructorMethodTest extends RollbackTestAbstractClass {
 	private ActivityProvider provider;

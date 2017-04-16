@@ -1,12 +1,10 @@
 package pt.ulisboa.tecnico.softeng.activity.domain;
 
+import org.joda.time.LocalDate;
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-
-import org.joda.time.LocalDate;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
 
 public class ActivityOfferGetBookingMethodTest extends RollbackTestAbstractClass {
 	private ActivityProvider provider;

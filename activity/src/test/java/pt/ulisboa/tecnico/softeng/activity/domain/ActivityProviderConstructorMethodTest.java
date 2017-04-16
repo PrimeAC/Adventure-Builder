@@ -1,13 +1,11 @@
 package pt.ulisboa.tecnico.softeng.activity.domain;
 
-import static org.junit.Assert.fail;
-
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
-
 import pt.ist.fenixframework.FenixFramework;
 import pt.ulisboa.tecnico.softeng.activity.exception.ActivityException;
+
+import static org.junit.Assert.fail;
 
 public class ActivityProviderConstructorMethodTest extends RollbackTestAbstractClass {
 	private static final String PROVIDER_CODE = "XtremX";

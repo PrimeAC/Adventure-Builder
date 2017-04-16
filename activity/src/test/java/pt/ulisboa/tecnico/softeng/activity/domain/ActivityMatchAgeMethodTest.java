@@ -1,8 +1,6 @@
 package pt.ulisboa.tecnico.softeng.activity.domain;
 
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 public class ActivityMatchAgeMethodTest extends RollbackTestAbstractClass {

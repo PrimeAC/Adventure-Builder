@@ -1,16 +1,11 @@
 package pt.ulisboa.tecnico.softeng.activity.domain;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
 import org.joda.time.LocalDate;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-
 import pt.ulisboa.tecnico.softeng.activity.dataobjects.ActivityReservationData;
 import pt.ulisboa.tecnico.softeng.activity.exception.ActivityException;
+
+import static org.junit.Assert.*;
 
 public class ActivityProviderActivityReservationDataMethodTest extends RollbackTestAbstractClass {
 	private static final String NAME = "ExtremeAdventure";
