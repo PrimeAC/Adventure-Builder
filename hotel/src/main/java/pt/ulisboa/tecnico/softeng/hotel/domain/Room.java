@@ -17,14 +17,14 @@ public class Room extends pt.ulisboa.tecnico.softeng.hotel.domain.Room_Base {
 	public Room(Hotel hotel, String number, Type type) {
 		checkArguments(hotel, number, type);
 
-		setHotel(hotel);
 		setNumber(number);
 		setType(type);
 
 		if (hotel.hasRoom(number))
 			throw new HotelException();
-		else
-			hotel.addRoom(this);
+
+		hotel.addRoom(this);
+		setHotel(hotel);
 	}
 
 	public void delete() {
@@ -81,6 +81,14 @@ public class Room extends pt.ulisboa.tecnico.softeng.hotel.domain.Room_Base {
 					|| (booking.isCancelled() && booking.getCancellation().equals(reference))) {
 				return booking;
 			}
+		}
+		return null;
+	}
+
+	public Room getRoomByNumber(String number) {
+		for (Room room : getHotel().getRoomSet()) {
+			if (room.getNumber().equals(number))
+				return room;
 		}
 		return null;
 	}
