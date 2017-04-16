@@ -17,6 +17,8 @@ public class ActivityProviderPersistenceTest {
 	@Atomic(mode = Atomic.TxMode.WRITE)
 	public void atomicProcess() {
 		new ActivityProvider("XtremX", "ExtremeAdventure");
+		new ActivityProvider("XtremY", "ExtremeAdventure2");
+		new ActivityProvider("XtremZ", "ExtremeAdventure3");
 	}
 
 	@Atomic(mode = Atomic.TxMode.READ)
@@ -24,6 +26,14 @@ public class ActivityProviderPersistenceTest {
 
 		ActivityProvider provider = ActivityProvider.getActivityProviderByCode("XtremX");
 		assertEquals("ExtremeAdventure", provider.getName());
+
+		provider = ActivityProvider.getActivityProviderByCode("XtremY");
+		assertEquals("ExtremeAdventure2", provider.getName());
+
+		provider = ActivityProvider.getActivityProviderByCode("XtremZ");
+		assertEquals("ExtremeAdventure3", provider.getName());
+
+		assertEquals(3, FenixFramework.getDomainRoot().getActivityProviderSet().size());
 	}
 
 	@After
