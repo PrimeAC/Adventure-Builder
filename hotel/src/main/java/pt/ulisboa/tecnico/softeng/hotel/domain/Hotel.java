@@ -1,16 +1,14 @@
 package pt.ulisboa.tecnico.softeng.hotel.domain;
 
+import org.joda.time.LocalDate;
+import pt.ist.fenixframework.FenixFramework;
+import pt.ulisboa.tecnico.softeng.hotel.dataobjects.RoomBookingData;
+import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import org.joda.time.LocalDate;
-
-import pt.ulisboa.tecnico.softeng.hotel.dataobjects.RoomBookingData;
-import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
-
-import pt.ist.fenixframework.FenixFramework;
 
 public class Hotel extends Hotel_Base {
 
@@ -43,7 +41,7 @@ public class Hotel extends Hotel_Base {
 
 		for (Hotel hotel : FenixFramework.getDomainRoot().getHotelSet()) {
 			if (hotel.getCode().equals(code)) {
-				throw new HotelException();
+				throw new HotelException("Code already exists");
 			}
 		}
 	}
@@ -164,8 +162,8 @@ public class Hotel extends Hotel_Base {
 	}
 
 	public static Hotel getHotelByCode(String code) {
-		for(Hotel hotel : FenixFramework.getDomainRoot().getHotelSet()){
-			if(hotel.getCode().equals(code)){
+		for (Hotel hotel : FenixFramework.getDomainRoot().getHotelSet()) {
+			if (hotel.getCode().equals(code)) {
 				return hotel;
 			}
 		}
