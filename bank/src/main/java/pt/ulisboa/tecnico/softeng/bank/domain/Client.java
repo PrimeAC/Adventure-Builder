@@ -9,14 +9,14 @@ public class Client extends Client_Base {
 	public Client(Bank bank, String name) {
 		checkArguments(bank, name);
 
-		setID(generateID(bank));
+		setID(generateID());
 		setName(name);
 
 		bank.addClient(this);
 		
 	}
 	
-	private String generateID(Bank bank) {
+	private String generateID() {
 		return Integer.toString(++Client.counter);
 	}
 
