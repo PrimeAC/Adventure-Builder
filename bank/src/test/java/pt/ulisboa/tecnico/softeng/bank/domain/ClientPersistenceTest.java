@@ -27,15 +27,15 @@ public class ClientPersistenceTest {
 	@Atomic(mode = TxMode.WRITE)
 	public void atomicProcess() {
 		Bank bank = new Bank(BANK_NAME, BANK_CODE);
-	    client = new Client(bank, CLIENT_NAME);
+		client = new Client(bank, CLIENT_NAME);
 	}
 
 	@Atomic(mode = TxMode.READ)
 	public void atomicAssert() {
 		Set<Bank> banks = FenixFramework.getDomainRoot().getBankSet();
-		
+
 		assertEquals(1, banks.size());
-		
+
 		Bank bank = banks.iterator().next();
 		Client client = bank.getClientSet().iterator().next();
 
