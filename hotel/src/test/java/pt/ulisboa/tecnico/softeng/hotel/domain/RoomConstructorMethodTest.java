@@ -1,21 +1,18 @@
 package pt.ulisboa.tecnico.softeng.hotel.domain;
 
-import static org.junit.Assert.fail;
-
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
-import pt.ist.fenixframework.FenixFramework;
 import pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
-public class RoomConstructorMethodTest {
+import static org.junit.Assert.fail;
+
+public class RoomConstructorMethodTest extends RollbackTestAbstractClass {
 	private Hotel hotel;
 
-	@Before
-	public void setUp() {
+	@Override
+	public void populate4Test() {
 		this.hotel = new Hotel("XPTO123", "Lisboa");
 	}
 
@@ -69,12 +66,4 @@ public class RoomConstructorMethodTest {
 	public void nullType() {
 		new Room(this.hotel, "01", null);
 	}
-
-	@After
-	public void tearDown() {
-		for(Hotel hotel : FenixFramework.getDomainRoot().getHotelSet()) {
-			hotel.delete();
-		}
-	}
-
 }

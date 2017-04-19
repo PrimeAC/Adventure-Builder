@@ -3,11 +3,26 @@ package pt.ulisboa.tecnico.softeng.bank.domain;
 class Bank {
 }
 
+class Account {
+	String IBAN;
+	int balance;
+}
+
 relation DomainRootHasBankApplication {
 	.pt.ist.fenixframework.DomainRoot playsRole root {
 		multiplicity 1..1;
 	}
 	Bank playsRole bank {
+		multiplicity 0..*;
+	}
+}
+
+relation BankHasAccounts {
+	Bank playsRole bank {
+		multiplicity 1..1;
+	}
+
+	Account playsRole account {
 		multiplicity 0..*;
 	}
 }
