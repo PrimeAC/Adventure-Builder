@@ -1,25 +1,23 @@
 package pt.ulisboa.tecnico.softeng.hotel.domain;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
-import java.util.Set;
-
 import org.joda.time.LocalDate;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-
+import pt.ist.fenixframework.FenixFramework;
 import pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
-public class HotelBulkBookingMethodTest {
+import java.util.Set;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
+public class HotelBulkBookingMethodTest extends RollbackTestAbstractClass {
 	private final LocalDate arrival = new LocalDate(2016, 12, 19);
 	private final LocalDate departure = new LocalDate(2016, 12, 21);
 	private Hotel hotel;
 
-	@Before
-	public void setUp() {
+	@Override
+	public void populate4Test() {
 		this.hotel = new Hotel("XPTO123", "Paris");
 		new Room(this.hotel, "01", Type.DOUBLE);
 		new Room(this.hotel, "02", Type.SINGLE);
@@ -47,7 +45,9 @@ public class HotelBulkBookingMethodTest {
 
 	@Test(expected = HotelException.class)
 	public void noRooms() {
-		Hotel.hotels.clear();
+		for (Hotel hotel : FenixFramework.getDomainRoot().getHotelSet()) {
+			hotel.delete();
+		}
 		this.hotel = new Hotel("XPTO124", "Paris");
 
 		Hotel.bulkBooking(3, this.arrival, this.departure);
@@ -85,11 +85,6 @@ public class HotelBulkBookingMethodTest {
 		} catch (HotelException he) {
 			assertEquals(8, Hotel.getAvailableRooms(8, this.arrival, this.departure).size());
 		}
-	}
-
-	@After
-	public void tearDown() {
-		Hotel.hotels.clear();
 	}
 
 }
