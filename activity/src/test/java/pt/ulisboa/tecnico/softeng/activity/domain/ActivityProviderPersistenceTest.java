@@ -6,8 +6,21 @@ import pt.ist.fenixframework.Atomic;
 import pt.ist.fenixframework.FenixFramework;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
 
 public class ActivityProviderPersistenceTest {
+
+	private static final String ACTIVITY_PROVIDER_CODE1 = "XtremX";
+	private static final String ACTIVITY_PROVIDER_CODE2 = "XtremY";
+	private static final String ACTIVITY_PROVIDER_CODE3 = "XtremZ";
+	private static final String ACTIVITY_PROVIDER_NAME1 = "ExtremeAdventure";
+	private static final String ACTIVITY_PROVIDER_NAME2 = "ExtremeAdventure2";
+	private static final String ACTIVITY_PROVIDER_NAME3 = "ExtremeAdventure3";
+
+
+
 	@Test
 	public void success() {
 		atomicProcess();
@@ -16,22 +29,27 @@ public class ActivityProviderPersistenceTest {
 
 	@Atomic(mode = Atomic.TxMode.WRITE)
 	public void atomicProcess() {
-		new ActivityProvider("XtremX", "ExtremeAdventure");
-		new ActivityProvider("XtremY", "ExtremeAdventure2");
-		new ActivityProvider("XtremZ", "ExtremeAdventure3");
+		new ActivityProvider(ACTIVITY_PROVIDER_CODE1, ACTIVITY_PROVIDER_NAME1);
+		new ActivityProvider(ACTIVITY_PROVIDER_CODE2, ACTIVITY_PROVIDER_NAME2);
+		new ActivityProvider(ACTIVITY_PROVIDER_CODE3, ACTIVITY_PROVIDER_NAME3);
 	}
 
 	@Atomic(mode = Atomic.TxMode.READ)
 	public void atomicAssert() {
 
-		ActivityProvider provider = ActivityProvider.getActivityProviderByCode("XtremX");
-		assertEquals("ExtremeAdventure", provider.getName());
+		ActivityProvider provider1 = ActivityProvider.getActivityProviderByCode(ACTIVITY_PROVIDER_CODE1);
+		ActivityProvider provider2 = ActivityProvider.getActivityProviderByCode(ACTIVITY_PROVIDER_CODE2);
+		ActivityProvider provider3 = ActivityProvider.getActivityProviderByCode(ACTIVITY_PROVIDER_CODE3);
+		ActivityProvider providerNull = ActivityProvider.getActivityProviderByCode("XtremA");
 
-		provider = ActivityProvider.getActivityProviderByCode("XtremY");
-		assertEquals("ExtremeAdventure2", provider.getName());
+		assertNotNull(provider1);
+		assertNotNull(provider2);
+		assertNotNull(provider3);
+		assertNull(providerNull);
 
-		provider = ActivityProvider.getActivityProviderByCode("XtremZ");
-		assertEquals("ExtremeAdventure3", provider.getName());
+		assertEquals(ACTIVITY_PROVIDER_NAME1, provider1.getName());
+		assertEquals(ACTIVITY_PROVIDER_NAME2, provider2.getName());
+		assertEquals(ACTIVITY_PROVIDER_NAME3, provider3.getName());
 
 		assertEquals(3, FenixFramework.getDomainRoot().getActivityProviderSet().size());
 	}
