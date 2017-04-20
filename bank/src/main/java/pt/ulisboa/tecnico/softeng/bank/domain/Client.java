@@ -12,7 +12,7 @@ public class Client extends Client_Base {
 		setID(generateID());
 		setName(name);
 
-		bank.addClient(this);
+		setBank(bank);
 		
 	}
 	
