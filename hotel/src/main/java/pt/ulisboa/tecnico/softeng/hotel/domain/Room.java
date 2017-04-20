@@ -7,7 +7,7 @@ import org.joda.time.LocalDate;
 
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
-public class Room extends pt.ulisboa.tecnico.softeng.hotel.domain.Room_Base {
+public class Room extends Room_Base {
 	public static enum Type {
 		SINGLE, DOUBLE
 	}
@@ -23,7 +23,6 @@ public class Room extends pt.ulisboa.tecnico.softeng.hotel.domain.Room_Base {
 		if (hotel.hasRoom(number))
 			throw new HotelException();
 
-		hotel.addRoom(this);
 		setHotel(hotel);
 	}
 

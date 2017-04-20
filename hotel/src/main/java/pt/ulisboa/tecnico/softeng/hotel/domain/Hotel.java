@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class Hotel extends pt.ulisboa.tecnico.softeng.hotel.domain.Hotel_Base {
+public class Hotel extends Hotel_Base {
 
 	static final int CODE_SIZE = 7;
 
