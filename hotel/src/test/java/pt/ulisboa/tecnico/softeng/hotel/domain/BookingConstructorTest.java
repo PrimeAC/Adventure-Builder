@@ -3,6 +3,7 @@ package pt.ulisboa.tecnico.softeng.hotel.domain;
 import org.joda.time.LocalDate;
 import org.junit.Assert;
 import org.junit.Test;
+
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
 public class BookingConstructorTest extends RollbackTestAbstractClass {
@@ -49,5 +50,4 @@ public class BookingConstructorTest extends RollbackTestAbstractClass {
 	public void arrivalEqualDeparture() {
 		new Booking(this.hotel, this.arrival, this.arrival);
 	}
-
 }

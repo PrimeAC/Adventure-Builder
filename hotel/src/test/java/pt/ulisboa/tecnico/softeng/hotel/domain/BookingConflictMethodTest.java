@@ -3,6 +3,7 @@ package pt.ulisboa.tecnico.softeng.hotel.domain;
 import org.joda.time.LocalDate;
 import org.junit.Assert;
 import org.junit.Test;
+
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
 public class BookingConflictMethodTest extends RollbackTestAbstractClass {
@@ -82,5 +83,4 @@ public class BookingConflictMethodTest extends RollbackTestAbstractClass {
 	public void arrivalIsBetweenBookedAndDepartureIsAfterBookedDeparture() {
 		Assert.assertTrue(this.booking.conflict(this.arrival.plusDays(3), this.departure.plusDays(6)));
 	}
-
 }

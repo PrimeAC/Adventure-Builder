@@ -2,6 +2,7 @@ package pt.ulisboa.tecnico.softeng.hotel.domain;
 
 import org.junit.Assert;
 import org.junit.Test;
+
 import pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
@@ -65,5 +66,4 @@ public class RoomConstructorMethodTest extends RollbackTestAbstractClass {
 	public void nullType() {
 		new Room(this.hotel, "01", null);
 	}
-
 }

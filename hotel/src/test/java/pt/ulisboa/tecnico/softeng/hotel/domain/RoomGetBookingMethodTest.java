@@ -2,6 +2,7 @@ package pt.ulisboa.tecnico.softeng.hotel.domain;
 
 import org.joda.time.LocalDate;
 import org.junit.Test;
+
 import pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type;
 
 import static org.junit.Assert.assertEquals;
@@ -37,5 +38,4 @@ public class RoomGetBookingMethodTest extends RollbackTestAbstractClass {
 	public void doesNotExist() {
 		assertNull(this.room.getBooking("XPTO"));
 	}
-
 }

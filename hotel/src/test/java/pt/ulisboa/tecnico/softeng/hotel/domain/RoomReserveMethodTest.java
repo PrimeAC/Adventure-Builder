@@ -3,6 +3,7 @@ package pt.ulisboa.tecnico.softeng.hotel.domain;
 import org.joda.time.LocalDate;
 import org.junit.Assert;
 import org.junit.Test;
+
 import pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
@@ -60,5 +61,4 @@ public class RoomReserveMethodTest extends RollbackTestAbstractClass {
 			Assert.assertEquals(1, this.room.getNumberOfBookings());
 		}
 	}
-
 }

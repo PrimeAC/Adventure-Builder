@@ -24,7 +24,7 @@ public class HotelPersistenceTest {
 	@Atomic(mode = Atomic.TxMode.WRITE)
 	public void atomicProcess() {
 		new Hotel(HOTEL_CODE1, HOTEL_NAME1);
-		new Hotel(HOTEL_CODE2,HOTEL_NAME2);
+		new Hotel(HOTEL_CODE2, HOTEL_NAME2);
 	}
 
 	@Atomic(mode = Atomic.TxMode.READ)

@@ -2,6 +2,7 @@ package pt.ulisboa.tecnico.softeng.hotel.domain;
 
 import org.junit.Assert;
 import org.junit.Test;
+
 import pt.ist.fenixframework.FenixFramework;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
@@ -68,5 +69,4 @@ public class HotelConstructorTest extends RollbackTestAbstractClass {
 		new Hotel(HOTEL_CODE, HOTEL_NAME);
 		new Hotel(HOTEL_CODE, HOTEL_NAME + " City");
 	}
-
 }
