@@ -16,6 +16,11 @@ class Operation {
     DateTime time;
 }
 
+class Client {
+	String ID;
+	String name;
+}
+
 relation DomainRootHasBankApplication {
 	.pt.ist.fenixframework.DomainRoot playsRole root {
 		multiplicity 1..1;
@@ -36,11 +41,21 @@ relation BankHasAccounts {
 }
 
 relation BankHasOperation {
+  Bank playsRole bank {
+		multiplicity 1..1;
+	}
+  
+  Operation playsRole operation{
+    multiplicity 0..*;
+  }
+}
+
+relation BankHasClients {
 	Bank playsRole bank {
 		multiplicity 1..1;
 	}
 
-	Operation playsRole operation{
+  Client playsRole client {
 		multiplicity 0..*;
 	}
 }
