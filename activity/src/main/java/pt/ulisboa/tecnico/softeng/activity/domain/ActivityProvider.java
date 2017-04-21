@@ -21,8 +21,8 @@ public class ActivityProvider extends ActivityProvider_Base {
 	}
 
 	public void delete() {
+		getActivitySet().forEach(Activity::delete);
 		setRoot(null);
-
 		deleteDomainObject();
 	}
 
