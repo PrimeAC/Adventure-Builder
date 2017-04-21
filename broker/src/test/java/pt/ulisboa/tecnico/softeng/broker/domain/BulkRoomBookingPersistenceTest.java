@@ -1,20 +1,17 @@
 package pt.ulisboa.tecnico.softeng.broker.domain;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
 import org.joda.time.LocalDate;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
-
 import pt.ist.fenixframework.Atomic;
 import pt.ist.fenixframework.Atomic.TxMode;
 import pt.ist.fenixframework.FenixFramework;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+
+import static org.junit.Assert.assertEquals;
 
 public class BulkRoomBookingPersistenceTest {
 
@@ -36,7 +33,7 @@ public class BulkRoomBookingPersistenceTest {
 	}
 
 	@Atomic(mode = TxMode.WRITE)
-	public atomicProcess(){
+	public void atomicProcess() {
 		Broker broker = new Broker(BROKER_CODE, BROKER_NAME);
 
 		new Adventure(broker, this.begin, this.end, AGE, IBAN, AMOUNT);
@@ -45,7 +42,7 @@ public class BulkRoomBookingPersistenceTest {
 	}
 
 	@Atomic(mode = TxMode.READ)
-	public atomicAssert(){
+	public void atomicAssert() {
 		List<Broker> brokers = new ArrayList<>(FenixFramework.getDomainRoot().getBrokerSet());
 		Broker broker = brokers.get(0);
 
@@ -55,12 +52,12 @@ public class BulkRoomBookingPersistenceTest {
 
 		BulkRoomBooking booking = bulkBookings.get(0);
 
-		Assert.assertEquals(begin, booking.getArrival());
-		Assert.assertEquals(end, booking.getDeparture());
+		assertEquals(begin, booking.getArrival());
+		assertEquals(end, booking.getDeparture());
 
 		List<String> references = new ArrayList<>(booking.getReferences());
 
-		Assert.assertEquals(4, references.size());
+		assertEquals(4, references.size());
 	}
 
 	@After
