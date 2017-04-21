@@ -2,6 +2,8 @@ package pt.ulisboa.tecnico.softeng.bank.domain;
 enum pt.ulisboa.tecnico.softeng.bank.domain.Operation.Type as OperationType;
 
 class Bank {
+    String name;
+    String code;
 }
 
 class Account {
