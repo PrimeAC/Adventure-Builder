@@ -12,7 +12,6 @@ public class Bank extends Bank_Base {
 
 	private final String name;
 	private final String code;
-	private final List<Operation> log = new ArrayList<>();
 
 	public Bank(String name, String code) {
 		checkArguments(name, code);
@@ -25,7 +24,9 @@ public class Bank extends Bank_Base {
 
 	public void delete() {
 		getAccountSet().forEach(Account::delete);
+		getOperationSet().forEach(Operation::delete);
 		getClientSet().forEach(Client::delete);
+    
 		setRoot(null);
 		deleteDomainObject();
 	}
@@ -67,7 +68,7 @@ public class Bank extends Bank_Base {
 	}
 
 	void addLog(Operation operation) {
-		this.log.add(operation);
+		getOperationSet().add(operation);
 	}
 
 	public Account getAccount(String IBAN) {
@@ -85,7 +86,7 @@ public class Bank extends Bank_Base {
 	}
 
 	public Operation getOperation(String reference) {
-		for (Operation operation : this.log) {
+		for (Operation operation : getOperationSet()) {
 			if (operation.getReference().equals(reference)) {
 				return operation;
 			}
