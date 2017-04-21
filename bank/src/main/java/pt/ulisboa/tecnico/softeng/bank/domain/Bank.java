@@ -5,16 +5,13 @@ import pt.ulisboa.tecnico.softeng.bank.dataobjects.BankOperationData;
 import pt.ulisboa.tecnico.softeng.bank.exception.BankException;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class Bank extends Bank_Base {
 	public static final int CODE_SIZE = 4;
 
 	private final String name;
 	private final String code;
-	private final Set<Client> clients = new HashSet<>();
 	private final List<Operation> log = new ArrayList<>();
 
 	public Bank(String name, String code) {
@@ -28,7 +25,7 @@ public class Bank extends Bank_Base {
 
 	public void delete() {
 		getAccountSet().forEach(Account::delete);
-
+		getClientSet().forEach(Client::delete);
 		setRoot(null);
 		deleteDomainObject();
 	}
@@ -62,15 +59,11 @@ public class Bank extends Bank_Base {
 	}
 
 	int getNumberOfClients() {
-		return this.clients.size();
+		return getClientSet().size();
 	}
 
 	boolean hasClient(Client client) {
-		return this.clients.contains(client);
-	}
-
-	void addClient(Client client) {
-		this.clients.add(client);
+		return getClientSet().contains(client);
 	}
 
 	void addLog(Operation operation) {

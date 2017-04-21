@@ -8,6 +8,11 @@ class Account {
 	int balance;
 }
 
+class Client {
+	String ID;
+	String name;
+}
+
 relation DomainRootHasBankApplication {
 	.pt.ist.fenixframework.DomainRoot playsRole root {
 		multiplicity 1..1;
@@ -23,6 +28,16 @@ relation BankHasAccounts {
 	}
 
 	Account playsRole account {
+		multiplicity 0..*;
+	}
+}
+
+relation BankHasClients {
+	Bank playsRole bank {
+		multiplicity 1..1;
+	}
+
+	Client playsRole client {
 		multiplicity 0..*;
 	}
 }
