@@ -24,8 +24,8 @@ public class Room extends Room_Base {
 	}
 
 	public void delete() {
+		this.getBookingSet().forEach(Booking::delete);
 		setHotel(null);
-		this.getBookingSet().foreach(Booking::delete);
 		super.deleteDomainObject();
 	}
 

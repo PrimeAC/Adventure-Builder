@@ -38,16 +38,16 @@ public class Booking extends Booking_Base {
 			throw new HotelException();
 		}
 
-		if ((arrival.equals(this.arrival) || arrival.isAfter(this.arrival)) && arrival.isBefore(this.departure)) {
+		if ((arrival.equals(this.getArrival()) || arrival.isAfter(this.getArrival())) && arrival.isBefore(this.getDeparture())) {
 			return true;
 		}
 
-		if ((departure.equals(this.departure) || departure.isBefore(this.departure))
-				&& departure.isAfter(this.arrival)) {
+		if ((departure.equals(this.getDeparture()) || departure.isBefore(this.getDeparture()))
+				&& departure.isAfter(this.getArrival())) {
 			return true;
 		}
 
-		if ((arrival.isBefore(this.arrival) && departure.isAfter(this.departure))) {
+		if ((arrival.isBefore(this.getArrival()) && departure.isAfter(this.getDeparture()))) {
 			return true;
 		}
 
@@ -55,7 +55,7 @@ public class Booking extends Booking_Base {
 	}
 
 	public String cancel() {
-		String cancellation = this.reference + "CANCEL";
+		String cancellation = this.getReference() + "CANCEL";
 		this.setCancellation(cancellation);
 		this.setCancellationDate(new LocalDate());
 		return cancellation;

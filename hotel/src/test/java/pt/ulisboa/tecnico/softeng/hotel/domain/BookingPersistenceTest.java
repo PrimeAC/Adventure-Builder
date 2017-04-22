@@ -5,15 +5,17 @@ import org.junit.Test;
 import pt.ist.fenixframework.Atomic;
 import pt.ist.fenixframework.FenixFramework;
 
-import java.time.LocalDate;
+import org.joda.time.LocalDate;
 
-public class BookingPersistenceTest extends RollbackTestAbstractClass {
+import static org.junit.Assert.assertEquals;
+
+public class BookingPersistenceTest {
 	private static final String HOTEL_CODE = "XPTO123";
 	private static final String HOTEL_NAME = "Londres";
 	private static final String ROOM_NUMBER = "001";
 	private static final Room.Type ROOM_TYPE = Room.Type.DOUBLE;
-	private static final LocalDate ARRIVAL = new LocalDate.now();
-	private static final String DEPARTURE = ARRIVAL.plusDays(2);
+	private static final LocalDate ARRIVAL = LocalDate.now();
+	private static final LocalDate DEPARTURE = ARRIVAL.plusDays(2);
 
 	Booking booking;
 
