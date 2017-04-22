@@ -3,21 +3,16 @@ package pt.ulisboa.tecnico.softeng.hotel.domain;
 import org.joda.time.LocalDate;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
-public class Booking {
+public class Booking extends Booking_Base {
 	private static int counter = 0;
-
-	private final String reference;
-	private String cancellation;
-	private LocalDate cancellationDate;
-	private final LocalDate arrival;
-	private final LocalDate departure;
 
 	Booking(Hotel hotel, LocalDate arrival, LocalDate departure) {
 		checkArguments(hotel, arrival, departure);
 
-		this.reference = hotel.getCode() + Integer.toString(++Booking.counter);
-		this.arrival = arrival;
-		this.departure = departure;
+		String reference = hotel.getCode() + Integer.toString(++Booking.counter);
+		this.setReference(reference);
+		this.setArrival(arrival);
+		this.setDeparture(departure);
 	}
 
 	private void checkArguments(Hotel hotel, LocalDate arrival, LocalDate departure) {
@@ -28,26 +23,6 @@ public class Booking {
 		if (departure.isBefore(arrival)) {
 			throw new HotelException();
 		}
-	}
-
-	public String getReference() {
-		return this.reference;
-	}
-
-	public String getCancellation() {
-		return this.cancellation;
-	}
-
-	public LocalDate getArrival() {
-		return this.arrival;
-	}
-
-	public LocalDate getDeparture() {
-		return this.departure;
-	}
-
-	public LocalDate getCancellationDate() {
-		return this.cancellationDate;
 	}
 
 	boolean conflict(LocalDate arrival, LocalDate departure) {
@@ -80,13 +55,18 @@ public class Booking {
 	}
 
 	public String cancel() {
-		this.cancellation = this.reference + "CANCEL";
-		this.cancellationDate = new LocalDate();
-		return this.cancellation;
+		String cancellation = this.reference + "CANCEL";
+		this.setCancellation(cancellation);
+		this.setCancellationDate(new LocalDate());
+		return cancellation;
 	}
 
 	public boolean isCancelled() {
-		return this.cancellation != null;
+		return this.getCancellation() != null;
+	}
+
+	public void delete() {
+		super.deleteDomainObject();
 	}
 
 }

@@ -11,6 +11,14 @@ class Room {
     RoomType type;
 }
 
+class Booking {
+    String reference;
+    String cancellation;
+    LocalDate cancellationDate;
+    LocalDate arrival;
+    LocalDate departure;
+}
+
 relation DomainRootHasHotelApplication {
     .pt.ist.fenixframework.DomainRoot playsRole root {
         multiplicity 1..1;
