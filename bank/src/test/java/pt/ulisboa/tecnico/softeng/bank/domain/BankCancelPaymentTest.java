@@ -1,10 +1,9 @@
 package pt.ulisboa.tecnico.softeng.bank.domain;
 
-import static org.junit.Assert.assertNotNull;
-
 import org.junit.Test;
-
 import pt.ulisboa.tecnico.softeng.bank.exception.BankException;
+
+import static org.junit.Assert.assertNotNull;
 
 public class BankCancelPaymentTest extends RollbackTestAbstractClass {
 	private Bank bank;

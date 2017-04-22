@@ -1,7 +1,6 @@
 package pt.ulisboa.tecnico.softeng.broker;
 
 import org.joda.time.LocalDate;
-
 import pt.ulisboa.tecnico.softeng.bank.domain.Account;
 import pt.ulisboa.tecnico.softeng.bank.domain.Bank;
 import pt.ulisboa.tecnico.softeng.bank.domain.Client;

@@ -1,9 +1,6 @@
 package pt.ulisboa.tecnico.softeng.bank.domain;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
-
 import pt.ulisboa.tecnico.softeng.bank.exception.BankException;
 
 public class BankProcessPaymentMethodTest extends RollbackTestAbstractClass {

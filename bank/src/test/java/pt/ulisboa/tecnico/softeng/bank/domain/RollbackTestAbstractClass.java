@@ -1,13 +1,12 @@
 package pt.ulisboa.tecnico.softeng.bank.domain;
 
-import javax.transaction.NotSupportedException;
-import javax.transaction.SystemException;
-
 import org.junit.After;
 import org.junit.Before;
-
 import pt.ist.fenixframework.FenixFramework;
 import pt.ist.fenixframework.core.WriteOnReadError;
+
+import javax.transaction.NotSupportedException;
+import javax.transaction.SystemException;
 
 public abstract class RollbackTestAbstractClass {
 	@Before

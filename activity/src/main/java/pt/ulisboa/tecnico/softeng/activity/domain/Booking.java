@@ -1,7 +1,6 @@
 package pt.ulisboa.tecnico.softeng.activity.domain;
 
 import org.joda.time.LocalDate;
-
 import pt.ulisboa.tecnico.softeng.activity.exception.ActivityException;
 
 public class Booking {

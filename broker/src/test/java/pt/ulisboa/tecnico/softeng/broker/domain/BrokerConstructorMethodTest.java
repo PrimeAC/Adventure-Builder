@@ -2,7 +2,6 @@ package pt.ulisboa.tecnico.softeng.broker.domain;
 
 import org.junit.Assert;
 import org.junit.Test;
-
 import pt.ist.fenixframework.FenixFramework;
 import pt.ulisboa.tecnico.softeng.broker.exception.BrokerException;
 
