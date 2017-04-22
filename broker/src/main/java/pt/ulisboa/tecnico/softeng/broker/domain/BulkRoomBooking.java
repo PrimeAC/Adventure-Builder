@@ -27,6 +27,7 @@ public class BulkRoomBooking extends BulkRoomBooking_Base {
 	public void delete() {
 		setBroker(null);
 
+		getBookingReferenceSet().forEach(BookingReference::delete);
 		super.deleteDomainObject();
 	}
 
