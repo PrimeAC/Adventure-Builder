@@ -9,10 +9,10 @@ public class Booking extends Booking_Base{
 
 	public Booking(ActivityProvider provider, ActivityOffer offer) {
 		checkArguments(provider, offer);
-
 		setReference(provider.getCode() + Integer.toString(++Booking.counter));
-
-		offer.addBooking(this);
+		setCancel(null);
+		setCancellationDate(null);
+		super.setActivityOffer(offer);
 	}
 
 	private void checkArguments(ActivityProvider provider, ActivityOffer offer) {
@@ -22,6 +22,7 @@ public class Booking extends Booking_Base{
 	}
 
 	public void delete() {
+		setActivityOffer(null);
 		deleteDomainObject();
 	}
 
@@ -33,5 +34,9 @@ public class Booking extends Booking_Base{
 
 	public boolean isCancelled() {
 		return getCancel() != null;
+	}
+
+	public static Booking getBookingByReference(String reference) {
+		
 	}
 }

@@ -51,3 +51,12 @@ class Booking {
     String cancel;
     LocalDate cancellationDate;
 }
+
+relation ActivityOfferHasBooking {
+	ActivityOffer playsRole activityOffer {
+        multiplicity 1..1;
+    }
+    Booking playsRole booking {
+        multiplicity 0..*;
+    }
+}
