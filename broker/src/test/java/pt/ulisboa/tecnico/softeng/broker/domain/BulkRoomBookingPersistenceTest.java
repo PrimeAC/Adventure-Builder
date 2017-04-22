@@ -46,7 +46,7 @@ public class BulkRoomBookingPersistenceTest {
 		List<Broker> brokers = new ArrayList<>(FenixFramework.getDomainRoot().getBrokerSet());
 		Broker broker = brokers.get(0);
 
-		List<BulkRoomBooking> bulkBookings = new ArrayList<>(broker.getBulkBookingsSet());
+		List<BulkRoomBooking> bulkBookings = new ArrayList<>(broker.getBulkRoomBookingSet());
 
 		Assert.assertEquals(1, bulkBookings.size());
 
