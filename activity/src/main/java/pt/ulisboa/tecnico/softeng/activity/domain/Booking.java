@@ -1,7 +1,6 @@
 package pt.ulisboa.tecnico.softeng.activity.domain;
 
 import org.joda.time.LocalDate;
-
 import pt.ulisboa.tecnico.softeng.activity.exception.ActivityException;
 
 public class Booking extends Booking_Base{
@@ -34,9 +33,5 @@ public class Booking extends Booking_Base{
 
 	public boolean isCancelled() {
 		return getCancel() != null;
-	}
-
-	public static Booking getBookingByReference(String reference) {
-		
 	}
 }

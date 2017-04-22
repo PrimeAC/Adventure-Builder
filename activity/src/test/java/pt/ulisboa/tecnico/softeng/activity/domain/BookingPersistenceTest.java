@@ -41,7 +41,7 @@ public class BookingPersistenceTest {
 
 	@Atomic(mode = TxMode.READ)
 	public void atomicAssert() {
-		Booking book = Booking.getBookingByReference(booking.getReference());
+		Booking book = ActivityProvider.getBookingByReference(booking.getReference());
 		assertEquals(booking.getReference(), book.getReference());
 		Assert.assertNull(book.getCancel());
 		Assert.assertNull(book.getCancellationDate());
