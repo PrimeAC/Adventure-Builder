@@ -6,6 +6,8 @@ import pt.ist.fenixframework.Atomic;
 import pt.ist.fenixframework.Atomic.TxMode;
 import pt.ist.fenixframework.FenixFramework;
 
+import static org.junit.Assert.assertEquals;
+
 public class BankPersistenceTest {
 	private static final String BANK_CODE = "BK01";
 
