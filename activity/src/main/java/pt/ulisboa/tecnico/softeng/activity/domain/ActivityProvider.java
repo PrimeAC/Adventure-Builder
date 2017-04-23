@@ -28,7 +28,7 @@ public class ActivityProvider extends ActivityProvider_Base {
 
 	public static ActivityProvider getActivityProviderByCode(String code) {
 		for (ActivityProvider provider : FenixFramework.getDomainRoot().getActivityProviderSet()) {
-			if (provider.getCode().equals(code)){
+			if (provider.getCode().equals(code)) {
 				return provider;
 			}
 		}
@@ -116,7 +116,7 @@ public class ActivityProvider extends ActivityProvider_Base {
 		throw new ActivityException();
 	}
 
-	public Activity getActivityByCode(String code){
+	public Activity getActivityByCode(String code) {
 		for (Activity activity : getActivitySet()) {
 			if (activity.getCode().equals(code)) {
 				return activity;
