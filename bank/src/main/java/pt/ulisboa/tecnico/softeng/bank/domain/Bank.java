@@ -20,7 +20,7 @@ public class Bank extends Bank_Base {
 		getAccountSet().forEach(Account::delete);
 		getOperationSet().forEach(Operation::delete);
 		getClientSet().forEach(Client::delete);
-    
+
 		setRoot(null);
 		deleteDomainObject();
 	}

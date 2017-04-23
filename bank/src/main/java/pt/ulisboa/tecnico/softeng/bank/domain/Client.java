@@ -13,9 +13,9 @@ public class Client extends Client_Base {
 		setName(name);
 
 		setBank(bank);
-		
+
 	}
-	
+
 	private String generateID() {
 		return Integer.toString(++Client.counter);
 	}
@@ -25,7 +25,7 @@ public class Client extends Client_Base {
 			throw new BankException();
 		}
 	}
-	
+
 	public void delete() {
 		getAccountSet().forEach(Account::delete);
 

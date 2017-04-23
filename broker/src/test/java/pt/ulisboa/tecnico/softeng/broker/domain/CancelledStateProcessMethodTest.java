@@ -41,7 +41,7 @@ public class CancelledStateProcessMethodTest extends RollbackTestAbstractClass {
 
 	@Test
 	public void didNotPayed(@Mocked final BankInterface bankInterface,
-			@Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+							@Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
 
 		this.adventure.process();
 
@@ -155,7 +155,7 @@ public class CancelledStateProcessMethodTest extends RollbackTestAbstractClass {
 
 	@Test
 	public void cancelledActivity(@Mocked final BankInterface bankInterface,
-			@Mocked final ActivityInterface activityInterface) {
+								  @Mocked final ActivityInterface activityInterface) {
 		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
 		this.adventure.setPaymentCancellation(PAYMENT_CANCELLATION);
 		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
@@ -178,7 +178,7 @@ public class CancelledStateProcessMethodTest extends RollbackTestAbstractClass {
 
 	@Test
 	public void cancelledRoom(@Mocked final BankInterface bankInterface,
-			@Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
+							  @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface) {
 		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
 		this.adventure.setPaymentCancellation(PAYMENT_CANCELLATION);
 		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);

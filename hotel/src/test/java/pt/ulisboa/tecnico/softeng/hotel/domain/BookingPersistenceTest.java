@@ -1,11 +1,10 @@
 package pt.ulisboa.tecnico.softeng.hotel.domain;
 
+import org.joda.time.LocalDate;
 import org.junit.After;
 import org.junit.Test;
 import pt.ist.fenixframework.Atomic;
 import pt.ist.fenixframework.FenixFramework;
-
-import org.joda.time.LocalDate;
 
 import static org.junit.Assert.assertEquals;
 

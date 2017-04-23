@@ -88,7 +88,7 @@ public class UndoStateProcessMethodTest extends RollbackTestAbstractClass {
 
 	@Test
 	public void successRevertPaymentAndActivity(@Mocked final BankInterface bankInterface,
-			@Mocked final ActivityInterface activityInterface) {
+												@Mocked final ActivityInterface activityInterface) {
 		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
 		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
 		new StrictExpectations() {
@@ -108,7 +108,7 @@ public class UndoStateProcessMethodTest extends RollbackTestAbstractClass {
 
 	@Test
 	public void successRevertActivity(@Mocked final BankInterface bankInterface,
-			@Mocked final ActivityInterface activityInterface) {
+									  @Mocked final ActivityInterface activityInterface) {
 		this.adventure.setPaymentCancellation(PAYMENT_CANCELLATION);
 		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
 		new StrictExpectations() {
@@ -125,7 +125,7 @@ public class UndoStateProcessMethodTest extends RollbackTestAbstractClass {
 
 	@Test
 	public void successRevertPaymentAndActivityButActivityException(@Mocked final BankInterface bankInterface,
-			@Mocked final ActivityInterface activityInterface) {
+																	@Mocked final ActivityInterface activityInterface) {
 		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
 		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
 		new StrictExpectations() {
@@ -145,7 +145,7 @@ public class UndoStateProcessMethodTest extends RollbackTestAbstractClass {
 
 	@Test
 	public void successRevertPaymentAndActivityButRemoteAccessException(@Mocked final BankInterface bankInterface,
-			@Mocked final ActivityInterface activityInterface) {
+																		@Mocked final ActivityInterface activityInterface) {
 		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
 		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
 		new StrictExpectations() {
@@ -165,7 +165,7 @@ public class UndoStateProcessMethodTest extends RollbackTestAbstractClass {
 
 	@Test
 	public void successRevertPaymentAndActivityAndRoom(@Mocked final BankInterface bankInterface,
-			@Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface roomInterface) {
+													   @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface roomInterface) {
 		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
 		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
 		this.adventure.setRoomConfirmation(ROOM_CONFIRMATION);
@@ -189,7 +189,7 @@ public class UndoStateProcessMethodTest extends RollbackTestAbstractClass {
 
 	@Test
 	public void successRevertActivityAndRoom(@Mocked final ActivityInterface activityInterface,
-			@Mocked final HotelInterface roomInterface) {
+											 @Mocked final HotelInterface roomInterface) {
 		this.adventure.setPaymentCancellation(PAYMENT_CANCELLATION);
 		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
 		this.adventure.setRoomConfirmation(ROOM_CONFIRMATION);
@@ -210,7 +210,7 @@ public class UndoStateProcessMethodTest extends RollbackTestAbstractClass {
 
 	@Test
 	public void successRevertPaymentAndRoom(@Mocked final BankInterface bankInterface,
-			@Mocked final HotelInterface roomInterface) {
+											@Mocked final HotelInterface roomInterface) {
 		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
 		this.adventure.setActivityCancellation(ACTIVITY_CANCELLATION);
 		this.adventure.setRoomConfirmation(ROOM_CONFIRMATION);
@@ -231,7 +231,7 @@ public class UndoStateProcessMethodTest extends RollbackTestAbstractClass {
 
 	@Test
 	public void successRevertPaymentAndActivityAndRoomButHotelException(@Mocked final BankInterface bankInterface,
-			@Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface roomInterface) {
+																		@Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface roomInterface) {
 		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
 		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
 		this.adventure.setRoomConfirmation(ROOM_CONFIRMATION);

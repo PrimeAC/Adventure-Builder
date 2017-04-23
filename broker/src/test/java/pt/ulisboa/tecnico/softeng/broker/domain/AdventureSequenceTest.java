@@ -40,7 +40,7 @@ public class AdventureSequenceTest extends RollbackTestAbstractClass {
 
 	@Test
 	public void successSequenceOne(@Mocked final BankInterface bankInterface,
-			@Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface roomInterface) {
+								   @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface roomInterface) {
 		new StrictExpectations() {
 			{
 				BankInterface.processPayment(IBAN, AMOUNT);
@@ -72,7 +72,7 @@ public class AdventureSequenceTest extends RollbackTestAbstractClass {
 
 	@Test
 	public void successSequenceTwo(@Mocked final BankInterface bankInterface,
-			@Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface roomInterface) {
+								   @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface roomInterface) {
 		new StrictExpectations() {
 			{
 				BankInterface.processPayment(IBAN, AMOUNT);
@@ -98,7 +98,7 @@ public class AdventureSequenceTest extends RollbackTestAbstractClass {
 
 	@Test
 	public void unsuccessSequenceOne(@Mocked final BankInterface bankInterface,
-			@Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface roomInterface) {
+									 @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface roomInterface) {
 		new StrictExpectations() {
 			{
 				BankInterface.processPayment(IBAN, AMOUNT);
@@ -115,7 +115,7 @@ public class AdventureSequenceTest extends RollbackTestAbstractClass {
 
 	@Test
 	public void unsuccessSequenceTwo(@Mocked final BankInterface bankInterface,
-			@Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface roomInterface) {
+									 @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface roomInterface) {
 		new StrictExpectations() {
 			{
 				BankInterface.processPayment(IBAN, AMOUNT);
@@ -140,7 +140,7 @@ public class AdventureSequenceTest extends RollbackTestAbstractClass {
 
 	@Test
 	public void unsuccessSequenceThree(@Mocked final BankInterface bankInterface,
-			@Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface roomInterface) {
+									   @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface roomInterface) {
 		new StrictExpectations() {
 			{
 				BankInterface.processPayment(IBAN, AMOUNT);
@@ -172,7 +172,7 @@ public class AdventureSequenceTest extends RollbackTestAbstractClass {
 
 	@Test
 	public void unsuccessSequenceFour(@Mocked final BankInterface bankInterface,
-			@Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface roomInterface) {
+									  @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface roomInterface) {
 		new StrictExpectations() {
 			{
 				BankInterface.processPayment(IBAN, AMOUNT);

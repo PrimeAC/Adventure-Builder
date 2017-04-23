@@ -1,14 +1,13 @@
 package pt.ulisboa.tecnico.softeng.broker.domain;
 
-import org.joda.time.LocalDate;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
 import mockit.Injectable;
 import mockit.Mocked;
 import mockit.StrictExpectations;
 import mockit.integration.junit4.JMockit;
+import org.joda.time.LocalDate;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import pt.ulisboa.tecnico.softeng.activity.exception.ActivityException;
 import pt.ulisboa.tecnico.softeng.bank.exception.BankException;
 import pt.ulisboa.tecnico.softeng.broker.domain.Adventure.State;
@@ -41,7 +40,7 @@ public class ConfirmedStateProcessMethodTest extends RollbackTestAbstractClass {
 
 	@Test
 	public void successAll(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface,
-			@Mocked final HotelInterface roomInterface) {
+						   @Mocked final HotelInterface roomInterface) {
 		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
 		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
 		this.adventure.setRoomConfirmation(ROOM_CONFIRMATION);
@@ -62,7 +61,7 @@ public class ConfirmedStateProcessMethodTest extends RollbackTestAbstractClass {
 
 	@Test
 	public void successPaymentAndActivity(@Mocked final BankInterface bankInterface,
-			@Mocked final ActivityInterface activityInterface) {
+										  @Mocked final ActivityInterface activityInterface) {
 		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
 		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
 		new StrictExpectations() {
@@ -194,7 +193,7 @@ public class ConfirmedStateProcessMethodTest extends RollbackTestAbstractClass {
 
 	@Test
 	public void oneRemoteAccessExceptionStartingInActivity(@Mocked final BankInterface bankInterface,
-			@Mocked final ActivityInterface activityInterface) {
+														   @Mocked final ActivityInterface activityInterface) {
 		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
 		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
 		this.adventure.setRoomConfirmation(ROOM_CONFIRMATION);
@@ -214,7 +213,7 @@ public class ConfirmedStateProcessMethodTest extends RollbackTestAbstractClass {
 
 	@Test
 	public void maxRemoteAccessExceptionStartingInActivity(@Mocked final BankInterface bankInterface,
-			@Mocked final ActivityInterface activityInterface) {
+														   @Mocked final ActivityInterface activityInterface) {
 		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
 		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
 		this.adventure.setRoomConfirmation(ROOM_CONFIRMATION);
@@ -240,7 +239,7 @@ public class ConfirmedStateProcessMethodTest extends RollbackTestAbstractClass {
 
 	@Test
 	public void maxMinusOneRemoteAccessExceptionStartingInActivity(@Mocked final BankInterface bankInterface,
-			@Mocked final ActivityInterface activityInterface) {
+																   @Mocked final ActivityInterface activityInterface) {
 		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
 		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
 		this.adventure.setRoomConfirmation(ROOM_CONFIRMATION);
@@ -266,7 +265,7 @@ public class ConfirmedStateProcessMethodTest extends RollbackTestAbstractClass {
 
 	@Test
 	public void oneRemoteAccessExceptionStartingInRoom(@Mocked final BankInterface bankInterface,
-			@Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface roomInterface) {
+													   @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface roomInterface) {
 		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
 		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
 		this.adventure.setRoomConfirmation(ROOM_CONFIRMATION);
@@ -288,7 +287,7 @@ public class ConfirmedStateProcessMethodTest extends RollbackTestAbstractClass {
 
 	@Test
 	public void maxRemoteAccessExceptionStartingInRoom(@Mocked final BankInterface bankInterface,
-			@Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface roomInterface) {
+													   @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface roomInterface) {
 		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
 		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
 		this.adventure.setRoomConfirmation(ROOM_CONFIRMATION);
@@ -316,7 +315,7 @@ public class ConfirmedStateProcessMethodTest extends RollbackTestAbstractClass {
 
 	@Test
 	public void maxMinusOneRemoteAccessExceptionStartingInRoom(@Mocked final BankInterface bankInterface,
-			@Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface roomInterface) {
+															   @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface roomInterface) {
 		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
 		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
 		this.adventure.setRoomConfirmation(ROOM_CONFIRMATION);
@@ -344,7 +343,7 @@ public class ConfirmedStateProcessMethodTest extends RollbackTestAbstractClass {
 
 	@Test
 	public void activityException(@Mocked final BankInterface bankInterface,
-			@Mocked final ActivityInterface activityInterface) {
+								  @Mocked final ActivityInterface activityInterface) {
 		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
 		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
 		this.adventure.setRoomConfirmation(ROOM_CONFIRMATION);
@@ -364,7 +363,7 @@ public class ConfirmedStateProcessMethodTest extends RollbackTestAbstractClass {
 
 	@Test
 	public void hotelException(@Mocked final BankInterface bankInterface,
-			@Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface roomInterface) {
+							   @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface roomInterface) {
 		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
 		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
 		this.adventure.setRoomConfirmation(ROOM_CONFIRMATION);

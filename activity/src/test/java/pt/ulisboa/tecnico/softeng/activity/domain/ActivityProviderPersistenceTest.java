@@ -1,7 +1,6 @@
 package pt.ulisboa.tecnico.softeng.activity.domain;
 
 import org.junit.After;
-import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import pt.ist.fenixframework.Atomic;
 import pt.ist.fenixframework.FenixFramework;
@@ -17,7 +16,6 @@ public class ActivityProviderPersistenceTest {
 	private static final String ACTIVITY_PROVIDER_NAME1 = "ExtremeAdventure";
 	private static final String ACTIVITY_PROVIDER_NAME2 = "ExtremeAdventure2";
 	private static final String ACTIVITY_PROVIDER_NAME3 = "ExtremeAdventure3";
-
 
 
 	@Test

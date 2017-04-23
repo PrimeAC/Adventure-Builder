@@ -12,7 +12,7 @@ public class ActivityProviderConstructorMethodTest extends RollbackTestAbstractC
 	private static final String PROVIDER_NAME = "Adventure++";
 
 	@Override
-	public void populate4Test(){
+	public void populate4Test() {
 
 	}
 

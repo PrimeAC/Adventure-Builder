@@ -1,17 +1,16 @@
 package pt.ulisboa.tecnico.softeng.activity.domain;
 
-import static org.junit.Assert.assertEquals;
+import org.joda.time.LocalDate;
+import org.junit.After;
+import org.junit.Test;
+import pt.ist.fenixframework.Atomic;
+import pt.ist.fenixframework.Atomic.TxMode;
+import pt.ist.fenixframework.FenixFramework;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.joda.time.LocalDate;
-import org.junit.After;
-import org.junit.Test;
-
-import pt.ist.fenixframework.Atomic;
-import pt.ist.fenixframework.FenixFramework;
-import pt.ist.fenixframework.Atomic.TxMode;
+import static org.junit.Assert.assertEquals;
 
 public class ActivityOfferPersistenceTest {
 	private static final String PROVIDER_CODE = "CODE12";
