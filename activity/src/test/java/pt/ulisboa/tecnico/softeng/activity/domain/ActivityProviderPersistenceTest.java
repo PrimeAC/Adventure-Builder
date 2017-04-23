@@ -1,6 +1,7 @@
 package pt.ulisboa.tecnico.softeng.activity.domain;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Test;
 import pt.ist.fenixframework.Atomic;
 import pt.ist.fenixframework.FenixFramework;
@@ -46,11 +47,11 @@ public class ActivityProviderPersistenceTest {
 		assertNotNull(provider3);
 		assertNull(providerNull);
 
-		assertEquals(ACTIVITY_PROVIDER_NAME1, provider1.getName());
-		assertEquals(ACTIVITY_PROVIDER_NAME2, provider2.getName());
-		assertEquals(ACTIVITY_PROVIDER_NAME3, provider3.getName());
+		Assert.assertEquals(ACTIVITY_PROVIDER_NAME1, provider1.getName());
+		Assert.assertEquals(ACTIVITY_PROVIDER_NAME2, provider2.getName());
+		Assert.assertEquals(ACTIVITY_PROVIDER_NAME3, provider3.getName());
 
-		assertEquals(3, FenixFramework.getDomainRoot().getActivityProviderSet().size());
+		Assert.assertEquals(3, FenixFramework.getDomainRoot().getActivityProviderSet().size());
 	}
 
 	@After
