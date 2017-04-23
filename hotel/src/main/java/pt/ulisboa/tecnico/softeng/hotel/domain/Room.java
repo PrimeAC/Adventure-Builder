@@ -3,9 +3,6 @@ package pt.ulisboa.tecnico.softeng.hotel.domain;
 import org.joda.time.LocalDate;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class Room extends Room_Base {
 	public static enum Type {
 		SINGLE, DOUBLE
@@ -24,6 +21,7 @@ public class Room extends Room_Base {
 	}
 
 	public void delete() {
+
 		this.getBookingSet().forEach(Booking::delete);
 		setHotel(null);
 		super.deleteDomainObject();

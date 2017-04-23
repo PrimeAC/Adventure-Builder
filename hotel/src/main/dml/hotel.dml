@@ -42,5 +42,7 @@ relation RoomHasBookings {
         multiplicity *;
     }
 
-    Room playsRole;
+    Room playsRole room {
+        multiplicity 1;
+    }
 }
