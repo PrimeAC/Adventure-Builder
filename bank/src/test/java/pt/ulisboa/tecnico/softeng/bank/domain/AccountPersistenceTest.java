@@ -6,7 +6,6 @@ import pt.ist.fenixframework.Atomic;
 import pt.ist.fenixframework.Atomic.TxMode;
 import pt.ist.fenixframework.FenixFramework;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class AccountPersistenceTest {
@@ -38,12 +37,15 @@ public class AccountPersistenceTest {
 		assertNotNull(bank);
 
 		Account dbAccount = bank.getAccount(iban);
+		Client client = dbAccount.getClient();
+
 
 		assertNotNull(dbAccount);
 		assertEquals(ACCOUNT_BALANCE, dbAccount.getBalance());
 		assertEquals(BANK_CODE, dbAccount.getBank().getCode());
 		assertEquals(BANK_NAME, dbAccount.getBank().getName());
 		assertEquals(CLIENT_NAME, dbAccount.getClient().getName());
+		assertEquals(1, client.getAccountSet().size());
 	}
 
 	@After

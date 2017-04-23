@@ -1,20 +1,19 @@
 package pt.ulisboa.tecnico.softeng.broker.domain;
 
-import static org.junit.Assert.assertEquals;
+import mockit.Mocked;
+import mockit.StrictExpectations;
+import mockit.integration.junit4.JMockit;
+import org.joda.time.LocalDate;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import pt.ulisboa.tecnico.softeng.broker.exception.RemoteAccessException;
+import pt.ulisboa.tecnico.softeng.broker.interfaces.HotelInterface;
+import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
 import java.util.Arrays;
 import java.util.HashSet;
 
-import org.joda.time.LocalDate;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import mockit.Mocked;
-import mockit.StrictExpectations;
-import mockit.integration.junit4.JMockit;
-import pt.ulisboa.tecnico.softeng.broker.exception.RemoteAccessException;
-import pt.ulisboa.tecnico.softeng.broker.interfaces.HotelInterface;
-import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(JMockit.class)
 public class BulkRoomBookingProcessBookingMethodTest extends RollbackTestAbstractClass {
