@@ -6,6 +6,9 @@ import pt.ulisboa.tecnico.softeng.broker.interfaces.HotelInterface;
 import pt.ulisboa.tecnico.softeng.hotel.dataobjects.RoomBookingData;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class BulkRoomBooking extends BulkRoomBooking_Base {
 
 	public static final int MAX_HOTEL_EXCEPTIONS = 3;
