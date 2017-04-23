@@ -12,8 +12,6 @@ import java.util.Set;
 public class Broker extends Broker_Base {
 	private static Logger logger = LoggerFactory.getLogger(Broker.class);
 
-	private final Set<BulkRoomBooking> bulkBookings = new HashSet<>();
-
 	public Broker(String code, String name) {
 		checkCode(code);
 		setCode(code);
@@ -30,6 +28,7 @@ public class Broker extends Broker_Base {
 		for (Adventure adventure : getAdventureSet()) {
 			adventure.delete();
 		}
+		getBulkRoomBookingSet().forEach(BulkRoomBooking::delete);
 
 		deleteDomainObject();
 	}
@@ -54,7 +53,7 @@ public class Broker extends Broker_Base {
 
 	public void bulkBooking(int number, LocalDate arrival, LocalDate departure) {
 		BulkRoomBooking bulkBooking = new BulkRoomBooking(number, arrival, departure);
-		this.bulkBookings.add(bulkBooking);
+		this.addBulkRoomBooking(bulkBooking);
 		bulkBooking.processBooking();
 	}
 
