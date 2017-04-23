@@ -13,7 +13,7 @@ import pt.ist.fenixframework.Atomic.TxMode;
 
 public class BookingPersistenceTest {
 
-	private static final String PROVIDER_CODE = "CODE";
+	private static final String PROVIDER_CODE = "CODE12";
 	private static final String PROVIDER_NAME = "providerNAME";
 	private static final String ACTIVITY_NAME = "activityNAME";
 	private static final int MIN_AGE = 25;
@@ -37,6 +37,7 @@ public class BookingPersistenceTest {
 		Activity activity = new Activity(activityProvider, ACTIVITY_NAME, MIN_AGE, MAX_AGE, CAPACITY);
 		activityOffer = new ActivityOffer(activity, begin, end);
 		booking = new Booking(activityProvider, activityOffer);
+		new Booking(activityProvider, activityOffer);
 	}
 
 	@Atomic(mode = TxMode.READ)
@@ -46,6 +47,7 @@ public class BookingPersistenceTest {
 		Assert.assertNull(book.getCancel());
 		Assert.assertNull(book.getCancellationDate());
 		assertEquals(activityOffer, book.getActivityOffer());
+		assertEquals(2, book.getActivityOffer().getNumberOfBookings());
 	}
 
 	@After
