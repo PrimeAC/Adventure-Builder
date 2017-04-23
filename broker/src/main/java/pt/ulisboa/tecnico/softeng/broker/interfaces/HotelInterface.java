@@ -1,12 +1,11 @@
 package pt.ulisboa.tecnico.softeng.broker.interfaces;
 
-import java.util.Set;
-
 import org.joda.time.LocalDate;
-
 import pt.ulisboa.tecnico.softeng.hotel.dataobjects.RoomBookingData;
 import pt.ulisboa.tecnico.softeng.hotel.domain.Hotel;
 import pt.ulisboa.tecnico.softeng.hotel.domain.Room;
+
+import java.util.Set;
 
 public class HotelInterface {
 	public static String reserveRoom(Room.Type type, LocalDate arrival, LocalDate departure) {

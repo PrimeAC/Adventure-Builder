@@ -2,6 +2,7 @@ package pt.ulisboa.tecnico.softeng.broker.domain;
 
 import org.joda.time.LocalDate;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Test;
 import pt.ist.fenixframework.Atomic;
 import pt.ist.fenixframework.Atomic.TxMode;
@@ -11,9 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
-public class BrokerPersistenceTest {
+public class BulkRoomBookingPersistenceTest {
+
 	private static final String BROKER_NAME = "Happy Going";
 	private static final String BROKER_CODE = "BK1017";
 	private static final int AGE = 20;
@@ -22,6 +23,8 @@ public class BrokerPersistenceTest {
 
 	private final LocalDate begin = new LocalDate(2016, 12, 19);
 	private final LocalDate end = new LocalDate(2016, 12, 21);
+
+	private Broker broker = new Broker(BROKER_CODE, BROKER_NAME);
 
 	@Test
 	public void success() {
@@ -34,32 +37,27 @@ public class BrokerPersistenceTest {
 		Broker broker = new Broker(BROKER_CODE, BROKER_NAME);
 
 		new Adventure(broker, this.begin, this.end, AGE, IBAN, AMOUNT);
+
+		broker.bulkBooking(4, begin, end);
 	}
 
 	@Atomic(mode = TxMode.READ)
 	public void atomicAssert() {
-		assertEquals(1, FenixFramework.getDomainRoot().getBrokerSet().size());
-
 		List<Broker> brokers = new ArrayList<>(FenixFramework.getDomainRoot().getBrokerSet());
 		Broker broker = brokers.get(0);
 
-		assertEquals(BROKER_CODE, broker.getCode());
-		assertEquals(BROKER_NAME, broker.getName());
-		assertEquals(1, broker.getAdventureSet().size());
+		List<BulkRoomBooking> bulkBookings = new ArrayList<>(broker.getBulkRoomBookingSet());
 
-		List<Adventure> adventures = new ArrayList<>(broker.getAdventureSet());
-		Adventure adventure = adventures.get(0);
+		Assert.assertEquals(1, bulkBookings.size());
 
-		assertNotNull(adventure.getID());
-		assertEquals(broker, adventure.getBroker());
-		assertEquals(this.begin, adventure.getBegin());
-		assertEquals(this.end, adventure.getEnd());
-		assertEquals(AGE, adventure.getAge());
-		assertEquals(IBAN, adventure.getIBAN());
-		assertEquals(AMOUNT, adventure.getAmount());
+		BulkRoomBooking booking = bulkBookings.get(0);
 
-		assertEquals(Adventure.State.PROCESS_PAYMENT, adventure.getState().getValue());
-		assertEquals(0, adventure.getState().getNumOfRemoteErrors());
+		assertEquals(begin, booking.getArrival());
+		assertEquals(end, booking.getDeparture());
+
+		List<String> references = new ArrayList<>(booking.getReferences());
+
+		assertEquals(4, references.size());
 	}
 
 	@After

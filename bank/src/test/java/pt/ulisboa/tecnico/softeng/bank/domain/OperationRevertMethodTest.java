@@ -1,9 +1,9 @@
 package pt.ulisboa.tecnico.softeng.bank.domain;
 
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-
-import org.junit.Test;
 
 public class OperationRevertMethodTest extends RollbackTestAbstractClass {
 	private Bank bank;

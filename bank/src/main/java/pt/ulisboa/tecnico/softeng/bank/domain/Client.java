@@ -27,6 +27,8 @@ public class Client extends Client_Base {
 	}
 	
 	public void delete() {
+		getAccountSet().forEach(Account::delete);
+
 		setBank(null);
 		super.deleteDomainObject();
 	}

@@ -1,11 +1,10 @@
 package pt.ulisboa.tecnico.softeng.bank.domain;
 
-import static org.junit.Assert.assertNull;
-
 import org.junit.Assert;
 import org.junit.Test;
-
 import pt.ulisboa.tecnico.softeng.bank.exception.BankException;
+
+import static org.junit.Assert.assertNull;
 
 public class BankGetAccountMethodTest extends RollbackTestAbstractClass {
 	Bank bank;

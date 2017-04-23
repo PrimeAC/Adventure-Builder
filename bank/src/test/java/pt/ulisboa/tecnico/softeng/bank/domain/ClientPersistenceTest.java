@@ -1,15 +1,14 @@
 package pt.ulisboa.tecnico.softeng.bank.domain;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.Set;
-
 import org.junit.After;
 import org.junit.Test;
-
 import pt.ist.fenixframework.Atomic;
 import pt.ist.fenixframework.Atomic.TxMode;
 import pt.ist.fenixframework.FenixFramework;
+
+import java.util.Set;
+
+import static org.junit.Assert.assertEquals;
 
 public class ClientPersistenceTest {
 	private static final String BANK_CODE = "BK01";

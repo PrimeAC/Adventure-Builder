@@ -1,11 +1,10 @@
 package pt.ulisboa.tecnico.softeng.hotel.domain;
 
+import org.joda.time.LocalDate;
+import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
+
 import java.util.HashSet;
 import java.util.Set;
-
-import org.joda.time.LocalDate;
-
-import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
 public class Room extends Room_Base {
 	public static enum Type {

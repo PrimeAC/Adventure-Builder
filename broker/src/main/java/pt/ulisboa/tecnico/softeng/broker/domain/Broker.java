@@ -1,19 +1,16 @@
 package pt.ulisboa.tecnico.softeng.broker.domain;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.joda.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import pt.ist.fenixframework.FenixFramework;
 import pt.ulisboa.tecnico.softeng.broker.exception.BrokerException;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Broker extends Broker_Base {
 	private static Logger logger = LoggerFactory.getLogger(Broker.class);
-
-	private final Set<BulkRoomBooking> bulkBookings = new HashSet<>();
 
 	public Broker(String code, String name) {
 		checkCode(code);
@@ -31,6 +28,7 @@ public class Broker extends Broker_Base {
 		for (Adventure adventure : getAdventureSet()) {
 			adventure.delete();
 		}
+		getBulkRoomBookingSet().forEach(BulkRoomBooking::delete);
 
 		deleteDomainObject();
 	}
@@ -55,7 +53,7 @@ public class Broker extends Broker_Base {
 
 	public void bulkBooking(int number, LocalDate arrival, LocalDate departure) {
 		BulkRoomBooking bulkBooking = new BulkRoomBooking(number, arrival, departure);
-		this.bulkBookings.add(bulkBooking);
+		this.addBulkRoomBooking(bulkBooking);
 		bulkBooking.processBooking();
 	}
 

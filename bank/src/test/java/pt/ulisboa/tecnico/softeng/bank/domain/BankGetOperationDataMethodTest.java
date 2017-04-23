@@ -1,13 +1,12 @@
 package pt.ulisboa.tecnico.softeng.bank.domain;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
 import org.junit.Test;
-
 import pt.ulisboa.tecnico.softeng.bank.dataobjects.BankOperationData;
 import pt.ulisboa.tecnico.softeng.bank.domain.Operation.Type;
 import pt.ulisboa.tecnico.softeng.bank.exception.BankException;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class BankGetOperationDataMethodTest extends RollbackTestAbstractClass {
 	private static int AMOUNT = 100;
