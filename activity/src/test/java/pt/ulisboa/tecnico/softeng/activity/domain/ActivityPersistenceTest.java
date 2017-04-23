@@ -9,8 +9,6 @@ import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
 
 public class ActivityPersistenceTest {
 
@@ -31,7 +29,7 @@ public class ActivityPersistenceTest {
 	public String atomicProcess() {
 		ActivityProvider activityProvider = new ActivityProvider(ACTIVITY_PROVIDER_CODE, ACTIVITY_PROVIDER_NAME);
 		Activity activity = new Activity(activityProvider, ACTIVITY_NAME, MIN_AGE, MAX_AGE, CAPACITY);
-		new Activity(activityProvider, ACTIVITY_NAME+"2", MIN_AGE, MAX_AGE, CAPACITY);
+		new Activity(activityProvider, ACTIVITY_NAME + "2", MIN_AGE, MAX_AGE, CAPACITY);
 		return activity.getCode();
 	}
 

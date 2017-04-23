@@ -4,11 +4,9 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.joda.time.LocalDate;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Test;
 
 import pt.ist.fenixframework.Atomic;
@@ -27,6 +25,7 @@ public class ActivityOfferPersistenceTest {
 
 	ActivityOffer activityOffer;
 	Activity activity;
+
 	@Test
 	public void success() {
 		atomicProcess();
@@ -43,10 +42,10 @@ public class ActivityOfferPersistenceTest {
 
 	@Atomic(mode = TxMode.READ)
 	public void atomicAssert() {
-		
+
 		List<ActivityOffer> activityOffers = new ArrayList<ActivityOffer>(activity.getOffers(begin, end, 40));
 		ActivityOffer AO = activityOffers.get(0);
-		
+
 		assertEquals(activityOffer.getBegin(), AO.getBegin());
 		assertEquals(activityOffer.getEnd(), AO.getEnd());
 		assertEquals(activityOffer.getActivity(), AO.getActivity());

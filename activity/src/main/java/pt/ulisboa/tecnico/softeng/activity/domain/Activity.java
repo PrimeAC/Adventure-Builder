@@ -6,7 +6,7 @@ import pt.ulisboa.tecnico.softeng.activity.exception.ActivityException;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Activity extends Activity_Base{
+public class Activity extends Activity_Base {
 	private static final int MIN_AGE = 18;
 	private static final int MAX_AGE = 100;
 
@@ -38,7 +38,7 @@ public class Activity extends Activity_Base{
 		}
 
 	}
-	
+
 	public void delete() {
 		getActivityOfferSet().forEach(ActivityOffer::delete);
 		setActivityProvider(null);
