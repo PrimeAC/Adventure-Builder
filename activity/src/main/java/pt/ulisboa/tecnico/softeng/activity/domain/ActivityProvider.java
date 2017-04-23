@@ -116,6 +116,12 @@ public class ActivityProvider extends ActivityProvider_Base {
 		throw new ActivityException();
 	}
 
-
-
+	public Activity getActivityByCode(String code){
+		for (Activity activity : getActivitySet()) {
+			if (activity.getCode().equals(code)) {
+				return activity;
+			}
+		}
+		return null;
+	}
 }

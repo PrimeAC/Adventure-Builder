@@ -1,7 +1,6 @@
 package pt.ulisboa.tecnico.softeng.bank.dataobjects;
 
 import org.joda.time.DateTime;
-
 import pt.ulisboa.tecnico.softeng.bank.domain.Operation;
 
 public class BankOperationData {

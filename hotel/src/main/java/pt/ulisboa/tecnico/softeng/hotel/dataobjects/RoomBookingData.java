@@ -1,7 +1,6 @@
 package pt.ulisboa.tecnico.softeng.hotel.dataobjects;
 
 import org.joda.time.LocalDate;
-
 import pt.ulisboa.tecnico.softeng.hotel.domain.Booking;
 import pt.ulisboa.tecnico.softeng.hotel.domain.Room;
 

@@ -2,7 +2,6 @@ package pt.ulisboa.tecnico.softeng.bank.domain;
 
 import org.junit.Assert;
 import org.junit.Test;
-
 import pt.ulisboa.tecnico.softeng.bank.exception.BankException;
 
 public class ClientContructorMethodTest extends RollbackTestAbstractClass {

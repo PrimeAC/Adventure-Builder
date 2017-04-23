@@ -3,7 +3,6 @@ package pt.ulisboa.tecnico.softeng.broker.domain;
 import org.joda.time.LocalDate;
 import org.junit.Assert;
 import org.junit.Test;
-
 import pt.ulisboa.tecnico.softeng.broker.exception.BrokerException;
 
 public class AdventureConstructorMethodTest extends RollbackTestAbstractClass {

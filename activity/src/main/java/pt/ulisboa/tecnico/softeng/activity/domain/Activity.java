@@ -1,11 +1,10 @@
 package pt.ulisboa.tecnico.softeng.activity.domain;
 
+import org.joda.time.LocalDate;
+import pt.ulisboa.tecnico.softeng.activity.exception.ActivityException;
+
 import java.util.HashSet;
 import java.util.Set;
-
-import org.joda.time.LocalDate;
-
-import pt.ulisboa.tecnico.softeng.activity.exception.ActivityException;
 
 public class Activity extends Activity_Base{
 	private static final int MIN_AGE = 18;

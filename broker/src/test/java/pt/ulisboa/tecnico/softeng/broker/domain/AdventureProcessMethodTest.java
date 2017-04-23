@@ -1,11 +1,7 @@
 package pt.ulisboa.tecnico.softeng.broker.domain;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
 import org.joda.time.LocalDate;
 import org.junit.Test;
-
 import pt.ulisboa.tecnico.softeng.activity.domain.Activity;
 import pt.ulisboa.tecnico.softeng.activity.domain.ActivityOffer;
 import pt.ulisboa.tecnico.softeng.activity.domain.ActivityProvider;
@@ -15,6 +11,8 @@ import pt.ulisboa.tecnico.softeng.bank.domain.Client;
 import pt.ulisboa.tecnico.softeng.hotel.domain.Hotel;
 import pt.ulisboa.tecnico.softeng.hotel.domain.Room;
 import pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type;
+
+import static org.junit.Assert.assertNotNull;
 
 public class AdventureProcessMethodTest extends RollbackTestAbstractClass {
 	private final LocalDate begin = new LocalDate(2016, 12, 19);

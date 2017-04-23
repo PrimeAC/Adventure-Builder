@@ -1,15 +1,14 @@
 package pt.ulisboa.tecnico.softeng.broker.domain;
 
-import javax.transaction.NotSupportedException;
-import javax.transaction.SystemException;
-
 import org.junit.After;
 import org.junit.Before;
-
 import pt.ist.fenixframework.FenixFramework;
 import pt.ist.fenixframework.core.WriteOnReadError;
 import pt.ulisboa.tecnico.softeng.activity.domain.ActivityProvider;
 import pt.ulisboa.tecnico.softeng.hotel.domain.Hotel;
+
+import javax.transaction.NotSupportedException;
+import javax.transaction.SystemException;
 
 public abstract class RollbackTestAbstractClass {
 	@Before

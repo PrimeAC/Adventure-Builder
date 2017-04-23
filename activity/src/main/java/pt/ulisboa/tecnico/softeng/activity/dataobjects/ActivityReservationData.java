@@ -1,7 +1,6 @@
 package pt.ulisboa.tecnico.softeng.activity.dataobjects;
 
 import org.joda.time.LocalDate;
-
 import pt.ulisboa.tecnico.softeng.activity.domain.ActivityOffer;
 import pt.ulisboa.tecnico.softeng.activity.domain.ActivityProvider;
 import pt.ulisboa.tecnico.softeng.activity.domain.Booking;

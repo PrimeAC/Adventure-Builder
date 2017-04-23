@@ -3,6 +3,9 @@ package pt.ulisboa.tecnico.softeng.activity.domain;
 import org.joda.time.LocalDate;
 import pt.ulisboa.tecnico.softeng.activity.exception.ActivityException;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class ActivityOffer extends ActivityOffer_Base{
 
 	public ActivityOffer(Activity activity, LocalDate begin, LocalDate end) {

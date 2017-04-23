@@ -2,7 +2,6 @@ package pt.ulisboa.tecnico.softeng.hotel.domain;
 
 import org.junit.Assert;
 import org.junit.Test;
-
 import pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 

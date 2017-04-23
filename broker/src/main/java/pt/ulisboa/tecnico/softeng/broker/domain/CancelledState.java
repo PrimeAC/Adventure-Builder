@@ -2,7 +2,6 @@ package pt.ulisboa.tecnico.softeng.broker.domain;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import pt.ulisboa.tecnico.softeng.activity.dataobjects.ActivityReservationData;
 import pt.ulisboa.tecnico.softeng.activity.exception.ActivityException;
 import pt.ulisboa.tecnico.softeng.bank.dataobjects.BankOperationData;

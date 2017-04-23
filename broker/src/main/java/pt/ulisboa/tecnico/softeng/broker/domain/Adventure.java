@@ -3,7 +3,6 @@ package pt.ulisboa.tecnico.softeng.broker.domain;
 import org.joda.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import pt.ulisboa.tecnico.softeng.broker.exception.BrokerException;
 
 public class Adventure extends Adventure_Base {
