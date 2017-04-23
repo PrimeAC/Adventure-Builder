@@ -55,6 +55,7 @@ public class Account extends Account_Base {
 	public void delete() {
 		setClient(null);
 		setBank(null);
+		getOperationSet().forEach(Operation::delete);
 		super.deleteDomainObject();
 	}
 }
