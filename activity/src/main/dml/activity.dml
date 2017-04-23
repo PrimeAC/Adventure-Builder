@@ -1,6 +1,5 @@
 package pt.ulisboa.tecnico.softeng.activity.domain;
 
-
 class ActivityProvider {
     String code;
     String name;
@@ -43,6 +42,21 @@ relation ActivityHasActivityOffer {
         multiplicity 1..1;
     }
     ActivityOffer playsRole activityOffer {
+        multiplicity 0..*;
+    }
+}
+
+class Booking {
+	String reference;
+    String cancel;
+    LocalDate cancellationDate;
+}
+
+relation ActivityOfferHasBooking {
+	ActivityOffer playsRole activityOffer {
+        multiplicity 1..1;
+    }
+    Booking playsRole booking {
         multiplicity 0..*;
     }
 }

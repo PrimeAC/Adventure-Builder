@@ -1,6 +1,7 @@
 package pt.ulisboa.tecnico.softeng.activity.domain;
 
 import org.junit.After;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import pt.ist.fenixframework.Atomic;
 import pt.ist.fenixframework.FenixFramework;

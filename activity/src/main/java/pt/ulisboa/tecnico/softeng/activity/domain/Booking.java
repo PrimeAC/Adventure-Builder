@@ -3,46 +3,41 @@ package pt.ulisboa.tecnico.softeng.activity.domain;
 import org.joda.time.LocalDate;
 import pt.ulisboa.tecnico.softeng.activity.exception.ActivityException;
 
-public class Booking {
+public class Booking extends Booking_Base {
 	private static int counter = 0;
-
-	private final String reference;
-	private String cancel;
-	private LocalDate cancellationDate;
 
 	public Booking(ActivityProvider provider, ActivityOffer offer) {
 		checkArguments(provider, offer);
-
-		this.reference = provider.getCode() + Integer.toString(++Booking.counter);
-
-		offer.addBooking(this);
+		setReference(provider.getCode() + Integer.toString(++Booking.counter));
+		setCancel(null);
+		setCancellationDate(null);
+		setActivityOffer(offer);
 	}
 
 	private void checkArguments(ActivityProvider provider, ActivityOffer offer) {
 		if (provider == null || offer == null) {
 			throw new ActivityException();
 		}
+		if (offer.getNumberOfBookings() == offer.getCapacity())
+			throw new ActivityException();
 	}
 
-	public String getReference() {
-		return this.reference;
-	}
-
-	public String getCancellation() {
-		return this.cancel;
-	}
-
-	public LocalDate getCancellationDate() {
-		return this.cancellationDate;
+	public void delete() {
+		setActivityOffer(null);
+		deleteDomainObject();
 	}
 
 	public String cancel() {
-		this.cancel = "CANCEL" + this.reference;
-		this.cancellationDate = new LocalDate();
-		return this.cancel;
+		setCancel("CANCEL" + getReference());
+		setCancellationDate(new LocalDate());
+		return getCancel();
+	}
+
+	public String getCancellation() {
+		return getCancel();
 	}
 
 	public boolean isCancelled() {
-		return this.cancel != null;
+		return getCancel() != null;
 	}
 }
