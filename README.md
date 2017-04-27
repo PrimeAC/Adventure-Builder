@@ -11,6 +11,6 @@ To run tests execute: mvn clean install
 |            |                         |                                        |                |           |
 |            |                         |                                        |                |           |
 |   82539    |     Afonso Caetano      | afonso.caetano@tecnico.ulisboa.pt.com  |    @PrimeAC    | Activity  |
-|            |                         |                                        |                |           |
+|   82053    |     Bruno Santos        | bruno_scp5@hotmail.com                 | @brunoaosantos | Activity  |
 |            |                         |                                        |                |           |
  
