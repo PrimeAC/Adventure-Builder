@@ -7,7 +7,7 @@ To run tests execute: mvn clean install
 |            |                         |                                        |                |           |
 |            |                         |                                        |                |           |
 |            |                         |                                        |                |           |
-|            |                         |                                        |                |           |
+|   82528    |     João Carlos         | joaocarlos95@gmail.com                 | @joaocarlos95  | Bank      |
 |            |                         |                                        |                |           |
 |            |                         |                                        |                |           |
 |   82539    |     Afonso Caetano      | afonso.caetano@tecnico.ulisboa.pt      | @PrimeAC       | Activity  |
