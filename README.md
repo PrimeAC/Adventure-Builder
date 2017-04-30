@@ -4,7 +4,7 @@ To run tests execute: mvn clean install
 
 |   Number   |          Name           |            Email                       |   Name GitHub  | Module(s) |
 | ---------- | ----------------------- | -------------------------------------- | ---------------| --------- |
-|            |                         |                                        |                |           |
+|   82553    |     Mariana Cruz        | mariana.cruz@tecnico.ulisboa.pt        | @MarianaCruz   | Hotel     |
 |            |                         |                                        |                |           |
 |            |                         |                                        |                |           |
 |   82528    |     João Carlos         | joaocarlos95@gmail.com                 | @joaocarlos95  | Bank      |
