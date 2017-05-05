@@ -24,21 +24,24 @@
         <input class="btn btn-primary" type="submit" value="Submit" />
     </form>
     <br/>
-    <h3>List of Activities</h3>
+    <h3>Activities</h3>
     <table class="table table-striped">
         <thead>
         <tr>
             <th>Name</th>
             <th>Code</th>
-            <th>Activities</th>
+            <th>Minimum Age</th>
+            <th>Maximum Age</th>
+            <th>Capacity</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="provider: ${providers}">
-            <td th:text="${provider.name}">Name</td>
-            <td th:text="${provider.code}">Code</td>
-            <td><a
-                    th:href="@{/providers/{code}/activities(code=${provider.code})}">Link</a></td>
+        <tr th:each="activity: ${provider.activities}">
+            <td th:text="${activity.name}">Name</td>
+            <td th:text="${activity.code}">Code</td>
+            <td th:text="${activity.minAge}">Min Age</td>
+            <td th:text="${activity.maxAge}">Max Age</td>
+            <td th:text="${activity.capacity}">Capacity</td>
         </tr>
         </tbody>
     </table>

@@ -1,4 +1,4 @@
-package pt.ulisboa.tecnico.softeng.activity.presentation.;
+package pt.ulisboa.tecnico.softeng.activity.presentation;
 
 
 import org.slf4j.Logger;
@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pt.ulisboa.tecnico.softeng.activity.exception.ActivityException;
+import pt.ulisboa.tecnico.softeng.activity.services.local.dataobjects.ActivityData;
 
 @Controller
 @RequestMapping(value = "/activities")
@@ -37,7 +38,7 @@ public class ActivityController {
 	@RequestMapping(method = RequestMethod.POST)
 	public String submitActivity(Model model, @PathVariable String providerCode, @ModelAttribute ActivityData activityData) {
 		logger.info("activitySubmit providerCode:{}, name:{}, minAge:{}, maxAge:{}, capacity:{}", providerCode,
-				activityData.getName(), activityData.getMinAge(), activityData.getMaxAger(), activityData.getCapacity());
+				activityData.getName(), activityData.getMinAge(), activityData.getMaxAge(), activityData.getCapacity());
 
 		try {
 			ActivityProviderInterface.createActivity(providerCode, activityData);
