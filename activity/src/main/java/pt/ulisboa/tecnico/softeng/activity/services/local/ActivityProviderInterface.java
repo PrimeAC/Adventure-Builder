@@ -4,6 +4,8 @@ package pt.ulisboa.tecnico.softeng.activity.services.local;
 import pt.ist.fenixframework.Atomic;
 import pt.ist.fenixframework.FenixFramework;
 import pt.ulisboa.tecnico.softeng.activity.domain.ActivityProvider;
+import pt.ulisboa.tecnico.softeng.activity.services.local.dataobjects.ActivityProviderData;
+import pt.ulisboa.tecnico.softeng.activity.services.local.dataobjects.ActivityProviderData.CopyDepth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +26,7 @@ public class ActivityProviderInterface {
 	}
 
 	@Atomic(mode = Atomic.TxMode.READ)
-	public static BrokerData getActivityProviderDataByCode(String activityProviderCode, CopyDepth depth) {
+	public static ActivityProviderData getActivityProviderDataByCode(String activityProviderCode, CopyDepth depth) {
 		ActivityProvider provider = getActivityProviderByCode(activityProviderCode);
 
 		if (provider != null) {

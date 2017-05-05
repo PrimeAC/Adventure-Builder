@@ -7,9 +7,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import pt.ulisboa.tecnico.softeng.bank.exception.ActivityException;
-import pt.ulisboa.tecnico.softeng.bank.services.local.ActivityProviderInterface;
-import pt.ulisboa.tecnico.softeng.bank.services.local.dataobjects.ActivityProviderData;
+import pt.ulisboa.tecnico.softeng.activity.exception.ActivityException;
+import pt.ulisboa.tecnico.softeng.activity.services.local.ActivityProviderInterface;
+import pt.ulisboa.tecnico.softeng.activity.services.local.dataobjects.ActivityProviderData;
 
 @Controller
 @RequestMapping(value = "/providers")
