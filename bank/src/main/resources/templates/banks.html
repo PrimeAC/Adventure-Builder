@@ -3,8 +3,7 @@
 <head>
 	<title>Banks</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<link rel="stylesheet"
-		  th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" />
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" />
 	<script th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
 	<script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
 </head>
@@ -34,8 +33,7 @@
 		<tr th:each="bank: ${banks}">
 			<td th:text="${bank.name}">Name</td>
 			<td th:text="${bank.code}">Code</td>
-			<td><a
-					th:href="@{/banks/{code}(code=${bank.code})}">Link</a></td>
+			<td><a th:href="@{/banks/{code}(code=${bank.code})}">Link</a></td>
 		</tr>
 		</tbody>
 	</table>

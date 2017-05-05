@@ -1,6 +1,5 @@
 package pt.ulisboa.tecnico.softeng.bank.services.local.dataobjects;
 
-import pt.ulisboa.tecnico.softeng.bank.domain.Account;
 import pt.ulisboa.tecnico.softeng.bank.domain.Bank;
 import pt.ulisboa.tecnico.softeng.bank.domain.Client;
 import pt.ulisboa.tecnico.softeng.bank.domain.Operation;
