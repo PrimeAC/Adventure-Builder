@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ActivityProviderData {
 	public static enum CopyDepth {
-		SHALLOW, ACTIVITY
+		SHALLOW, ACTIVITIES
 	}
 
 
@@ -25,8 +25,8 @@ public class ActivityProviderData {
 		this.code = provider.getCode();
 
 		switch (depth) {
-			case ACTIVITY:
-				for (ACTIVITY activity : provider.getActivitySet()) {
+			case ACTIVITIES:
+				for (Activity activity : provider.getActivitySet()) {
 					this.activities.add(new ActivityData(activity));
 				}
 				break;
