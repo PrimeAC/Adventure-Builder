@@ -14,9 +14,23 @@ import pt.ulisboa.tecnico.softeng.hotel.domain.Booking;
 import pt.ulisboa.tecnico.softeng.hotel.domain.Hotel;
 import pt.ulisboa.tecnico.softeng.hotel.domain.Room;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
+import pt.ulisboa.tecnico.softeng.hotel.services.local.dataobjects.HotelData;
 import pt.ulisboa.tecnico.softeng.hotel.services.local.dataobjects.RoomBookingData;
 
 public class HotelInterface {
+	@Atomic(mode = TxMode.READ)
+	public static List<HotelData> getHotels() {
+		List<HotelData> hotels = new ArrayList<>();
+		for (Hotel hotel : FenixFramework.getDomainRoot().getHotelSet()) {
+			hotels.add(new HotelData(hotel, HotelData.CopyDepth.SHALLOW));
+		}
+		return hotels;
+	}
+
+	@Atomic(mode = TxMode.WRITE)
+	public static void createHotel(HotelData hotelData) {
+		new Hotel(hotelData.getCode(), hotelData.getName());
+	}
 
 	@Atomic(mode = TxMode.WRITE)
 	public static String reserveRoom(Room.Type type, LocalDate arrival, LocalDate departure) {
