@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pt.ulisboa.tecnico.softeng.activity.exception.ActivityException;
+import pt.ulisboa.tecnico.softeng.activity.services.local.ActivityInterface;
 import pt.ulisboa.tecnico.softeng.activity.services.local.dataobjects.ActivityData;
 
 @Controller
@@ -21,12 +22,12 @@ public class ActivityController {
 	public String showActivities(Model model, @PathVariable String providerCode) {
 		logger.info("showActivities code:{}", providerCode);
 
-		ActivityProviderData providerData = ActivityProviderInterface.getActivityProviderDataByCode(providerCode, CopyDepth.ACTIVITIES);
+		ActivityProviderData providerData = ActivityInterface.getActivityProviderDataByCode(providerCode, CopyDepth.ACTIVITIES);
 
 		if (providerData == null) {
 			model.addAttribute("error", "Error: it does not exist an activity provider with the code " + providerCode);
 			model.addAttribute("provider", new ActivityProviderData());
-			model.addAttribute("providers", ActivityProviderInterface.getActivityProviders());
+			model.addAttribute("providers", ActivityInterface.getActivityProviders());
 			return "providers";
 		} else {
 			model.addAttribute("activity", new ActivityData());
@@ -41,11 +42,11 @@ public class ActivityController {
 				activityData.getName(), activityData.getMinAge(), activityData.getMaxAge(), activityData.getCapacity());
 
 		try {
-			ActivityProviderInterface.createActivity(providerCode, activityData);
+			ActivityInterface.createActivity(providerCode, activityData);
 		} catch (ActivityException ae) {
 			model.addAttribute("error", "Error: it was not possible to create the activity");
 			model.addAttribute("activity", activityData);
-			model.addAttribute("activities", ActivityProviderInterface.getActivityProviderDataByCode(providerCode, CopyDepth.ACTIVITIES));
+			model.addAttribute("activities", ActivityInterface.getActivityProviderDataByCode(providerCode, CopyDepth.ACTIVITIES));
 			return "activities";
 		}
 

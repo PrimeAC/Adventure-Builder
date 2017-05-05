@@ -13,6 +13,7 @@ import pt.ulisboa.tecnico.softeng.activity.domain.ActivityProvider;
 import pt.ulisboa.tecnico.softeng.activity.domain.Booking;
 import pt.ulisboa.tecnico.softeng.activity.exception.ActivityException;
 import pt.ulisboa.tecnico.softeng.activity.services.local.dataobjects.ActivityReservationData;
+import pt.ulisboa.tecnico.softeng.activity.services.local.dataobjects.ActivityData;
 
 public class ActivityInterface {
 
@@ -60,6 +61,12 @@ public class ActivityInterface {
 			}
 		}
 		return null;
+	}
+
+	@Atomic(mode = TxMode.WRITE)
+	public static void createActivity(String providerCode, ActivityData activityData) {
+		new Activity(getActivityProviderByCode(providerCode), activityData.getName(), activityData.getMinAge(), activityData.getMaxAge(),
+				activityData.getCapacity());
 	}
 
 }
