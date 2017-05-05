@@ -10,11 +10,12 @@ import org.joda.time.LocalDate;
 import pt.ist.fenixframework.Atomic;
 import pt.ist.fenixframework.Atomic.TxMode;
 import pt.ist.fenixframework.FenixFramework;
-import pt.ulisboa.tecnico.softeng.hotel.domain.Booking;
 import pt.ulisboa.tecnico.softeng.hotel.domain.Hotel;
+import pt.ulisboa.tecnico.softeng.hotel.services.local.dataobjects.HotelData;
+import pt.ulisboa.tecnico.softeng.hotel.services.local.dataobjects.HotelData.CopyDepth;
+import pt.ulisboa.tecnico.softeng.hotel.domain.Booking;
 import pt.ulisboa.tecnico.softeng.hotel.domain.Room;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
-import pt.ulisboa.tecnico.softeng.hotel.services.local.dataobjects.HotelData;
 import pt.ulisboa.tecnico.softeng.hotel.services.local.dataobjects.RoomBookingData;
 
 public class HotelInterface {
@@ -30,6 +31,17 @@ public class HotelInterface {
 	@Atomic(mode = TxMode.WRITE)
 	public static void createHotel(HotelData hotelData) {
 		new Hotel(hotelData.getCode(), hotelData.getName());
+	}
+	
+	@Atomic(mode = TxMode.READ)
+	public static HotelData getHotelDataByCode(String hotelCode, CopyDepth depth) {
+		Hotel hotel = getHotelByCode(hotelCode);
+
+		if (hotel != null) {
+			return new HotelData(hotel, depth);
+		} else {
+			return null;
+		}
 	}
 
 	@Atomic(mode = TxMode.WRITE)
@@ -95,6 +107,15 @@ public class HotelInterface {
 			}
 		}
 		return availableRooms;
+	}
+	
+	private static Hotel getHotelByCode(String code) {
+		for (Hotel hotel : FenixFramework.getDomainRoot().getHotelSet()) {
+			if (hotel.getCode().equals(code)) {
+				return hotel;
+			}
+		}
+		return null;
 	}
 
 }

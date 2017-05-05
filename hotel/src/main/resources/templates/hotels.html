@@ -27,13 +27,14 @@
 				<tr>
 					<th>Name</th>
 					<th>Code</th>
+					<th>Rooms</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr th:each="hotel: ${hotels}">
 					<td th:text="${hotel.name}">Name</td>
 					<td th:text="${hotel.code}">Code</td>
-					<td><a th:href="@{/hotels/{code}(code=${hotel.code})}">Link</a></td>
+					<td><a th:href="@{/hotels/{code}/rooms(code=${hotel.code})}">Link</a></td>
 				</tr>
 			</tbody>
 		</table>
