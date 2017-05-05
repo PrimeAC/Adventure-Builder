@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import pt.ulisboa.tecnico.softeng.bank.exception.ActivityProviderException;
+import pt.ulisboa.tecnico.softeng.bank.exception.ActivityException;
 import pt.ulisboa.tecnico.softeng.bank.services.local.ActivityProviderInterface;
 import pt.ulisboa.tecnico.softeng.bank.services.local.dataobjects.ActivityProviderData;
 
@@ -26,11 +26,11 @@ public class ActivityProviderController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public String activityProviderSubmit(Model model, @ModelAttribute ActivityProviderData activityProviderData) {
-		logger.info("activityProviderSubmit name:{}, code:{}", ActivityProviderData.getName(), ActivityProviderData.getCode());
+		logger.info("activityProviderSubmit name:{}, code:{}", activityProviderData.getName(), activityProviderData.getCode());
 
 		try {
-			ActivityProviderInterface.createBank(activityProviderData);
-		} catch (ActivityProviderException be) {
+			ActivityProviderInterface.createProvider(activityProviderData);
+		} catch (ActivityException be) {
 			model.addAttribute("error", "Error: it was not possible to create the bank");
 			model.addAttribute("provider", activityProviderData);
 			model.addAttribute("providers", ActivityProviderInterface.getActivityProviders());
