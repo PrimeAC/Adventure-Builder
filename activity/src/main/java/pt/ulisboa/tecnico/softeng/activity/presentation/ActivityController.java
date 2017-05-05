@@ -13,7 +13,7 @@ import pt.ulisboa.tecnico.softeng.activity.exception.ActivityException;
 import pt.ulisboa.tecnico.softeng.activity.services.local.dataobjects.ActivityData;
 
 @Controller
-@RequestMapping(value = "/activities")
+@RequestMapping(value = "/providers/{providerCode}/activities")
 public class ActivityController {
 	private static Logger logger = LoggerFactory.getLogger(ActivityController.class);
 

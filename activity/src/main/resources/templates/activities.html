@@ -11,8 +11,9 @@
 <body>
 <div class="container">
     <h2>
-        Welcome to Activity's Manager
+        Welcome to Activity Provider <span th:text="${provider.name}">Name</span> Activities
     </h2>
+    <a class="btn btn-default pull-right" th:href="@{/providers}">Activity Providers</a>
     <br/>
     <h3>Create Activity</h3>
     <p class="text-danger" th:text="${error}">Error</p>
