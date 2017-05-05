@@ -12,32 +12,31 @@ import pt.ulisboa.tecnico.softeng.bank.services.local.ActivityProviderInterface;
 import pt.ulisboa.tecnico.softeng.bank.services.local.dataobjects.ActivityProviderData;
 
 @Controller
-@RequestMapping(value = "/activity")
-public class ActivityController {
-	private static Logger logger = LoggerFactory.getLogger(ActivityController.class);
+@RequestMapping(value = "/providers")
+public class ActivityProviderController {
+	private static Logger logger = LoggerFactory.getLogger(ActivityProviderController.class);
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String activityForm(Model model) {
-		logger.info("activityForm");
+	public String ActivityProviderForm(Model model) {
+		logger.info("ActivityProviderForm");
 		model.addAttribute("provider", new ActivityProviderData());
-		model.addAttribute("providers", ActivityProviderInterface.getActivityProvider());
+		model.addAttribute("providers", ActivityProviderInterface.getActivityProviders());
 		return "providers";
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String bankSubmit(Model model, @ModelAttribute ActivityProviderData activityProviderData) {
-		logger.info("ActivityProviderSubmit name:{}, code:{}", activityProviderData.getName(), activityProviderData.getCode());
+	public String activityProviderSubmit(Model model, @ModelAttribute ActivityProviderData activityProviderData) {
+		logger.info("activityProviderSubmit name:{}, code:{}", ActivityProviderData.getName(), ActivityProviderData.getCode());
 
 		try {
-			ActivityProviderInterface.createActivityProvider(activityProviderData);
+			ActivityProviderInterface.createBank(activityProviderData);
 		} catch (ActivityProviderException be) {
-			model.addAttribute("error", "Error: it was not possible to create the provider");
+			model.addAttribute("error", "Error: it was not possible to create the bank");
 			model.addAttribute("provider", activityProviderData);
-			model.addAttribute("providers", ActivityProviderInterface.getActivityProvider());
+			model.addAttribute("providers", ActivityProviderInterface.getActivityProviders());
 			return "providers";
 		}
 
-		return "redirect:/activity";
+		return "redirect:/providers";
 	}
 }
-
