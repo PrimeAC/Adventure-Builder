@@ -40,7 +40,6 @@ public class BankInterface {
 			return null;
 	}
 
-
 	@Atomic(mode = TxMode.READ)
 	public static List<BankData> getBanks() {
 		List<BankData> banks = new ArrayList<>();
@@ -68,8 +67,8 @@ public class BankInterface {
 	}
 
 	@Atomic(mode = TxMode.WRITE)
-	public static void createAccount(AccountData accountData) {
-		new Account(accountData.getBank(), accountData.getClient());
+	public static void createAccount(String code, String id) {
+		new Account(getBankByCode(code), getClientByID(id, code));
 	}
 
 	public static int getBalance(String iban) {
@@ -145,7 +144,7 @@ public class BankInterface {
 		return null;
 	}
 
-	public static Client getClientByID(String ID, String code) {
+	private static Client getClientByID(String ID, String code) {
 
 		Bank bank = getBankByCode(code);
 
@@ -156,7 +155,7 @@ public class BankInterface {
 		return null;
 	}
 
-	public static Bank getBankByCode(String code) {
+	private static Bank getBankByCode(String code) {
 
 		for (Bank bank : FenixFramework.getDomainRoot().getBankSet()) {
 			if (bank.getCode().equals(code))

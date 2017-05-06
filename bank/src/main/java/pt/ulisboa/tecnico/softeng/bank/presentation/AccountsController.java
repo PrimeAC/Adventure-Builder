@@ -43,13 +43,10 @@ public class AccountsController {
 	public String accountSubmit(Model model, @ModelAttribute AccountData accountData, @PathVariable String code,
 								@PathVariable String id, @ModelAttribute BankData bankData, @ModelAttribute ClientData clientData) {
 
-		accountData.setBank(BankInterface.getBankByCode(code));
-		accountData.setClient(BankInterface.getClientByID(id, code));
-
 		model.addAttribute("bank", bankData);
 
 		try {
-			BankInterface.createAccount(accountData);
+			BankInterface.createAccount(code, id);
 		} catch (BankException be) {
 			model.addAttribute("error", "Error: it was not possible to create the account");
 			model.addAttribute("account", accountData);
