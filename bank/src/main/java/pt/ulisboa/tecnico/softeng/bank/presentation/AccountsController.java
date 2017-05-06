@@ -26,7 +26,6 @@ public class AccountsController {
 		BankData bankData = BankInterface.getBankData(code, BankData.CopyDepth.CLIENTS);
 		ClientData clientData = BankInterface.getClientData(id, code, ClientData.CopyDepth.ACCOUNTS);
 
-
 		if (clientData == null) {
 			model.addAttribute("error", "Error: it does not exist a client with the id " + id);
 			model.addAttribute("client", new ClientData());
@@ -42,17 +41,22 @@ public class AccountsController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public String accountSubmit(Model model, @ModelAttribute AccountData accountData, @PathVariable String code,
-								@PathVariable String ID) {
+								@PathVariable String id, @ModelAttribute BankData bankData, @ModelAttribute ClientData clientData) {
+
+		accountData.setBank(BankInterface.getBankByCode(code));
+		accountData.setClient(BankInterface.getClientByID(id, code));
+
+		model.addAttribute("bank", bankData);
 
 		try {
 			BankInterface.createAccount(accountData);
 		} catch (BankException be) {
 			model.addAttribute("error", "Error: it was not possible to create the account");
 			model.addAttribute("account", accountData);
-			model.addAttribute("client", BankInterface.getClientData(ID, code, ClientData.CopyDepth.ACCOUNTS));
+			model.addAttribute("client", BankInterface.getClientData(id, code, ClientData.CopyDepth.ACCOUNTS));
 			return "accounts";
 		}
-		return "redirect:/banks/" + code + "/clients/" + ID + "/accounts";
+		return "redirect:/banks/" + code + "/clients/" + id + "/accounts";
 	}
 
 }
