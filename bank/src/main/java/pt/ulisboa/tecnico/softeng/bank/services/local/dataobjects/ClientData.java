@@ -16,7 +16,7 @@ public class ClientData {
 	private String id;
 	private String name;
 	private Bank bank;
-	public List<AccountData> accounts = new ArrayList<>();
+	private List<AccountData> accounts = new ArrayList<>();
 
 	public ClientData() {
 	}
@@ -62,8 +62,11 @@ public class ClientData {
 		this.bank = bank;
 	}
 
-	public List<AccountData> getAccounts(){
+	public List<AccountData> getAccounts() {
 		return this.accounts;
 	}
 
+	public void setAccounts(List<AccountData> accounts) {
+		this.accounts = accounts;
+	}
 }

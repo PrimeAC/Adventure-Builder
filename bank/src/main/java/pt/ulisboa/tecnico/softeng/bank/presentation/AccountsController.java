@@ -33,8 +33,11 @@ public class AccountsController {
 			return "clients";
 		} else {
 			model.addAttribute("account", new AccountData());
+			model.addAttribute("accounts", BankInterface.getAccounts(code, id));
 			model.addAttribute("client", clientData);
+			model.addAttribute("clients", BankInterface.getClients(code));
 			model.addAttribute("bank", bankData);
+			model.addAttribute("banks", BankInterface.getBanks());
 			return "accounts";
 		}
 	}
@@ -43,13 +46,12 @@ public class AccountsController {
 	public String accountSubmit(Model model, @ModelAttribute AccountData accountData, @PathVariable String code,
 								@PathVariable String id, @ModelAttribute BankData bankData, @ModelAttribute ClientData clientData) {
 
-		model.addAttribute("bank", bankData);
-
 		try {
 			BankInterface.createAccount(code, id);
 		} catch (BankException be) {
 			model.addAttribute("error", "Error: it was not possible to create the account");
 			model.addAttribute("account", accountData);
+			model.addAttribute("accounts", BankInterface.getAccounts(code, id));
 			model.addAttribute("client", BankInterface.getClientData(id, code, ClientData.CopyDepth.ACCOUNTS));
 			return "accounts";
 		}

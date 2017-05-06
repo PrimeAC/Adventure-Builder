@@ -61,6 +61,18 @@ public class BankInterface {
 		return clients;
 	}
 
+	@Atomic(mode = TxMode.READ)
+	public static List<AccountData> getAccounts(String code, String id) {
+		List<AccountData> accounts = new ArrayList<>();
+
+		Client client = getClientByID(id, code);
+
+		for (Account account : client.getAccountSet()) {
+			accounts.add(new AccountData(account));
+		}
+		return accounts;
+	}
+
 	@Atomic(mode = TxMode.WRITE)
 	public static void createBank(BankData bankData) {
 		new Bank(bankData.getName(), bankData.getCode());
@@ -69,6 +81,12 @@ public class BankInterface {
 	@Atomic(mode = TxMode.WRITE)
 	public static void createAccount(String code, String id) {
 		new Account(getBankByCode(code), getClientByID(id, code));
+	}
+
+	@Atomic(mode = TxMode.WRITE)
+	public static void createClient(ClientData clientData, String code) {
+		Bank bank = getBankByCode(code);
+		new Client(bank, clientData.getName());
 	}
 
 	public static int getBalance(String iban) {
