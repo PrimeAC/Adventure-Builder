@@ -18,7 +18,12 @@ public class RoomData {
 		SHALLOW, BOOKINGS
 	};
 
-	public RoomData() {
+	public RoomData() {}
+	
+	public RoomData(Room room) {
+		this.hotel = room.getHotel();
+		this.type = room.getType();
+		this.number = room.getNumber();
 	}
 
 	public RoomData(Room room, CopyDepth depth) {
