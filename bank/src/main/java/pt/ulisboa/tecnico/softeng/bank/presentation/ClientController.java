@@ -14,16 +14,30 @@ import pt.ulisboa.tecnico.softeng.bank.services.local.dataobjects.BankData;
 import pt.ulisboa.tecnico.softeng.bank.services.local.dataobjects.ClientData;
 
 @Controller
-@RequestMapping(value = "/banks/{code}")
+@RequestMapping(value = "/banks/{code}/clients")
 public class ClientController {
 	private static Logger logger = LoggerFactory.getLogger(ClientController.class);
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String clientForm(Model model, @PathVariable String code) {
 		logger.info("clientForm");
-		model.addAttribute("client", new ClientData());
-		model.addAttribute("clients", BankInterface.getClients(code));
-		model.addAttribute("bank", BankInterface.getBankData(code, BankData.CopyDepth.OPERATIONS));
+
+
+		BankData bankData = BankInterface.getBankData(code, BankData.CopyDepth.OPERATIONS);
+
+		if (bankData == null) {
+			model.addAttribute("error", "Error: it does not exist a bank with the code " + code);
+			model.addAttribute("bank", new BankData());
+			model.addAttribute("banks", BankInterface.getBanks());
+			return "banks";
+		} else {
+			ClientData clientData = new ClientData();
+			//clientData.setBank(BankInterface.getBankByCode(code));
+			model.addAttribute("client", clientData);
+			model.addAttribute("clients", BankInterface.getClients(code));
+			model.addAttribute("bank", bankData);
+			model.addAttribute("operations", bankData.getBankOperations());
+		}
 		return "clients";
 	}
 
@@ -34,12 +48,15 @@ public class ClientController {
 		try {
 			BankInterface.createClient(clientData);
 		} catch (BankException be) {
+			BankData bankData = BankInterface.getBankData(code, BankData.CopyDepth.OPERATIONS);
 			model.addAttribute("error", "Error: it was not possible to create the client");
 			model.addAttribute("client", clientData);
 			model.addAttribute("clients", BankInterface.getClients(code));
+			model.addAttribute("bank", bankData);
+			model.addAttribute("operations", bankData.getBankOperations());
 			return "clients";
 		}
 
-		return "redirect:/banks/" + code;
+		return "redirect:/banks/" + code + "/clients";
 	}
 }
