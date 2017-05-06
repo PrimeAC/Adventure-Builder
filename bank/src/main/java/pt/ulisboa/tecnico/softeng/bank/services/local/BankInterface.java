@@ -67,8 +67,9 @@ public class BankInterface {
 	}
 
 	@Atomic(mode = TxMode.WRITE)
-	public static void createClient(ClientData clientData) {
-		new Client(clientData.getBank(), clientData.getName());
+	public static void createClient(ClientData clientData, String code) {
+		Bank bank = getBankByCode(code);
+		new Client(bank, clientData.getName());
 	}
 
 	@Atomic(mode = TxMode.WRITE)

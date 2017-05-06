@@ -32,7 +32,6 @@ public class ClientController {
 			return "banks";
 		} else {
 			ClientData clientData = new ClientData();
-			//clientData.setBank(BankInterface.getBankByCode(code));
 			model.addAttribute("client", clientData);
 			model.addAttribute("clients", BankInterface.getClients(code));
 			model.addAttribute("bank", bankData);
@@ -46,7 +45,7 @@ public class ClientController {
 		logger.info("clientSubmit name:{}, bank:{}", clientData.getName(), clientData.getBank());
 
 		try {
-			BankInterface.createClient(clientData);
+			BankInterface.createClient(clientData, code);
 		} catch (BankException be) {
 			BankData bankData = BankInterface.getBankData(code, BankData.CopyDepth.OPERATIONS);
 			model.addAttribute("error", "Error: it was not possible to create the client");
