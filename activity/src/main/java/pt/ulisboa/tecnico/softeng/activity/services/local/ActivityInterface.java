@@ -11,11 +11,47 @@ import pt.ulisboa.tecnico.softeng.activity.domain.Booking;
 import pt.ulisboa.tecnico.softeng.activity.exception.ActivityException;
 import pt.ulisboa.tecnico.softeng.activity.services.local.dataobjects.ActivityData;
 import pt.ulisboa.tecnico.softeng.activity.services.local.dataobjects.ActivityOfferData;
+import pt.ulisboa.tecnico.softeng.activity.services.local.dataobjects.ActivityProviderData;
 import pt.ulisboa.tecnico.softeng.activity.services.local.dataobjects.ActivityReservationData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ActivityInterface {
+
+	@Atomic(mode = Atomic.TxMode.READ)
+	public static List<ActivityProviderData> getActivityProviders() {
+		List<ActivityProviderData> providers = new ArrayList<>();
+		for (ActivityProvider provider : FenixFramework.getDomainRoot().getActivityProviderSet()) {
+			providers.add(new ActivityProviderData(provider, ActivityProviderData.CopyDepth.SHALLOW));
+		}
+		return providers;
+	}
+
+	@Atomic(mode = Atomic.TxMode.WRITE)
+	public static void createProvider(ActivityProviderData activityProviderData) {
+		new ActivityProvider(activityProviderData.getCode(), activityProviderData.getName());
+	}
+
+	@Atomic(mode = Atomic.TxMode.READ)
+	public static ActivityProviderData getActivityProviderDataByCode(String activityProviderCode, ActivityProviderData.CopyDepth depth) {
+		ActivityProvider provider = getActivityProviderByCode(activityProviderCode);
+
+		if (provider != null) {
+			return new ActivityProviderData(provider, depth);
+		} else {
+			return null;
+		}
+	}
+
+	private static ActivityProvider getActivityProviderByCode(String code) {
+		for (ActivityProvider provider : FenixFramework.getDomainRoot().getActivityProviderSet()) {
+			if (provider.getCode().equals(code)) {
+				return provider;
+			}
+		}
+		return null;
+	}
 
 	@Atomic(mode = TxMode.WRITE)
 	public static String reserveActivity(LocalDate begin, LocalDate end, int age) {
@@ -57,7 +93,7 @@ public class ActivityInterface {
 	public static ActivityData getActivityData(String code) {
 		Activity activity = getActivityByCode(code);
 		if (activity != null) {
-			return new ActivityData(getActivityByCode(code));
+			return new ActivityData(getActivityByCode(code), ActivityData.CopyDepth.OFFERS);
 		} else {
 			return null;
 		}
@@ -66,10 +102,14 @@ public class ActivityInterface {
 	@Atomic(mode = TxMode.WRITE)
 	public static boolean createOffer(String activityCode, ActivityOfferData offerData) {
 		Activity activity = getActivityByCode(activityCode);
-		if (activity != null) {
-			new ActivityOffer(activity, offerData.getBegin(), offerData.getEnd());
-			return true;
-		} else {
+		try{
+			if (activity != null) {
+				new ActivityOffer(activity, offerData.getBegin(), offerData.getEnd());
+				return true;
+			} else {
+				return false;
+			}
+		} catch (ActivityException ignore){
 			return false;
 		}
 	}
@@ -82,6 +122,12 @@ public class ActivityInterface {
 			}
 		}
 		return null;
+	}
+
+	@Atomic(mode = TxMode.WRITE)
+	public static void createActivity(String providerCode, ActivityData activityData) {
+		new Activity(getActivityProviderByCode(providerCode), activityData.getName(), activityData.getMinAge(), activityData.getMaxAge(),
+				activityData.getCapacity());
 	}
 
 	private static Activity getActivityByCode(String code) {
