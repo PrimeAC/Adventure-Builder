@@ -16,7 +16,7 @@ public class ClientData {
 	private String id;
 	private String name;
 	private Bank bank;
-	private List<AccountData> accounts = new ArrayList<>();
+	public List<AccountData> accounts = new ArrayList<>();
 
 	public ClientData() {
 	}

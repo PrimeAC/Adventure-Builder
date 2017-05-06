@@ -76,15 +76,15 @@ public class BankInterface {
 	}
 
 	@Atomic(mode = TxMode.WRITE)
-	public static void deposit(AccountData accountData) {
-		Account account = getAccountByIban(accountData.getIBAN());
-		account.deposit(accountData.getAmount());
+	public static void deposit(BankOperationData bankOperationData) {
+		Account account = getAccountByIban(bankOperationData.getIban());
+		account.deposit(bankOperationData.getValue());
 	}
 
 	@Atomic(mode = TxMode.WRITE)
-	public static void widthraw(AccountData accountData) {
-		Account account = getAccountByIban(accountData.getIBAN());
-		account.withdraw(accountData.getAmount());
+	public static void widthraw(BankOperationData bankOperationData) {
+		Account account = getAccountByIban(bankOperationData.getIban());
+		account.withdraw(bankOperationData.getValue());
 	}
 
 	private static Account getAccountByIban(String iban) {
@@ -93,6 +93,15 @@ public class BankInterface {
 			if (account != null) {
 				return account;
 			}
+		}
+		return null;
+	}
+
+	@Atomic(mode = TxMode.READ)
+	public static AccountData getAccountDataByIban(String iban) {
+		Account account = getAccountByIban(iban);
+		if (account != null) {
+			return new AccountData(account);
 		}
 		return null;
 	}
