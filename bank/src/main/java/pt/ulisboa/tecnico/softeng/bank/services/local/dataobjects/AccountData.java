@@ -1,11 +1,16 @@
 package pt.ulisboa.tecnico.softeng.bank.services.local.dataobjects;
 
 import pt.ulisboa.tecnico.softeng.bank.domain.Account;
+import pt.ulisboa.tecnico.softeng.bank.domain.Bank;
+import pt.ulisboa.tecnico.softeng.bank.domain.Client;
 
 public class AccountData {
-
-	String IBAN;
-	int balance;
+	private String IBAN;
+	private int balance;
+	private Client client;
+	private Bank bank;
+	private int amount;
+	private String bankCode;
 
 	public AccountData() {
 	}
@@ -13,13 +18,16 @@ public class AccountData {
 	public AccountData(Account account) {
 		this.IBAN = account.getIBAN();
 		this.balance = account.getBalance();
+		this.client = account.getClient();
+		this.bank = account.getBank();
+
 	}
 
 	public String getIBAN() {
 		return this.IBAN;
 	}
 
-	public void setIBAN(String IBAN) {
+	public void setIban(String iban) {
 		this.IBAN = IBAN;
 	}
 
@@ -31,4 +39,35 @@ public class AccountData {
 		this.balance = balance;
 	}
 
+	public Client getClient() {
+		return this.client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
+	public Bank getBank() {
+		return this.bank;
+	}
+
+	public void setBank(Bank bank) {
+		this.bank = bank;
+	}
+
+	public int getAmount() {
+		return amount;
+	}
+
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
+
+	public String getBankCode() {
+		return bankCode;
+	}
+
+	public void setBankCode(String bankCode) {
+		this.bankCode = bankCode;
+	}
 }
