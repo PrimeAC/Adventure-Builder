@@ -67,6 +67,11 @@ public class BankInterface {
 	}
 
 	@Atomic(mode = TxMode.WRITE)
+	public static void createClient(ClientData clientData) {
+		new Client(clientData.getBank(), clientData.getName());
+	}
+
+	@Atomic(mode = TxMode.WRITE)
 	public static void createAccount(AccountData accountData) {
 		new Account(accountData.getBank(), accountData.getClient());
 	}
