@@ -2,9 +2,16 @@ package pt.ulisboa.tecnico.softeng.activity.services.local.dataobjects;
 
 
 import pt.ulisboa.tecnico.softeng.activity.domain.Activity;
+import pt.ulisboa.tecnico.softeng.activity.domain.ActivityOffer;
+import pt.ulisboa.tecnico.softeng.activity.services.local.dataobjects.ActivityOfferData;
 import pt.ulisboa.tecnico.softeng.activity.domain.ActivityProvider;
 
+import java.util.ArrayList;
+
 public class ActivityData {
+	public static enum CopyDepth {
+		SHALLOW, OFFERS
+	};
 
 	private ActivityProvider provider;
 	private String name;
@@ -13,17 +20,31 @@ public class ActivityData {
 	private int maxAge;
 	private int capacity;
 
+	private List<ActivityOfferData> offers = new ArrayList<>();
+
 	public ActivityData(){
 
 	}
 
-	public ActivityData(Activity activity) {
+	public ActivityData(Activity activity, CopyDepth depth) {
 		this.provider = activity.getActivityProvider();
 		this.name = activity.getName();
 		this.code = activity.getCode();
 		this.minAge = activity.getMinAge();
 		this.maxAge = activity.getMaxAge();
 		this.capacity = activity.getCapacity();
+
+		switch (depth) {
+			case OFFERS:
+				for (ActivityOffer offer : activity.getActivityOfferSet()) {
+					this.offers.add(new ActivityOfferData(offer));
+				}
+				break;
+			case SHALLOW:
+				break;
+			default:
+				break;
+		}
 	}
 
 	public ActivityProvider getActivityProvider() {
