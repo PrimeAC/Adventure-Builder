@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import pt.ulisboa.tecnico.softeng.activity.exception.ActivityException;
 import pt.ulisboa.tecnico.softeng.activity.services.local.ActivityInterface;
 import pt.ulisboa.tecnico.softeng.activity.services.local.dataobjects.ActivityData;
+import pt.ulisboa.tecnico.softeng.activity.services.local.dataobjects.ActivityProviderData;
+
 
 @Controller
 @RequestMapping(value = "/providers/{providerCode}/activities")
@@ -31,7 +33,7 @@ public class ActivityController {
 			return "providers";
 		} else {
 			model.addAttribute("activity", new ActivityData());
-			model.addAttribute("provider", ActivityProviderData);
+			model.addAttribute("provider", providerData);
 			return "activities";
 		}
 	}

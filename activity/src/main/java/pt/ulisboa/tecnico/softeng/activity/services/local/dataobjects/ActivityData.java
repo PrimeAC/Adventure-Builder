@@ -37,7 +37,7 @@ public class ActivityData {
 		switch (depth) {
 			case OFFERS:
 				for (ActivityOffer offer : activity.getActivityOfferSet()) {
-					this.offers.add(new ActivityOfferData(offer));
+					this.offers.add(new ActivityOfferData(offer, ActivityOfferData.CopyDepth.SHALLOW));
 				}
 				break;
 			case SHALLOW:
@@ -93,5 +93,13 @@ public class ActivityData {
 
 	public void setCapacity(int capacity) {
 		this.capacity = capacity;
+	}
+
+	public List<ActivityOfferData> getOffers() {
+		return this.offers;
+	}
+
+	public void setOffers(List<ActivityOfferData> offers) {
+		this.offers = offers;
 	}
 }
