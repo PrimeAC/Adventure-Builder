@@ -1,5 +1,6 @@
 package pt.ulisboa.tecnico.softeng.activity.services.local;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.joda.time.LocalDate;
@@ -12,10 +13,46 @@ import pt.ulisboa.tecnico.softeng.activity.domain.ActivityOffer;
 import pt.ulisboa.tecnico.softeng.activity.domain.ActivityProvider;
 import pt.ulisboa.tecnico.softeng.activity.domain.Booking;
 import pt.ulisboa.tecnico.softeng.activity.exception.ActivityException;
+import pt.ulisboa.tecnico.softeng.activity.services.local.dataobjects.ActivityProviderData;
 import pt.ulisboa.tecnico.softeng.activity.services.local.dataobjects.ActivityReservationData;
 import pt.ulisboa.tecnico.softeng.activity.services.local.dataobjects.ActivityData;
+import pt.ulisboa.tecnico.softeng.activity.services.local.dataobjects.ActivityProviderData.CopyDepth;
 
 public class ActivityInterface {
+
+	@Atomic(mode = Atomic.TxMode.READ)
+	public static List<ActivityProviderData> getActivityProviders() {
+		List<ActivityProviderData> providers = new ArrayList<>();
+		for (ActivityProvider provider : FenixFramework.getDomainRoot().getActivityProviderSet()) {
+			providers.add(new ActivityProviderData(provider, ActivityProviderData.CopyDepth.SHALLOW));
+		}
+		return providers;
+	}
+
+	@Atomic(mode = Atomic.TxMode.WRITE)
+	public static void createProvider(ActivityProviderData activityProviderData) {
+		new ActivityProvider(activityProviderData.getCode(), activityProviderData.getName());
+	}
+
+	@Atomic(mode = Atomic.TxMode.READ)
+	public static ActivityProviderData getActivityProviderDataByCode(String activityProviderCode, ActivityProviderData.CopyDepth depth) {
+		ActivityProvider provider = getActivityProviderByCode(activityProviderCode);
+
+		if (provider != null) {
+			return new ActivityProviderData(provider, depth);
+		} else {
+			return null;
+		}
+	}
+
+	private static ActivityProvider getActivityProviderByCode(String code) {
+		for (ActivityProvider provider : FenixFramework.getDomainRoot().getActivityProviderSet()) {
+			if (provider.getCode().equals(code)) {
+				return provider;
+			}
+		}
+		return null;
+	}
 
 	@Atomic(mode = TxMode.WRITE)
 	public static String reserveActivity(LocalDate begin, LocalDate end, int age) {
