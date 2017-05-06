@@ -13,13 +13,13 @@
 <body>
 <div class="container">
     <h2>
-        Welcome to Bank <span th:text="${bank.name}">Name</span> Clients
+        Welcome to bank <span th:text="${bank.name}">Name</span> Clients
     </h2>
-    <a class="btn btn-default pull-right" th:href="@{/banks">Return to Banks</a>
+    <a class="btn btn-default pull-right" th:href="@{/banks}">Return to Banks</a>
     <br/>
     <h3>Create Client</h3>
     <p class="text-danger" th:text="${error}">Error</p>
-    <form class="form-inline" th:action="@{/banks}" th:object="${client}" method="post">
+    <form class="form-inline" th:action="@{/banks/{code}/clients(code=${bank.code})}" th:object="${client}" method="post">
         <label>Name: </label> <input class="form-control" type="text" th:field="*{name}" />
         <input class="btn btn-primary" type="submit" value="Submit" />
     </form>
@@ -38,6 +38,27 @@
             <td th:text="${client.id}">ID</td>
             <td th:text="${client.name}">Name</td>
             <td><a th:href="@{/banks/{code}/clients/{id}(code=${bank.code}, id=${client.id})}">Client Link</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <h3>Operations</h3>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Reference</th>
+            <th>Type</th>
+            <th>Iban</th>
+            <th>Value</th>
+            <th>Time</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="operation: ${operations}">
+            <td th:text="${operation.reference}">Reference</td>
+            <td th:text="${operation.type}">Type</td>
+            <td th:text="${operation.iban}">Iban</td>
+            <td th:text="${operation.value}">Value</td>
+            <td th:text="${operation.time}">Time</td>
         </tr>
         </tbody>
     </table>
