@@ -20,14 +20,15 @@ public class AccountController {
 	private static Logger logger = LoggerFactory.getLogger(AccountController.class);
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String accountForm(Model model, @PathVariable String code, @PathVariable String ID) {
+	public String accountForm(Model model, @PathVariable String code, @PathVariable String id) {
 		logger.info("accountForm");
 
 		BankData bankData = BankInterface.getBankData(code, BankData.CopyDepth.CLIENTS);
-		ClientData clientData = BankInterface.getClientData(ID, code, ClientData.CopyDepth.ACCOUNTS);
+		ClientData clientData = BankInterface.getClientData(id, code, ClientData.CopyDepth.ACCOUNTS);
+
 
 		if (clientData == null) {
-			model.addAttribute("error", "Error: it does not exist a client with the id " + ID);
+			model.addAttribute("error", "Error: it does not exist a client with the id " + id);
 			model.addAttribute("client", new ClientData());
 			model.addAttribute("clients", BankInterface.getClients(code));
 			return "clients";
