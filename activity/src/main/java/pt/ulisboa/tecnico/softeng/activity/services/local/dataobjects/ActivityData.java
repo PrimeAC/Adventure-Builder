@@ -12,6 +12,7 @@ public class ActivityData {
 		SHALLOW, OFFERS
 	};
 
+	private String providerCode;
 	private String name;
 	private String code;
 	private int minAge;
@@ -24,6 +25,7 @@ public class ActivityData {
 	}
 
 	public ActivityData(Activity activity, CopyDepth depth) {
+		this.providerCode = activity.getActivityProvider().getCode();
 		this.name = activity.getName();
 		this.code = activity.getCode();
 		this.minAge = activity.getMinAge();
@@ -41,6 +43,14 @@ public class ActivityData {
 			default:
 				break;
 		}
+	}
+
+	public String getProviderCode() {
+		return this.providerCode;
+	}
+
+	public void setProviderCode(String providerCode) {
+		this.providerCode = providerCode;
 	}
 
 	public String getName() {
