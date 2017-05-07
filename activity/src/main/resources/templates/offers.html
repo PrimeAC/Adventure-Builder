@@ -36,11 +36,12 @@
 	<h2>
 		Welcome to Activity <span th:text="${activity.name}">Name</span>
 	</h2>
-	<p class="text-danger" th:text="${error}">Error</p>
+	<a class="btn btn-default pull-right" th:href="@{/providers/{providerCode}/activities(providerCode=${providerCode})}">Activities</a>
 
 	<h3>Create Offer</h3>
-	<form class="form-inline" th:action="@{/activities/{code}(code=${activity.code})}" th:object="${offer}"
-	      method="post">
+	<p class="text-danger" th:text="${error}">Error</p>
+	<form class="form-inline" th:action="@{/providers/{providerCode}/activities/{activityCode}
+				(providerCode=${providerCode},activityCode=${activity.code})}" th:object="${offer}" method="post">
 		<label>Begin: </label> <input class="form-control" type="date" th:field="*{begin}"/>
 		<label>End: </label> <input class="form-control" type="date" th:field="*{end}"/>
 		<input class="btn btn-primary" type="submit" value="Submit"/>

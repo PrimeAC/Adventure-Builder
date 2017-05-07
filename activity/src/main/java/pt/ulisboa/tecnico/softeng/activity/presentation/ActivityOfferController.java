@@ -35,6 +35,7 @@ public class ActivityOfferController {
 		} else {
 			model.addAttribute("offer", new ActivityOfferData());
 			model.addAttribute("activity", activity);
+			model.addAttribute("providerCode", providerCode);
 			return "offers";
 		}
 	}
@@ -54,6 +55,7 @@ public class ActivityOfferController {
 			model.addAttribute("error", "Unable to create offer for activity: " + activityCode);
 			model.addAttribute("offer", new ActivityOfferData());
 			model.addAttribute("activity", ActivityInterface.getActivityData(activityCode));
+			model.addAttribute("providerCode", providerCode);
 			return "offers";
 		}
 	}
