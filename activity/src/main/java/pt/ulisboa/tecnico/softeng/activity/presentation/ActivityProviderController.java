@@ -31,7 +31,7 @@ public class ActivityProviderController {
 		try {
 			ActivityInterface.createProvider(activityProviderData);
 		} catch (ActivityException be) {
-			model.addAttribute("error", "Error: it was not possible to create the bank");
+			model.addAttribute("error", "Error: it was not possible to create the provider");
 			model.addAttribute("provider", activityProviderData);
 			model.addAttribute("providers", ActivityInterface.getActivityProviders());
 			return "providers";
