@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pt.ulisboa.tecnico.softeng.hotel.domain.Booking;
-import pt.ulisboa.tecnico.softeng.hotel.domain.Hotel;
 import pt.ulisboa.tecnico.softeng.hotel.domain.Room;
 
 public class RoomData {
 
-	private Hotel hotel;
-	private Room.Type type;
+	private String hotelCode;
+	private String type;
 	private String number;
 	private List<RoomBookingData> bookings = new ArrayList();
 
@@ -18,17 +17,12 @@ public class RoomData {
 		SHALLOW, BOOKINGS
 	};
 
-	public RoomData() {}
-	
-	public RoomData(Room room) {
-		this.hotel = room.getHotel();
-		this.type = room.getType();
-		this.number = room.getNumber();
+	public RoomData() {
 	}
 
 	public RoomData(Room room, CopyDepth depth) {
-		this.hotel = room.getHotel();
-		this.type = room.getType();
+		this.hotelCode = room.getHotel().getCode();
+		this.type = room.getType().name();
 		this.number = room.getNumber();
 
 		switch (depth) {
@@ -44,19 +38,19 @@ public class RoomData {
 		}
 	}
 
-	public Hotel getHotel() {
-		return hotel;
+	public String getHotelCode() {
+		return hotelCode;
 	}
 
-	public void setHotel(Hotel hotel) {
-		this.hotel = hotel;
+	public void setHotelCode(String hotelCode) {
+		this.hotelCode = hotelCode;
 	}
 
-	public Room.Type getType() {
+	public String getType() {
 		return type;
 	}
 
-	public void setType(Room.Type type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 
@@ -75,5 +69,4 @@ public class RoomData {
 	public void setBookings(List<RoomBookingData> bookings) {
 		this.bookings = bookings;
 	}
-
 }

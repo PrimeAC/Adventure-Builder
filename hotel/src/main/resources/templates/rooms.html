@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Hotels</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}"/>
+    <script th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="container">
+    <h2>
+        Welcome to Hotel
+    </h2>
+    <a class="btn btn-default pull-right" th:href="@{/hotels}">Hotels</a>
+    <br/>
+    <h3>Create Room</h3>
+    <p class="text-danger" th:text="${error}">Error</p>
+    <form id="room" class="form-inline" th:action="@{/hotels/{hotelCode}/rooms(hotelCode=${hotel.code})}" th:object="${room}"
+          method="post">
+        <label>RoomNumber: </label> <input class="form-control" type="number" min="1" th:field="*{number}"/>
+        <input class="btn btn-primary" type="submit" value="Submit"/>
+    </form>
+    <select name="type" form="room">
+        <option value="SINGLE">SINGLE</option>
+        <option value="DOUBLE">DOUBLE</option>
+    </select>
+    <br/>
+    <h3>List of Rooms</h3>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Hotel Code</th>
+            <th>Room Number</th>
+            <th>Room Type</th>
+            <th>Bookings</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="room: ${rooms}">
+            <td th:text="${hotel.code}">Hotel Code</td>
+            <td th:text="${room.number}">Room Number</td>
+            <td th:text="${room.type}">Room Type</td>
+            <td>
+                <a th:href="@{/hotels/{code}/rooms/{roomNumber}/bookings(code=${hotel.code}, roomNumber=${room.number})}">Link</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

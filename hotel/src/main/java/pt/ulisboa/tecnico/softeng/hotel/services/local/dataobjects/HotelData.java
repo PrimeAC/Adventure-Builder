@@ -5,7 +5,6 @@ import java.util.List;
 
 import pt.ulisboa.tecnico.softeng.hotel.domain.Room;
 import pt.ulisboa.tecnico.softeng.hotel.domain.Hotel;
-import pt.ulisboa.tecnico.softeng.hotel.services.local.RoomData;
 
 public class HotelData {
 	public static enum CopyDepth {
@@ -26,7 +25,7 @@ public class HotelData {
 		switch (depth) {
 		case ROOMS:
 			for (Room room : hotel.getRoomSet()) {
-				this.rooms.add(new RoomData(room));
+				this.rooms.add(new RoomData(room, RoomData.CopyDepth.BOOKINGS));
 			}
 			break;
 		case SHALLOW:

@@ -20,6 +20,7 @@ import pt.ulisboa.tecnico.softeng.hotel.services.local.dataobjects.RoomBookingDa
 import pt.ulisboa.tecnico.softeng.hotel.services.local.dataobjects.RoomData;
 
 public class HotelInterface {
+
 	@Atomic(mode = TxMode.READ)
 	public static List<HotelData> getHotels() {
 		List<HotelData> hotels = new ArrayList<>();
@@ -33,7 +34,7 @@ public class HotelInterface {
 	public static void createHotel(HotelData hotelData) {
 		new Hotel(hotelData.getCode(), hotelData.getName());
 	}
-	
+
 	@Atomic(mode = TxMode.READ)
 	public static HotelData getHotelDataByCode(String hotelCode, CopyDepth depth) {
 		Hotel hotel = getHotelByCode(hotelCode);
@@ -45,19 +46,50 @@ public class HotelInterface {
 		}
 	}
 
+	@Atomic(mode = TxMode.READ)
+	public static List<RoomData> getRooms(String hotelCode) {
+		Hotel hotel = getHotelByCode(hotelCode);
+		List<RoomData> rooms = new ArrayList<>();
+		for (Room room : hotel.getRoomSet()) {
+			rooms.add(new RoomData(room, RoomData.CopyDepth.SHALLOW));
+		}
+		return rooms;
+	}
+
+	@Atomic(mode = TxMode.WRITE)
+	public static Room createRoom(RoomData roomData) {
+		Hotel hotel = getHotelByCode(roomData.getHotelCode());
+		Room.Type type = null;
+		
+		if (hotel.hasRoom(roomData.getNumber())) {
+			new HotelException();
+		}
+		if (roomData.getType().toLowerCase().equals("single")) {
+			type = Room.Type.SINGLE;
+		} else if (roomData.getType().toLowerCase().equals("double")) {
+			type = Room.Type.DOUBLE;
+		} else {
+			new HotelException();
+		}
+		if( type == null) {
+			new HotelException();
+		}
+		return new Room(hotel, roomData.getNumber(), type);
+	}
+
+	@Atomic(mode = TxMode.WRITE)
+	public static void createBooking(RoomBookingData roomBookingData) {
+		Room room = getRoomByCode(roomBookingData.getHotelCode(), roomBookingData.getRoomNumber());
+		room.reserve(room.getType(), roomBookingData.getArrival(), roomBookingData.getDeparture());
+	}
+
 	@Atomic(mode = TxMode.WRITE)
 	public static RoomData getRoomData(String hotelCode, String number, RoomData.CopyDepth depth) {
-		RoomData roomD = null;
-		for (Hotel hotel : FenixFramework.getDomainRoot().getHotelSet()) {
-			if (hotel.getCode().equals(hotelCode)) {
-				for (Room room : hotel.getRoomSet()) {
-					if (room.getNumber().equals(number)) {
-						roomD = new RoomData(room, depth);
-					}
-				}
-			}
-		}
-		return roomD;
+		Room room = getRoomByCode(hotelCode, number);
+		if (room != null)
+			return new RoomData(room, depth);
+
+		throw new HotelException();
 	}
 
 	@Atomic(mode = TxMode.WRITE)
@@ -124,8 +156,8 @@ public class HotelInterface {
 		}
 		return availableRooms;
 	}
-	
-	private static Hotel getHotelByCode(String code) {
+
+	public static Hotel getHotelByCode(String code) {
 		for (Hotel hotel : FenixFramework.getDomainRoot().getHotelSet()) {
 			if (hotel.getCode().equals(code)) {
 				return hotel;
@@ -134,4 +166,13 @@ public class HotelInterface {
 		return null;
 	}
 
+	public static Room getRoomByCode(String hotelCode, String roomNumber) {
+		Hotel hotel = getHotelByCode(hotelCode);
+		for (Room room : hotel.getRoomSet()) {
+			if (room.getNumber().equals(roomNumber)) {
+				return room;
+			}
+		}
+		return null;
+	}
 }
