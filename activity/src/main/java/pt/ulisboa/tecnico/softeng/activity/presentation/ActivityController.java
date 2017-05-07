@@ -49,8 +49,7 @@ public class ActivityController {
 		} catch (ActivityException ae) {
 			model.addAttribute("error", "Error: it was not possible to create the activity");
 			model.addAttribute("activity", activityData);
-			model.addAttribute("activities", ActivityInterface.getActivityProviderDataByCode(providerCode, CopyDepth.ACTIVITIES));
-			model.addAttribute("provider", ActivityInterface.getActivityProviderDataByCode(providerCode, CopyDepth.SHALLOW));
+			model.addAttribute("provider", ActivityInterface.getActivityProviderDataByCode(providerCode, CopyDepth.ACTIVITIES));
 			return "activities";
 		}
 
