@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import pt.ulisboa.tecnico.softeng.hotel.domain.Room;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 import pt.ulisboa.tecnico.softeng.hotel.services.local.HotelInterface;
 import pt.ulisboa.tecnico.softeng.hotel.services.local.dataobjects.HotelData;
@@ -42,7 +41,7 @@ public class BookingController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public String submitBooking(Model model, @PathVariable String hotelCode, @PathVariable String roomNumber,
-								@ModelAttribute RoomBookingData roomBookingData) {
+	                            @ModelAttribute RoomBookingData roomBookingData) {
 		logger.info("submitBooking hotelCode:{}, roomNumber:{}, arrival:{}, departure:{}", hotelCode, roomNumber,
 				roomBookingData.getArrival(), roomBookingData.getDeparture());
 

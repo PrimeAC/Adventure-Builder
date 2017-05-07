@@ -2,7 +2,6 @@ package pt.ulisboa.tecnico.softeng.broker.services.local.dataobjects;
 
 import org.joda.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import pt.ulisboa.tecnico.softeng.broker.domain.Adventure;
 
 public class AdventureData {

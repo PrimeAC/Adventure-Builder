@@ -53,6 +53,6 @@ public class ActivityController {
 			return "activities";
 		}
 
-		return "redirect:/providers/" + providerCode +"/activities";
+		return "redirect:/providers/" + providerCode + "/activities";
 	}
 }

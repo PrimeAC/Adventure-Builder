@@ -1,12 +1,11 @@
 package pt.ulisboa.tecnico.softeng.hotel.domain;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.joda.time.LocalDate;
-
 import pt.ist.fenixframework.FenixFramework;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class Hotel extends Hotel_Base {
 	static final int CODE_SIZE = 7;

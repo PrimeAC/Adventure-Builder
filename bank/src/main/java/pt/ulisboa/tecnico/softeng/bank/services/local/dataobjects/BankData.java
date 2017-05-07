@@ -10,7 +10,9 @@ import java.util.List;
 public class BankData {
 	public static enum CopyDepth {
 		SHALLOW, OPERATIONS, CLIENTS, ACCOUNTS
-	};
+	}
+
+	;
 
 	private String name;
 	private String code;

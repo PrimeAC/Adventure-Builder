@@ -1,12 +1,11 @@
 package pt.ulisboa.tecnico.softeng.activity.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.joda.time.LocalDate;
-
 import pt.ist.fenixframework.FenixFramework;
 import pt.ulisboa.tecnico.softeng.activity.exception.ActivityException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ActivityProvider extends ActivityProvider_Base {
 	static final int CODE_SIZE = 6;
@@ -71,7 +70,7 @@ public class ActivityProvider extends ActivityProvider_Base {
 		return null;
 	}
 
-	public Activity getActivity(String code){
+	public Activity getActivity(String code) {
 		for (Activity activity : getActivitySet()) {
 			if (activity.getCode().equals(code)) {
 				return activity;

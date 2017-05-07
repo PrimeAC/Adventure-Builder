@@ -11,7 +11,9 @@ public class ClientData {
 
 	public static enum CopyDepth {
 		SHALLOW, ACCOUNTS
-	};
+	}
+
+	;
 
 	private String id;
 	private String name;

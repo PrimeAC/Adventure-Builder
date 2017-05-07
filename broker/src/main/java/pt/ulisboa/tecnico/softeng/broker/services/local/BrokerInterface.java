@@ -1,8 +1,5 @@
 package pt.ulisboa.tecnico.softeng.broker.services.local;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import pt.ist.fenixframework.Atomic;
 import pt.ist.fenixframework.Atomic.TxMode;
 import pt.ist.fenixframework.FenixFramework;
@@ -13,6 +10,9 @@ import pt.ulisboa.tecnico.softeng.broker.services.local.dataobjects.AdventureDat
 import pt.ulisboa.tecnico.softeng.broker.services.local.dataobjects.BrokerData;
 import pt.ulisboa.tecnico.softeng.broker.services.local.dataobjects.BrokerData.CopyDepth;
 import pt.ulisboa.tecnico.softeng.broker.services.local.dataobjects.BulkData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BrokerInterface {
 

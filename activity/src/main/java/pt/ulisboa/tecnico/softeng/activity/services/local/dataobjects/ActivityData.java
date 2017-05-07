@@ -3,7 +3,6 @@ package pt.ulisboa.tecnico.softeng.activity.services.local.dataobjects;
 
 import pt.ulisboa.tecnico.softeng.activity.domain.Activity;
 import pt.ulisboa.tecnico.softeng.activity.domain.ActivityOffer;
-import pt.ulisboa.tecnico.softeng.activity.services.local.dataobjects.ActivityOfferData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +10,9 @@ import java.util.List;
 public class ActivityData {
 	public static enum CopyDepth {
 		SHALLOW, OFFERS
-	};
+	}
+
+	;
 
 	private String providerCode;
 	private String name;
@@ -22,7 +23,7 @@ public class ActivityData {
 
 	private List<ActivityOfferData> offers = new ArrayList<>();
 
-	public ActivityData(){
+	public ActivityData() {
 	}
 
 	public ActivityData(Activity activity, CopyDepth depth) {

@@ -1,23 +1,22 @@
 package pt.ulisboa.tecnico.softeng.hotel.services.local;
 
+import org.joda.time.LocalDate;
+import pt.ist.fenixframework.Atomic;
+import pt.ist.fenixframework.Atomic.TxMode;
+import pt.ist.fenixframework.FenixFramework;
+import pt.ulisboa.tecnico.softeng.hotel.domain.Booking;
+import pt.ulisboa.tecnico.softeng.hotel.domain.Hotel;
+import pt.ulisboa.tecnico.softeng.hotel.domain.Room;
+import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
+import pt.ulisboa.tecnico.softeng.hotel.services.local.dataobjects.HotelData;
+import pt.ulisboa.tecnico.softeng.hotel.services.local.dataobjects.HotelData.CopyDepth;
+import pt.ulisboa.tecnico.softeng.hotel.services.local.dataobjects.RoomBookingData;
+import pt.ulisboa.tecnico.softeng.hotel.services.local.dataobjects.RoomData;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import org.joda.time.LocalDate;
-
-import pt.ist.fenixframework.Atomic;
-import pt.ist.fenixframework.Atomic.TxMode;
-import pt.ist.fenixframework.FenixFramework;
-import pt.ulisboa.tecnico.softeng.hotel.domain.Hotel;
-import pt.ulisboa.tecnico.softeng.hotel.services.local.dataobjects.HotelData;
-import pt.ulisboa.tecnico.softeng.hotel.services.local.dataobjects.HotelData.CopyDepth;
-import pt.ulisboa.tecnico.softeng.hotel.domain.Booking;
-import pt.ulisboa.tecnico.softeng.hotel.domain.Room;
-import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
-import pt.ulisboa.tecnico.softeng.hotel.services.local.dataobjects.RoomBookingData;
-import pt.ulisboa.tecnico.softeng.hotel.services.local.dataobjects.RoomData;
 
 public class HotelInterface {
 
@@ -60,7 +59,7 @@ public class HotelInterface {
 	public static Room createRoom(RoomData roomData) {
 		Hotel hotel = getHotelByCode(roomData.getHotelCode());
 		Room.Type type = null;
-		
+
 		if (hotel.hasRoom(roomData.getNumber())) {
 			new HotelException();
 		}
@@ -71,7 +70,7 @@ public class HotelInterface {
 		} else {
 			new HotelException();
 		}
-		if( type == null) {
+		if (type == null) {
 			new HotelException();
 		}
 		return new Room(hotel, roomData.getNumber(), type);

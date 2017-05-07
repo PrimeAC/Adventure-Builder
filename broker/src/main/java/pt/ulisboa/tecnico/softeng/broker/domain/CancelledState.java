@@ -2,7 +2,6 @@ package pt.ulisboa.tecnico.softeng.broker.domain;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import pt.ulisboa.tecnico.softeng.broker.domain.Adventure.State;
 import pt.ulisboa.tecnico.softeng.broker.services.remote.ActivityInterface;
 import pt.ulisboa.tecnico.softeng.broker.services.remote.BankInterface;

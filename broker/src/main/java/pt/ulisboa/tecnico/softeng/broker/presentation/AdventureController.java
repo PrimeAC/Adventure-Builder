@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import pt.ulisboa.tecnico.softeng.broker.exception.BrokerException;
 import pt.ulisboa.tecnico.softeng.broker.services.local.BrokerInterface;
 import pt.ulisboa.tecnico.softeng.broker.services.local.dataobjects.AdventureData;
@@ -40,7 +39,7 @@ public class AdventureController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public String submitAdventure(Model model, @PathVariable String brokerCode,
-			@ModelAttribute AdventureData adventureData) {
+	                              @ModelAttribute AdventureData adventureData) {
 		logger.info("adventureSubmit brokerCode:{}, begin:{}, end:{}, age:{}, iban:{}, amount:{}", brokerCode,
 				adventureData.getBegin(), adventureData.getEnd(), adventureData.getAge(), adventureData.getIban(),
 				adventureData.getAmount());

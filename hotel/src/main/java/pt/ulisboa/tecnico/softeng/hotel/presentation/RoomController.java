@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 import pt.ulisboa.tecnico.softeng.hotel.services.local.HotelInterface;
 import pt.ulisboa.tecnico.softeng.hotel.services.local.dataobjects.HotelData;
@@ -25,7 +24,7 @@ public class RoomController {
 		logger.info("showRooms: hotelCode:{}", hotelCode);
 
 		HotelData hotelData = HotelInterface.getHotelDataByCode(hotelCode, HotelData.CopyDepth.ROOMS);
-		
+
 		if (hotelData == null) {
 			model.addAttribute("error", "Error: no such hotel with given code");
 			model.addAttribute("hotel", new HotelData());

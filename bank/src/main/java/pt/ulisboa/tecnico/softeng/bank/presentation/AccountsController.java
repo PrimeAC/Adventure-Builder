@@ -44,7 +44,7 @@ public class AccountsController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public String accountSubmit(Model model, @ModelAttribute AccountData accountData, @PathVariable String code,
-								@PathVariable String id, @ModelAttribute BankData bankData, @ModelAttribute ClientData clientData) {
+	                            @PathVariable String id, @ModelAttribute BankData bankData, @ModelAttribute ClientData clientData) {
 
 		try {
 			BankInterface.createAccount(code, id);

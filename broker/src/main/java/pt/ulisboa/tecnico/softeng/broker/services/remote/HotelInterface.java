@@ -1,10 +1,9 @@
 package pt.ulisboa.tecnico.softeng.broker.services.remote;
 
-import java.util.Set;
-
 import org.joda.time.LocalDate;
-
 import pt.ulisboa.tecnico.softeng.broker.services.remote.dataobjects.RoomBookingData;
+
+import java.util.Set;
 
 public class HotelInterface {
 	public static enum RoomType {

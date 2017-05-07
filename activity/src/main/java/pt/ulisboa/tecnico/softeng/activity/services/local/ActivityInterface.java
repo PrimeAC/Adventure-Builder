@@ -102,14 +102,14 @@ public class ActivityInterface {
 	@Atomic(mode = TxMode.WRITE)
 	public static boolean createOffer(String activityCode, ActivityOfferData offerData) {
 		Activity activity = getActivityByCode(activityCode);
-		try{
+		try {
 			if (activity != null) {
 				new ActivityOffer(activity, offerData.getBegin(), offerData.getEnd());
 				return true;
 			} else {
 				return false;
 			}
-		} catch (ActivityException ignore){
+		} catch (ActivityException ignore) {
 			return false;
 		}
 	}

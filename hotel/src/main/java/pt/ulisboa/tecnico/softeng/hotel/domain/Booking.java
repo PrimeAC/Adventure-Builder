@@ -1,7 +1,6 @@
 package pt.ulisboa.tecnico.softeng.hotel.domain;
 
 import org.joda.time.LocalDate;
-
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
 public class Booking extends Booking_Base {

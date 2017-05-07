@@ -1,12 +1,11 @@
 package pt.ulisboa.tecnico.softeng.broker.services.local.dataobjects;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.joda.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import pt.ulisboa.tecnico.softeng.broker.domain.BulkRoomBooking;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class BulkData {
 	private Integer number;

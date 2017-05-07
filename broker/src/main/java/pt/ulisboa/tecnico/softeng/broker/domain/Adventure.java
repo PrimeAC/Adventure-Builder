@@ -3,7 +3,6 @@ package pt.ulisboa.tecnico.softeng.broker.domain;
 import org.joda.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import pt.ulisboa.tecnico.softeng.broker.exception.BrokerException;
 
 public class Adventure extends Adventure_Base {
@@ -62,27 +61,27 @@ public class Adventure extends Adventure_Base {
 		}
 
 		switch (state) {
-		case PROCESS_PAYMENT:
-			setState(new ProcessPaymentState());
-			break;
-		case RESERVE_ACTIVITY:
-			setState(new ReserveActivityState());
-			break;
-		case BOOK_ROOM:
-			setState(new BookRoomState());
-			break;
-		case UNDO:
-			setState(new UndoState());
-			break;
-		case CONFIRMED:
-			setState(new ConfirmedState());
-			break;
-		case CANCELLED:
-			setState(new CancelledState());
-			break;
-		default:
-			new BrokerException();
-			break;
+			case PROCESS_PAYMENT:
+				setState(new ProcessPaymentState());
+				break;
+			case RESERVE_ACTIVITY:
+				setState(new ReserveActivityState());
+				break;
+			case BOOK_ROOM:
+				setState(new BookRoomState());
+				break;
+			case UNDO:
+				setState(new UndoState());
+				break;
+			case CONFIRMED:
+				setState(new ConfirmedState());
+				break;
+			case CANCELLED:
+				setState(new CancelledState());
+				break;
+			default:
+				new BrokerException();
+				break;
 		}
 	}
 

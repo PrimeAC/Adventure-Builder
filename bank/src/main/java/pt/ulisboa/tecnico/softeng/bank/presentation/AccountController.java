@@ -33,19 +33,19 @@ public class AccountController {
 		model.addAttribute("bank", bankData);
 		model.addAttribute("operation", new BankOperationData());
 		model.addAttribute("balance", accountData.getBalance());
-		logger.info("iban:{}, client:{}, bank:{}" , accountData.getIBAN(), clientData.getId(), bankData.getCode());
+		logger.info("iban:{}, client:{}, bank:{}", accountData.getIBAN(), clientData.getId(), bankData.getCode());
 		return "account";
 	}
 
-	@RequestMapping(method = RequestMethod.POST, params="action=Deposit")
+	@RequestMapping(method = RequestMethod.POST, params = "action=Deposit")
 	public String accountSubmitD(Model model, @PathVariable String iban, @PathVariable String code,
-								 @PathVariable String id, @ModelAttribute BankOperationData bankOperationData,
-								 @ModelAttribute BankData bankData, @ModelAttribute ClientData clientData) {
+	                             @PathVariable String id, @ModelAttribute BankOperationData bankOperationData,
+	                             @ModelAttribute BankData bankData, @ModelAttribute ClientData clientData) {
 		logger.info("SubmitForm");
 
 		AccountData accountData = BankInterface.getAccountDataByIban(iban);
 
-		logger.info("iban:{}, amount:{}" , accountData.getIBAN(), bankOperationData.getValue());
+		logger.info("iban:{}, amount:{}", accountData.getIBAN(), bankOperationData.getValue());
 
 		try {
 			BankInterface.deposit(bankOperationData);
@@ -62,10 +62,10 @@ public class AccountController {
 		return "redirect:/banks/" + code + "/clients/" + id + "/accounts/" + iban + "/account";
 	}
 
-	@RequestMapping(method = RequestMethod.POST, params="action=Withdraw")
+	@RequestMapping(method = RequestMethod.POST, params = "action=Withdraw")
 	public String accountSubmitW(Model model, @PathVariable String iban, @PathVariable String code,
-								 @PathVariable String id, @ModelAttribute BankOperationData bankOperationData,
-								 @ModelAttribute BankData bankData, @ModelAttribute ClientData clientData) {
+	                             @PathVariable String id, @ModelAttribute BankOperationData bankOperationData,
+	                             @ModelAttribute BankData bankData, @ModelAttribute ClientData clientData) {
 		logger.info("SubmitForm");
 
 		AccountData accountData = BankInterface.getAccountDataByIban(iban);
