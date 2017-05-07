@@ -4,7 +4,6 @@ package pt.ulisboa.tecnico.softeng.activity.services.local.dataobjects;
 import pt.ulisboa.tecnico.softeng.activity.domain.Activity;
 import pt.ulisboa.tecnico.softeng.activity.domain.ActivityOffer;
 import pt.ulisboa.tecnico.softeng.activity.services.local.dataobjects.ActivityOfferData;
-import pt.ulisboa.tecnico.softeng.activity.domain.ActivityProvider;
 
 import java.util.ArrayList;
 
@@ -13,7 +12,7 @@ public class ActivityData {
 		SHALLOW, OFFERS
 	};
 
-	private ActivityProvider provider;
+	private String providerCode;
 	private String name;
 	private String code;
 	private int minAge;
@@ -23,11 +22,10 @@ public class ActivityData {
 	private List<ActivityOfferData> offers = new ArrayList<>();
 
 	public ActivityData(){
-
 	}
 
 	public ActivityData(Activity activity, CopyDepth depth) {
-		this.provider = activity.getActivityProvider();
+		this.providerCode = activity.getActivityProvider().getCode();
 		this.name = activity.getName();
 		this.code = activity.getCode();
 		this.minAge = activity.getMinAge();
@@ -47,12 +45,12 @@ public class ActivityData {
 		}
 	}
 
-	public ActivityProvider getActivityProvider() {
-		return this.provider;
+	public String getProviderCode() {
+		return this.providerCode;
 	}
 
-	public void setActivityProvider(ActivityProvider provider) {
-		this.provider = provider;
+	public void setProviderCode(String providerCode) {
+		this.providerCode = providerCode;
 	}
 
 	public String getName() {
