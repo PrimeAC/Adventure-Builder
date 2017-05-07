@@ -15,14 +15,14 @@
     </h2>
     <br/>
     <h3>
-    Welcome to Account <span th:text="${account.iban}">Name</span>
+        Welcome to Account <span th:text="${account.IBAN}">Name</span>
     </h3>
-    <a class="btn btn-default pull-right" th:href="@{/banks/}">Banks</a>
+    <a class="btn btn-default pull-right" th:href="@{/banks/{code}/clients/{id}/accounts(code=${bank.code}, id=${client.id})}">Client accounts</a>
     <p>Deposit / Withdraw</p>
 
     <p class="text-danger" th:text="${error}">Error</p>
-    <form class="form-inline" th:action="@{/banks/{code}/account/{iban}(code=${account.bankCode}, iban=${account.iban})}" th:object="${account}" method="post">
-        <label>Amount: </label> <input class="form-control" type="number" th:field="*{amount}" />
+    <form class="form-inline" th:action="@{/banks/{code}/clients/{id}/accounts/{iban}/account(code=${bank.code}, id=${client.id}, iban=${account.IBAN})}" th:object="${operation}" method="post">
+        <label>Amount: </label> <input class="form-control" type="number" th:field="*{value}" />
         <input class="btn btn-primary" type="submit" name="action" value="Deposit" />
         <input class="btn btn-primary" type="submit" name="action" value="Withdraw" />
     </form>

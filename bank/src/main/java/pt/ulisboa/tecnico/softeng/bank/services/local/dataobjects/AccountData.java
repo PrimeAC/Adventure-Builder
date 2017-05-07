@@ -9,8 +9,6 @@ public class AccountData {
 	private int balance;
 	private Client client;
 	private Bank bank;
-	private int amount;
-	private String bankCode;
 
 	public AccountData() {
 	}
@@ -27,7 +25,7 @@ public class AccountData {
 		return this.IBAN;
 	}
 
-	public void setIban(String iban) {
+	public void setIBAN(String iban) {
 		this.IBAN = IBAN;
 	}
 
@@ -55,19 +53,4 @@ public class AccountData {
 		this.bank = bank;
 	}
 
-	public int getAmount() {
-		return amount;
-	}
-
-	public void setAmount(int amount) {
-		this.amount = amount;
-	}
-
-	public String getBankCode() {
-		return bankCode;
-	}
-
-	public void setBankCode(String bankCode) {
-		this.bankCode = bankCode;
-	}
 }

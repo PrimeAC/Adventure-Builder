@@ -62,4 +62,11 @@ public class ClientData {
 		this.bank = bank;
 	}
 
+	public List<AccountData> getAccounts() {
+		return this.accounts;
+	}
+
+	public void setAccounts(List<AccountData> accounts) {
+		this.accounts = accounts;
+	}
 }

@@ -61,9 +61,26 @@ public class BankInterface {
 		return clients;
 	}
 
+	@Atomic(mode = TxMode.READ)
+	public static List<AccountData> getAccounts(String code, String id) {
+		List<AccountData> accounts = new ArrayList<>();
+
+		Client client = getClientByID(id, code);
+
+		for (Account account : client.getAccountSet()) {
+			accounts.add(new AccountData(account));
+		}
+		return accounts;
+	}
+
 	@Atomic(mode = TxMode.WRITE)
 	public static void createBank(BankData bankData) {
 		new Bank(bankData.getName(), bankData.getCode());
+	}
+
+	@Atomic(mode = TxMode.WRITE)
+	public static void createAccount(String code, String id) {
+		new Account(getBankByCode(code), getClientByID(id, code));
 	}
 
 	@Atomic(mode = TxMode.WRITE)
@@ -72,25 +89,20 @@ public class BankInterface {
 		new Client(bank, clientData.getName());
 	}
 
-	@Atomic(mode = TxMode.WRITE)
-	public static void createAccount(AccountData accountData) {
-		new Account(accountData.getBank(), accountData.getClient());
-	}
-
 	public static int getBalance(String iban) {
 		return getAccountByIban(iban).getBalance();
 	}
 
 	@Atomic(mode = TxMode.WRITE)
-	public static void deposit(AccountData accountData) {
-		Account account = getAccountByIban(accountData.getIBAN());
-		account.deposit(accountData.getAmount());
+	public static void deposit(BankOperationData bankOperationData) {
+		Account account = getAccountByIban(bankOperationData.getIban());
+		account.deposit(bankOperationData.getValue());
 	}
 
 	@Atomic(mode = TxMode.WRITE)
-	public static void widthraw(AccountData accountData) {
-		Account account = getAccountByIban(accountData.getIBAN());
-		account.withdraw(accountData.getAmount());
+	public static void widthraw(BankOperationData bankOperationData) {
+		Account account = getAccountByIban(bankOperationData.getIban());
+		account.withdraw(bankOperationData.getValue());
 	}
 
 	private static Account getAccountByIban(String iban) {
@@ -99,6 +111,15 @@ public class BankInterface {
 			if (account != null) {
 				return account;
 			}
+		}
+		return null;
+	}
+
+	@Atomic(mode = TxMode.READ)
+	public static AccountData getAccountDataByIban(String iban) {
+		Account account = getAccountByIban(iban);
+		if (account != null) {
+			return new AccountData(account);
 		}
 		return null;
 	}
