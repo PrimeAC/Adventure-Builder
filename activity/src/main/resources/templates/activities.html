@@ -45,7 +45,8 @@
             <td th:text="${activity.maxAge}">Max Age</td>
             <td th:text="${activity.capacity}">Capacity</td>
             <td><a
-                    th:href="@{/providers/{code}/activities(code=${provider.code})}">Link</a></td>
+                    th:href="@{/providers/{providerCode}/activities/{activityCode}
+                    (providerCode=${provider.code}, activityCode=${activity.code})}">Link</a></td>
         </tr>
         </tbody>
     </table>

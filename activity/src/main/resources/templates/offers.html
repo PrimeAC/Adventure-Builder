@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Activities' Manager Welcome</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}"/>
+
+	<script th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+	<script>
+		$(function() {
+		  $(".open-bookings").click(function(e){
+				var button = $(e.delegateTarget);
+				var bookings = button.parent().siblings(".bookings");
+
+				if(bookings.is(":hidden")){
+				  bookings.show();
+				  button.removeClass("glyphicon-chevron-down")
+				    .addClass("glyphicon-chevron-up");
+				} else{
+				  bookings.hide();
+                  button.removeClass("glyphicon-chevron-up")
+                    .addClass("glyphicon-chevron-down");
+				}
+		    });
+        });
+	</script>
+</head>
+
+<body>
+<!--/*@thymesVar id="offer" type="pt.ulisboa.tecnico.softeng.activity.services.local.dataobjects.ActivityOfferData"*/-->
+<!--/*@thymesVar id="activity" type="pt.ulisboa.tecnico.softeng.activity.services.local.dataobjects.ActivityData"*/-->
+<div class="container">
+
+	<h2>
+		Welcome to Activity <span th:text="${activity.name}">Name</span>
+	</h2>
+	<p class="text-danger" th:text="${error}">Error</p>
+
+	<h3>Create Offer</h3>
+	<form class="form-inline" th:action="@{/activities/{code}(code=${activity.code})}" th:object="${offer}"
+	      method="post">
+		<label>Begin: </label> <input class="form-control" type="date" th:field="*{begin}"/>
+		<label>End: </label> <input class="form-control" type="date" th:field="*{end}"/>
+		<input class="btn btn-primary" type="submit" value="Submit"/>
+	</form>
+
+	<br/>
+	<h3>Offers</h3>
+
+	<div class="container">
+		<div class="row">
+			<h4 class="col-md-3">Begin</h4>
+			<h4 class="col-md-3">End</h4>
+			<h4 class="col-md-3">Capacity</h4>
+			<h4 class="col-md-3">See Bookings</h4>
+		</div>
+
+		<div class="row" th:each="offer: ${activity.offers}">
+			<div class="col-md-3" th:text="${offer.begin}"></div>
+			<div class="col-md-3" th:text="${offer.end}"></div>
+			<div class="col-md-3" th:text="${offer.capacity}"></div>
+			<div class="col-md-3">
+				<button class="glyphicon glyphicon-chevron-down open-bookings" aria-hidden="true"></button>
+			</div>
+
+			<div class="container col-md-8 col-md-offset-2 bookings" style="display: none; padding-bottom: 20px">
+				<div class="row">
+					<h5 class="col-md-4">Reference</h5>
+					<h5 class="col-md-4">Cancel</h5>
+					<h5 class="col-md-4">Cancellation Date</h5>
+				</div>
+				<div class="row" th:each="book: ${offer.bookings}">
+					<div class="col-md-4" th:text="${book.reference}"></div>
+					<div class="col-md-4" th:text="${book.cancel}"></div>
+					<div class="col-md-4" th:text="${book.cancellationDate}"></div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+</body>
+</html>

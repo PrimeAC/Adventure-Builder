@@ -6,6 +6,7 @@ import pt.ulisboa.tecnico.softeng.activity.domain.ActivityOffer;
 import pt.ulisboa.tecnico.softeng.activity.services.local.dataobjects.ActivityOfferData;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ActivityData {
 	public static enum CopyDepth {

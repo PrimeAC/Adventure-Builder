@@ -12,5 +12,5 @@ To run tests execute: mvn clean install
 |   81968    |     Diogo Mesquita      | d.mesquita285@gmail.com                | @DiMesq        | Bank      |
 |   82539    |     Afonso Caetano      | afonso.caetano@tecnico.ulisboa.pt      | @PrimeAC       | Activity  |
 |   82053    |     Bruno Santos        | bruno_scp5@hotmail.com                 | @brunoaosantos | Activity  |
-|            |                         |                                        |                |           |
+|   82064    |     Daniel Reigada      | daniel.reigada@gmail.com               | @DReigada      | Activity  |
  

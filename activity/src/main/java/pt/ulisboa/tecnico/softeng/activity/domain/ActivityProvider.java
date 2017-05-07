@@ -71,4 +71,13 @@ public class ActivityProvider extends ActivityProvider_Base {
 		return null;
 	}
 
+	public Activity getActivity(String code){
+		for (Activity activity : getActivitySet()) {
+			if (activity.getCode().equals(code)) {
+				return activity;
+			}
+		}
+		return null;
+	}
+
 }
