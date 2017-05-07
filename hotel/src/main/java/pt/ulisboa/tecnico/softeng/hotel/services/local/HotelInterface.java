@@ -89,7 +89,7 @@ public class HotelInterface {
 		if (room != null)
 			return new RoomData(room, depth);
 
-		throw new HotelException();
+		return null;
 	}
 
 	@Atomic(mode = TxMode.WRITE)
