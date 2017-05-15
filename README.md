@@ -21,5 +21,5 @@ To run jmeter (nogui) execute in project's top directory: mvn -Pjmeter verify. R
 |            |                         |                                     |                |           |
 |            |                         |                                     |                |           |
 |82539       |Afonso Caetano           |afonso.caetano@tecnico.ulisboa.pt    |@PrimeAC        |30 Writes  |
-|            |                         |                                     |                |           |
+|82553       |Mariana Cruz             |mariana.cruz@tecnico.ulisboa.pt      |@MarianaCruz    |30 Writes  |
  
