@@ -27,7 +27,7 @@ public class Application implements InitializingBean {
 		if (provider == null) {
 			provider = new ActivityProvider("AP1234", "XPTO");
 		}
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 200; i++) {
 			Activity activity = new Activity(provider, "CCCC", 18, 99, 2000);
 			new ActivityOffer(activity, today, today);
 			new ActivityOffer(activity, today, tomorrow);
