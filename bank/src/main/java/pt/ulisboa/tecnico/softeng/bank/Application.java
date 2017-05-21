@@ -24,7 +24,7 @@ public class Application implements InitializingBean {
 		if (bank == null) {
 			bank = new Bank("XPTO", "BK12");
 		}
-		for (int i = 0; i < 1; i++) {
+		for (int i = 0; i < 100; i++) {
 			Client client = new Client(bank, "Rich Man");
 			Account account = new Account(bank, client);
 			account.deposit(1000000);
