@@ -23,7 +23,7 @@ public class Application implements InitializingBean {
 				.findFirst().orElse(null);
 		if (hotel == null) {
 			hotel = new Hotel("HT12345", "XPTO");
-		for (int i = 1; i < 10; i++)
+		for (int i = 0; i < 10; i++)
 			new Room(hotel, Integer.toString(i), Type.SINGLE);
 		}
 	}
