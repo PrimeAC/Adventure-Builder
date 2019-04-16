@@ -1,5 +1,7 @@
 # Adventure Builder
 
+The project description can be found on the "Documentation" folder.
+
 To run tests execute: mvn clean install
 
 To launch a server execute in the module's top directory: mvn clean spring-boot:run
